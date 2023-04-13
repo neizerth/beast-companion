@@ -4,6 +4,10 @@
     background: #e7ece9;
 }
 
+.title {
+    font-size: 50px;
+}
+
 .controls {
     position: fixed;
     text-align: center;

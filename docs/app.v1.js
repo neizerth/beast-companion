@@ -56,9 +56,10 @@
         }
         renderLocations() {
             const locations = this.data.slice(1);
-            for (let id in locations) {
-                const point = locations[id];
-                this.renderLocation(id + 1, point);
+            for (let i in locations) {
+                const point = locations[i];
+                const id = Number(i) + 1;
+                this.renderLocation(id, point);
             }
         }
         renderLocation(id, data) {
@@ -66,10 +67,10 @@
             const [top, left] = data;
             const [x, y] = this.getLocationCoordinates(left, top);
 
-            let mapLocation= this.locations.find(item => item.dataset.index === id);
-            const exists = Boolean(mapLocation);
+            let mapLocation = this.locations.find(item => +item.dataset.index === id);
+            const exists = mapLocation !== undefined;
 
-            if (!exists) {
+            if (!mapLocation) {
                 mapLocation = document.createElement('div');
                 mapLocation.classList.add('map__location');
             }
