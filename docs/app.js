@@ -1,12 +1,17 @@
 (async () => {
     const onload = () => new Promise((resolve) => {
-        if (document.readyState === 'complete') {
-            resolve();
+        function check() {
+            if (document.readyState === 'complete') {
+                return run();
+            }
+            setTimeout(check, 100);
         }
-        document.addEventListener('DOMContentLoaded', function listener(e) {
-           document.removeEventListener(e.type, listener);
-           resolve();
-        });
+        check();
+        const run = e => {
+            document.removeEventListener('DOMContentLoaded', run);
+            resolve();
+        };
+        document.addEventListener('DOMContentLoaded', run);
     });
 
     const initMapControls = () => {
