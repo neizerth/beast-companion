@@ -62,8 +62,8 @@
             }
         }
         renderLocation(id, data) {
-            const defaultSize = this.getLocationSize();
-            const [top, left,,size = defaultSize] = data;
+            const size = this.getLocationSize(data[3]);
+            const [top, left] = data;
             const [x, y] = this.getLocationCoordinates(left, top);
 
             let mapLocation= this.locations.find(item => item.dataset.index === id);
@@ -95,8 +95,9 @@
             const mapLocation = e.target;
             mapLocation.classList.toggle('map__location_selected')
         }
-        getLocationSize() {
-            return this.data[0] * this.k;
+        getLocationSize(size) {
+            const defaultSize = this.data[0];
+            return (size || defaultSize) * this.k;
         }
         getLocationCoordinates(x, y) {
             return [x * this.k, y * this.k];
