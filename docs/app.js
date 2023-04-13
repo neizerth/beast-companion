@@ -26,7 +26,11 @@
         constructor(size) {
             this.size = size;
             this.element = document.querySelector('.map');
-            this.container = this.element.querySelector('.map__container')
+            this.container = this.element.querySelector('.map__container');
+            this.locations = [];
+            this.data = [];
+
+            this.onLocationSelect = this.onLocationSelect.bind(this)
         }
         async init() {
             await this.renderImage();
@@ -35,8 +39,14 @@
             console.log('locations loaded');
             this.renderLocations();
         }
-        update() {
+        resize() {
+            const { width,height,k } = this.getSize();
 
+            this.k = k;
+            this.container.style.height = height + 'px';
+            this.container.style.width = width + 'px';
+
+            this.renderLocations();
         }
         renderLocations() {
             const locations = this.data.slice(1);
@@ -50,18 +60,30 @@
             const [top, left,,size = defaultSize] = data;
             const [x, y] = this.getLocationCoordinates(left, top);
 
-            const mapLocation = document.createElement('div');
-            mapLocation.classList.add('map__location');
+            let mapLocation= this.locations.find(item => item.dataset.index === id);
+            const exists = Boolean(mapLocation);
+
+            if (!exists) {
+                mapLocation = document.createElement('div');
+                mapLocation.classList.add('map__location');
+            }
+
             Object.assign(mapLocation.style, {
                 width: size + 'px',
                 height: size + 'px',
                 left: x + 'px',
                 top: y + 'px'
             });
+
+            if (exists) {
+                return;
+            }
+
             mapLocation.dataset.index = id;
             this.container.append(mapLocation);
+            this.locations.push(mapLocation);
 
-            mapLocation.addEventListener('click', this.onLocationSelect.bind(this));
+            mapLocation.addEventListener('click', this.onLocationSelect);
         }
         onLocationSelect(e) {
             const mapLocation = e.target;
@@ -102,18 +124,23 @@
             nodes.forEach(node => node.remove());
 
             this.mapImage = img;
-
+            this.resize()
+        }
+        getSize() {
             const { innerWidth, innerHeight } = window;
             const { FULL_HEIGHT, FULL_WIDTH } = this.constructor;
 
-            const height = innerHeight;
-            const k = innerHeight / FULL_HEIGHT;
-            const width = k * FULL_WIDTH;
+            let height = innerHeight;
+            let k = height / FULL_HEIGHT;
+            let width = k * FULL_WIDTH;
 
-            this.container.style.height = height + 'px';
-            this.container.style.width = width + 'px';
+            if (width > innerWidth) {
+                width = innerWidth;
+                k = width / FULL_WIDTH;
+                height = k * FULL_HEIGHT;
+            }
 
-            this.k = k;
+            return { width, height, k };
         }
 
         remove() {
@@ -132,4 +159,5 @@
     await onload();
     console.log('DOM Loaded');
     init();
+    window.addEventListener('resize', () => map.resize());
 })();
