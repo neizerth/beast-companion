@@ -1,6 +1,7 @@
 (async () => {
     const onload = () => new Promise((resolve) => {
         function check() {
+            console.log('readyState', document.readyState);
             if (document.readyState === 'complete') {
                 return run();
             }
