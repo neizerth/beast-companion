@@ -2,6 +2,7 @@
     margin: 0;
     font-family: 'Sorts Mill Goudy', sans-serif;
     background: #e7ece9;
+    user-select: none;
 }
 
 .title {
@@ -94,7 +95,13 @@
 .map__location {
     position: absolute;
     cursor: pointer;
+    width: var(--size);
+    height: var(--size);
     border-radius: 50%;
+    font-size: var(--size);
+    line-height: 0.75;
+    color: #fff;
+    text-shadow: 0 0 10px #fff;
 }
 
 .map__location_selected {

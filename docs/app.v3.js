@@ -76,17 +76,19 @@
             }
 
             Object.assign(mapLocation.style, {
-                width: size + 'px',
-                height: size + 'px',
                 left: x + 'px',
                 top: y + 'px'
             });
+
+            mapLocation.style.setProperty('--size', size + 'px');
 
             if (exists) {
                 return;
             }
 
             mapLocation.dataset.index = id;
+            mapLocation.dataset.limit = 3;
+            mapLocation.dataset.visited = 0;
             this.container.append(mapLocation);
             this.locations.push(mapLocation);
 
@@ -94,7 +96,23 @@
         }
         onLocationSelect(e) {
             const mapLocation = e.target;
-            mapLocation.classList.toggle('map__location_selected')
+            if (!mapLocation.classList.contains('map__location_selected')) {
+                mapLocation.dataset.visited = 1;
+                return mapLocation.classList.add('map__location_selected');
+            }
+
+            const limit = +mapLocation.dataset.limit;
+            let visited = +mapLocation.dataset.visited;
+
+            visited++;
+            if (visited > limit) {
+                mapLocation.textContent = '';
+                mapLocation.dataset.visited = 0;
+                return mapLocation.classList.remove('map__location_selected');
+            }
+
+            mapLocation.textContent = visited;
+            mapLocation.dataset.visited = visited;
         }
         getLocationSize(size) {
             const defaultSize = this.data[0];
@@ -103,7 +121,6 @@
         getLocationCoordinates(x, y) {
             return [x * this.k, y * this.k];
         }
-        getLocation
         async fetchData() {
             const url = `data/map_${this.size}.json`;
             const response = await fetch(url);
