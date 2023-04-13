@@ -166,6 +166,6 @@
     console.log('initializing application')
     await onload();
     console.log('DOM Loaded');
-    init();
-    window.addEventListener('resize', () => map.resize());
+    await init();
+    window.addEventListener('resize', () => map && map.resize());
 })();
