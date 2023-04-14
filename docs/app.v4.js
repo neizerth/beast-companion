@@ -29,10 +29,12 @@
     class GameMap {
         static FULL_WIDTH = 1544;
         static FULL_HEIGHT = 964;
+        static VISITS_LIMIT = 3;
         constructor(size) {
             this.size = size;
             this.element = document.querySelector('.map');
             this.container = this.element.querySelector('.map__container');
+            this.realoadButton = this.element.querySelector('.map__reload');
             this.locations = [];
             this.data = [];
 
@@ -44,6 +46,11 @@
             this.data = await this.fetchData();
             console.log('locations loaded');
             this.renderLocations();
+            this.initReloadButton()
+        }
+        initReloadButton() {
+            this.realoadButton.classList.remove('hidden');
+            this.realoadButton.addEventListener('click', () => this.reload());
         }
         resize() {
             const { width,height,k } = this.getSize();
@@ -87,25 +94,30 @@
             }
 
             mapLocation.dataset.index = id;
-            mapLocation.dataset.limit = 3;
             mapLocation.dataset.visited = 0;
             this.container.append(mapLocation);
             this.locations.push(mapLocation);
 
             mapLocation.addEventListener('click', this.onLocationSelect);
         }
+        reload() {
+            for (const mapLocation of this.locations) {
+                mapLocation.dataset.visited = 0;
+                mapLocation.classList.remove('map__location_selected');
+            }
+        }
         onLocationSelect(e) {
+            e.preventDefault();
             const mapLocation = e.target;
             if (!mapLocation.classList.contains('map__location_selected')) {
                 mapLocation.dataset.visited = 1;
                 return mapLocation.classList.add('map__location_selected');
             }
-
-            const limit = +mapLocation.dataset.limit;
+            const { VISITS_LIMIT } = this.constructor;
             let visited = +mapLocation.dataset.visited;
 
             visited++;
-            if (visited > limit) {
+            if (visited > VISITS_LIMIT) {
                 mapLocation.textContent = '';
                 mapLocation.dataset.visited = 0;
                 return mapLocation.classList.remove('map__location_selected');
@@ -166,10 +178,6 @@
             }
 
             return { width, height, k };
-        }
-
-        remove() {
-
         }
     }
 

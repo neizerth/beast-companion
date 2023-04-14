@@ -3,6 +3,7 @@
     font-family: 'Sorts Mill Goudy', sans-serif;
     background: #e7ece9;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .title {
@@ -101,12 +102,35 @@
     font-size: var(--size);
     line-height: 0.75;
     color: #fff;
-    text-shadow: 0 0 10px #fff;
+    text-shadow: 0 0 10px #fff, 1px 1px 0 black, -1px -1px 0 #df8500;
 }
 
 .map__location_selected {
     background: #a3000096;
     box-shadow: 0 0 30px #a30000;
+}
+
+.map__reload {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    border: solid #4a3311;
+    border-width: 0 4px 4px 0;
+    border-radius: 0 5px 15px 5px;
+    padding: 9px 0 0 0;
+    background: #e7ece9;
+    box-sizing: border-box;
+    color: #4a3311;
+    font-size: 50px;
+    line-height: 1;
+
+    text-shadow: 1px 1px 0 white, 1px 2px 0 #4a3311;
 }
 
 .hidden {
