@@ -104,6 +104,7 @@
             for (const mapLocation of this.locations) {
                 mapLocation.dataset.visited = 0;
                 mapLocation.classList.remove('map__location_selected');
+                mapLocation.textContent = '';
             }
         }
         onLocationSelect(e) {
