@@ -34,9 +34,11 @@
             this.size = size;
             this.element = document.querySelector('.map');
             this.container = this.element.querySelector('.map__container');
+            this.steps = this.element.querySelector('.map__steps');
             this.realoadButton = this.element.querySelector('.map__reload');
             this.locations = [];
             this.data = [];
+            this.visitedLocations = [];
 
             this.onLocationSelect = this.onLocationSelect.bind(this)
         }
@@ -46,11 +48,15 @@
             this.data = await this.fetchData();
             console.log('locations loaded');
             this.renderLocations();
-            this.initReloadButton()
+            this.initReloadButton();
+            this.initStepsBox();
         }
         initReloadButton() {
             this.realoadButton.classList.remove('hidden');
             this.realoadButton.addEventListener('click', () => this.reload());
+        }
+        initStepsBox() {
+            this.steps.classList.remove('hidden');
         }
         resize() {
             const { width,height,k } = this.getSize();
@@ -101,31 +107,63 @@
             mapLocation.addEventListener('click', this.onLocationSelect);
         }
         reload() {
+            this.visitedLocations = [];
+            this.printSteps();
             for (const mapLocation of this.locations) {
                 mapLocation.dataset.visited = 0;
-                mapLocation.classList.remove('map__location_selected');
+                mapLocation.classList.remove('map__location_selected', 'map__location_first', 'map__location_last');
                 mapLocation.textContent = '';
             }
         }
         onLocationSelect(e) {
             e.preventDefault();
             const mapLocation = e.target;
-            if (!mapLocation.classList.contains('map__location_selected')) {
-                mapLocation.dataset.visited = 1;
-                return mapLocation.classList.add('map__location_selected');
-            }
             const { VISITS_LIMIT } = this.constructor;
-            let visited = +mapLocation.dataset.visited;
 
+            let visited = +mapLocation.dataset.visited;
             visited++;
+
             if (visited > VISITS_LIMIT) {
-                mapLocation.textContent = '';
-                mapLocation.dataset.visited = 0;
-                return mapLocation.classList.remove('map__location_selected');
+                return this.removeLocation(mapLocation);
             }
 
-            mapLocation.textContent = visited;
+            this.addLocation(mapLocation, visited);
+        }
+        removeLocation(mapLocation) {
+            mapLocation.textContent = '';
+            mapLocation.dataset.visited = 0;
+
+            //изъять все копии mapLocation
+            this.visitedLocations = this.visitedLocations.filter((elem) => elem !== mapLocation);
+
+            const lastLocation = this.visitedLocations[this.visitedLocations.length - 1];
+            lastLocation && lastLocation.classList.add('map__location_selected', 'map__location_last');
+
+            mapLocation.classList.remove('map__location_selected', 'map__location_last');
+
+            return this.printSteps();
+        }
+        addLocation(mapLocation, visited) {
+            this.visitedLocations.push(mapLocation);
+
+            if (this.visitedLocations.length === 1) {
+                mapLocation.classList.add('map__location_first');
+            } else {
+                mapLocation.classList.add('map__location_selected', 'map__location_last');
+            }
+
+            const prevLocation = this.visitedLocations[this.visitedLocations.length - 2];
+            if (prevLocation && prevLocation !== mapLocation) {
+                prevLocation.classList.remove('map__location_last');
+            }
+            
+            mapLocation.textContent = visited > 1 ? visited : '';
             mapLocation.dataset.visited = visited;
+
+            return this.printSteps();
+        }
+        printSteps() {
+            this.steps.textContent = this.visitedLocations.map((item) => ' ' + item.dataset.index)
         }
         getLocationSize(size) {
             const defaultSize = this.data[0];
