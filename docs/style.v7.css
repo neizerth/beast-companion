@@ -106,8 +106,16 @@
 }
 
 .map__location_selected {
+    background: #0075a396;
+    box-shadow: 0 0 30px #008ba3;
+}
+.map__location_first {
     background: #a3000096;
     box-shadow: 0 0 30px #a30000;
+}
+.map__location_last {
+    background: #00a34496;
+    box-shadow: 0 0 30px #00a30e;
 }
 
 .map__reload {
@@ -131,6 +139,21 @@
     line-height: 1;
 
     text-shadow: 1px 1px 0 white, 1px 2px 0 #4a3311;
+}
+
+.map__steps {
+    position: fixed;
+    background: #e7ece9;
+    z-index: 3;
+    right: 0;
+    width: 4%;
+    border: solid #4a3311;
+    border-width: 0 0 4px 4px;
+    border-radius: 5px 0 5px 15px;
+    padding: 9px 0 0 0;
+    box-sizing: border-box;
+    color: #4a3311;
+    font-size: calc(14px + 1vw);
 }
 
 .hidden {
