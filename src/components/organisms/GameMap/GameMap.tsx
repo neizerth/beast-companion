@@ -1,11 +1,20 @@
+import * as jsPlumb from "@jsplumb/browser-ui"
+
 import S from './GameMap.module.scss';
 import {ILocationPath, MapType} from "../../../util/interfaces";
 import classnames from "classnames";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {RefreshButton} from "../../molecules/RefreshButton/RefreshButton";
 import {MapLocation} from "../../molecules/MapLocation/MapLocation";
 import {MapLocationList} from "../MapLocationList/MapLocationList";
-import {addLocation, getLocationVisitsCount, incVisitsCount, isLocationExists} from "../../helpers/locationPath";
+import {
+    addLocation,
+    getLocationVisitsCount,
+    isLocationExists,
+    isLocationLast, removeLocation
+} from "../../helpers/locationPath";
+import {MapLocationLinkList} from "../MapLocationLinkList/MapLocationLinkList";
+import {Connection} from "@jsplumb/browser-ui";
 
 export interface GameMapProps {
     className?: string;
@@ -64,7 +73,12 @@ export interface MapData {
     items: MapLocationItem[]
 }
 
-export type MapJSONItem = [number, number, number[], number | undefined];
+export type MapJSONItem = [
+    top: number,
+    left: number,
+    links: number[],
+    size: number | undefined
+];
 
 export const loadMapData = async (type: MapType): Promise<MapData> => {
     const url = `/data/map_${type}.json`;
@@ -99,6 +113,7 @@ export const GameMap = (props: GameMapProps) => {
     const [data, setData] = useState<MapData>();
     const [defaultSize, setDefaultSize] = useState<MapSize>();
     const [locationPath, setLocationPath] = useState<ILocationPath>([]);
+    const [pathGraph, setPathGraph] = useState<jsPlumb.BrowserJsPlumbInstance>();
     const {width, height, ratio} = useMapSize(defaultSize);
 
     useEffect(() => {
@@ -115,30 +130,51 @@ export const GameMap = (props: GameMapProps) => {
             });
             setData(data);
         })();
-    }, [])
+    }, []);
 
     const refreshPath = () => setLocationPath([]);
-    const VISITS_LIMIT = 3;
-
-    const setVisitsCount = (visitsCount: number) => {
-        if (visitsCount > VISITS_LIMIT) {
-            return 0;
-        }
-        return Math.max(0, visitsCount);
-    };
-
     const onLocationVisit = (item: MapLocationItem) => {
-        const exists = isLocationExists(locationPath, item);
-        const nextPath = exists ?
-            incVisitsCount(locationPath, item, setVisitsCount) :
-            addLocation(locationPath, item, 1);
-        setLocationPath(nextPath);
+        const isLast = isLocationLast(locationPath, item);
+        if (isLast) {
+            const connections = pathGraph?.getConnections() || [];
+
+            return setLocationPath(removeLocation(locationPath, item));
+        }
+        const inPath = isLocationExists(locationPath, item);
+        const visitsCount = getLocationVisitsCount(locationPath, item);
+
+        // if (inPath && visitsCount === VISITS_LIMIT) {
+        //     return setLocationPath(removeLocation(locationPath, item));
+        // }
+        setLocationPath(addLocation(locationPath, item));
     };
 
-    const loaded = data !== undefined;
+    const ref = useRef(null);
+
+    useEffect(() => {
+        if (!ref.current) {
+            return;
+        }
+        const graphInstance = jsPlumb.newInstance({
+            container: ref.current
+        });
+        setPathGraph(graphInstance);
+    }, [locationPath])
+
+    // useEffect(() => {
+    //     console.log('path changed');
+    //     if (!pathGraph) {
+    //         return;
+    //     }
+    //     pathGraph.reset();
+    //     // const connections
+    // }, [locationPath]);
+
+
+    const loaded = data !== undefined && pathGraph;
 
     return (
-        <div className={classnames(className, S.container)}>
+        <div className={classnames(className, S.container)} ref={ref}>
             {loaded &&
                 <>
                     <RefreshButton onClick={refreshPath} className={S.refresh}/>
@@ -146,7 +182,13 @@ export const GameMap = (props: GameMapProps) => {
                     <MapLocationList
                         onVisit={onLocationVisit}
                         locationPath={locationPath}
-                        items={data.items}
+                        locationItems={data.items}
+                        ratio={ratio}
+                    />
+                    <MapLocationLinkList
+                        pathGraph={pathGraph}
+                        locationPath={locationPath}
+                        locationItems={data.items}
                         ratio={ratio}
                     />
                 </>

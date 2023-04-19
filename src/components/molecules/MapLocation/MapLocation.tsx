@@ -2,6 +2,7 @@ import React, {CSSProperties, useState} from "react";
 
 import S from "./MapLocation.module.scss";
 import classnames from "classnames";
+import {px, scale} from "../../../util/common";
 
 export interface MapLocationProps {
     onVisit: CallableFunction,
@@ -37,7 +38,7 @@ export const MapLocation = (props: MapLocationProps) => {
         [stateClassName]
     ];
 
-    const k = (x: number) => (x * ratio) + 'px';
+    const k = (x: number) => px(scale(x, ratio));
 
     const style = {
         fontSize: k(size),

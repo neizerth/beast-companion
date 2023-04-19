@@ -3,9 +3,10 @@ import {MapLocation} from "../../molecules/MapLocation/MapLocation";
 import S from "../GameMap/GameMap.module.scss";
 import {ILocationPath} from "../../../util/interfaces";
 import {getLocationVisitsCount, isLocationFirst, isLocationLast} from "../../helpers/locationPath";
+import classnames from "classnames";
 
 export interface MapLocationListProps {
-    items: MapLocationItem[];
+    locationItems: MapLocationItem[];
     ratio: number;
     onVisit: CallableFunction;
     locationPath: ILocationPath;
@@ -14,7 +15,7 @@ export interface MapLocationListProps {
 export const MapLocationList = (props: MapLocationListProps) => {
     const {
         locationPath,
-        items,
+        locationItems,
         ratio,
         onVisit = () => void(0),
     } = props;
@@ -24,14 +25,14 @@ export const MapLocationList = (props: MapLocationListProps) => {
     const getVisitsCount = (item: MapLocationItem) => getLocationVisitsCount(locationPath, item);
 
     return <>
-        {items.map((item, key) =>
+        {locationItems.map((item, key) =>
             <MapLocation
+                {...item}
                 onVisit={() => onVisit(item)}
                 isFirst={isFirst(item)}
                 isLast={isLast(item)}
                 visitsCount={getVisitsCount(item)}
                 className={S.location}
-                {...item}
                 ratio={ratio}
                 key={key}
             />

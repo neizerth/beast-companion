@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@jsplumb/browser-ui": "^6.0.5",
     "classnames": "^2.3.2",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",

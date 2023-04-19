@@ -357,6 +357,11 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@jsplumb/browser-ui@^6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@jsplumb/browser-ui/-/browser-ui-6.0.5.tgz#ff372c580ec1c5cb6ee38c668661be120889e0fc"
+  integrity sha512-lUWMnEIk3+wIUDMV882HeNBvQS7XxC/bQR68j4KobotpeLFZXog66NL3AhiwbVKmRYD06TWuTMtDJu7cTMe/0Q==
+
 "@types/classnames@^2.3.1":
   version "2.3.1"
   resolved "https://registry.npmjs.org/@types/classnames/-/classnames-2.3.1.tgz"

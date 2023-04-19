@@ -6,7 +6,7 @@ export enum MapType {
     LARGE = 'large'
 }
 
-export type ILocationPath = IPathItem[];
+export type ILocationPath = MapLocationItem[];
 
 export interface IPathItem {
     item: MapLocationItem;
