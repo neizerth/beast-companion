@@ -4,6 +4,7 @@ import S from "../GameMap/GameMap.module.scss";
 import {ILocationPath} from "../../../util/interfaces";
 import {getLocationVisitsCount, isLocationFirst, isLocationLast} from "../../helpers/locationPath";
 import classnames from "classnames";
+import {useEffect} from "react";
 
 export interface MapLocationListProps {
     locationItems: MapLocationItem[];
@@ -24,11 +25,16 @@ export const MapLocationList = (props: MapLocationListProps) => {
     const isLast = (item: MapLocationItem) => isLocationLast(locationPath, item);
     const getVisitsCount = (item: MapLocationItem) => getLocationVisitsCount(locationPath, item);
 
+    const onRemove = () => {
+        console.log('location removed');
+    }
+    // useEffect()
     return <>
         {locationItems.map((item, key) =>
             <MapLocation
                 {...item}
                 onVisit={() => onVisit(item)}
+                onRemove={() => onRemove()}
                 isFirst={isFirst(item)}
                 isLast={isLast(item)}
                 visitsCount={getVisitsCount(item)}

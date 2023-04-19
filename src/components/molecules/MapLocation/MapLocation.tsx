@@ -1,4 +1,4 @@
-import React, {CSSProperties, useState} from "react";
+import React, {CSSProperties, useEffect, useState} from "react";
 
 import S from "./MapLocation.module.scss";
 import classnames from "classnames";
@@ -14,27 +14,33 @@ export interface MapLocationProps {
     top: number;
     left: number;
     size: number;
+    onConnect?: CallableFunction;
+    onRemove?: CallableFunction;
 }
 
-export const MapLocation = (props: MapLocationProps) => {
+export const MapLocation = React.forwardRef((props: MapLocationProps, ref: React.ForwardedRef<any>) => {
     const {
         className,
         isFirst,
         isLast,
         visitsCount,
         onVisit,
+        onConnect = (_: any) => _,
+        onRemove = (_: any) => _,
         ratio,
         size,
         top,
         left
     } = props;
 
-    const stateClassName = isLast ? S.location_last :
-        isFirst ? S.location_first : visitsCount > 0 && S.location_selected;
+    const isSelected = visitsCount > 0;
+
+    const stateClassName = isLast ? S.last :
+        isFirst ? S.first :
+            isSelected && S.selected;
 
     const classList = [
-        className,
-        S.location,
+        S.background,
         [stateClassName]
     ];
 
@@ -48,11 +54,19 @@ export const MapLocation = (props: MapLocationProps) => {
         left: k(left)
     };
 
+    useEffect(() => {
+        onConnect();
+        return () => onRemove();
+    })
+
     return <div
-        className={classnames(classList)}
         onClick={() => onVisit()}
         style={style}
+        className={classnames(className, S.container)}
     >
-        {visitsCount > 1 && <span className={S.counter}>{visitsCount}</span>}
+        <div className={S.center} ref={ref}/>
+        <div className={classnames(classList)}>
+            {visitsCount > 1 && <span className={S.counter}>{visitsCount}</span>}
+        </div>
     </div>
-}
+});

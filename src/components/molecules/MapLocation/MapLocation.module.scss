@@ -1,13 +1,22 @@
-.location {
+.container {
     position: absolute;
     z-index: 3;
     cursor: pointer;
-    border-radius: 50%;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0.05em 0 0 0;
+}
+
+.background {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
     &:hover:after {
         content: '';
         display: block;
@@ -30,16 +39,20 @@
     color: #fff;
 }
 
-.location_selected {
+.center {
+    position: absolute;
+}
+
+.selected {
     background: #00a34496;
     box-shadow: 0 0 30px #00a34496;
 }
 
-.location_first {
+.first {
     background: #a3000096;
     box-shadow: 0 0 30px #a30000;
 }
-.location_last {
+.last {
     background: #00677896;
     box-shadow: 0 0 30px #006778;
     &:before {

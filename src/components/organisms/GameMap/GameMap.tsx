@@ -5,7 +5,6 @@ import {ILocationPath, MapType} from "../../../util/interfaces";
 import classnames from "classnames";
 import {useEffect, useRef, useState} from "react";
 import {RefreshButton} from "../../molecules/RefreshButton/RefreshButton";
-import {MapLocation} from "../../molecules/MapLocation/MapLocation";
 import {MapLocationList} from "../MapLocationList/MapLocationList";
 import {
     addLocation,
@@ -13,8 +12,6 @@ import {
     isLocationExists,
     isLocationLast, removeLocation
 } from "../../helpers/locationPath";
-import {MapLocationLinkList} from "../MapLocationLinkList/MapLocationLinkList";
-import {Connection} from "@jsplumb/browser-ui";
 
 export interface GameMapProps {
     className?: string;
@@ -161,6 +158,8 @@ export const GameMap = (props: GameMapProps) => {
         setPathGraph(graphInstance);
     }, [locationPath])
 
+    useEffect(() => console.log('map rendered'));
+
     // useEffect(() => {
     //     console.log('path changed');
     //     if (!pathGraph) {
@@ -171,7 +170,7 @@ export const GameMap = (props: GameMapProps) => {
     // }, [locationPath]);
 
 
-    const loaded = data !== undefined && pathGraph;
+    const loaded = data !== undefined && ref;
 
     return (
         <div className={classnames(className, S.container)} ref={ref}>
@@ -185,12 +184,12 @@ export const GameMap = (props: GameMapProps) => {
                         locationItems={data.items}
                         ratio={ratio}
                     />
-                    <MapLocationLinkList
-                        pathGraph={pathGraph}
-                        locationPath={locationPath}
-                        locationItems={data.items}
-                        ratio={ratio}
-                    />
+                    {/*<MapLocationLinkList*/}
+                    {/*    pathGraph={pathGraph}*/}
+                    {/*    locationPath={locationPath}*/}
+                    {/*    locationItems={data.items}*/}
+                    {/*    ratio={ratio}*/}
+                    {/*/>*/}
                 </>
             }
         </div>

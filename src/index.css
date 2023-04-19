@@ -25,11 +25,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.jtk-connector {
-  z-index: 4;
-}
+.jtk-connector {}
 .jtk-connector path {
-  stroke: #ffffff30;
-  filter: drop-shadow(0 0 10px white);
+  stroke: #ffffff60;
+  /*filter: drop-shadow(0 0 10px white);*/
+  filter: drop-shadow(0 0 10px orange);
   stroke-width:0.7vw;
 }
