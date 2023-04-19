@@ -1,0 +1,18 @@
+.container {
+    position: relative;
+}
+
+.image {
+    filter: drop-shadow(2px 4px 20px white);
+}
+
+.refresh {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+.location {
+    position: absolute;
+}
