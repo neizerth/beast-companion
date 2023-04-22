@@ -19,7 +19,7 @@
 .page {
   margin: 0;
   font-family: 'Optimus Princeps', sans-serif;
-  background: #e7ece9 url("images/background.png") top center;
+  background: #e7ece9 url("/images/background.png") top center;
   background-size: cover;
   user-select: none;
   -webkit-tap-highlight-color: transparent;

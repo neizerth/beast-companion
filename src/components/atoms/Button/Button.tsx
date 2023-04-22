@@ -3,7 +3,8 @@ import S from './Button.module.scss';
 import React, {PropsWithChildren} from "react";
 
 export interface ButtonProps extends PropsWithChildren {
-    as?: React.FC<ButtonComponentProps>,
+    to?: string,
+    as?: React.FC<any>,
     className?: string,
     onClick?: React.MouseEventHandler;
 }

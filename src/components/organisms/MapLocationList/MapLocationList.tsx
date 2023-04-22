@@ -1,7 +1,6 @@
-import {MapLocationItem} from "../GameMap/GameMap";
 import {MapLocation} from "../../molecules/MapLocation/MapLocation";
 import S from "../GameMap/GameMap.module.scss";
-import {ILocationPath} from "../../../util/interfaces";
+import {ILocationPath, MapLocationItem} from "../../../util/interfaces";
 import {getLocationVisitsCount, isLocationFirst, isLocationLast} from "../../helpers/locationPath";
 import classnames from "classnames";
 import {useEffect} from "react";

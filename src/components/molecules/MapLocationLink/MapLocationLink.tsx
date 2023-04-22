@@ -1,7 +1,7 @@
-import {MapLocationItem} from "../../organisms/GameMap/GameMap";
 import S from './MapLocationLink.module.scss';
 import React, {useEffect, useRef} from "react";
 import {half, px, scale} from "../../../util/common";
+import {MapLocationItem} from "../../../util/interfaces";
 
 export interface MapLocationLinkProps {
     item: MapLocationItem;

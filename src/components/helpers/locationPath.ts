@@ -1,7 +1,6 @@
 import { flowRight } from 'lodash'
 import { add } from 'lodash/fp'
-import {MapLocationItem} from "../organisms/GameMap/GameMap";
-import {ILocationPath, IPathItem} from "../../util/interfaces";
+import {ILocationPath, IPathItem, MapLocationItem} from "../../util/interfaces";
 
 export const getLocationItem = (path: ILocationPath, locationItem: MapLocationItem) =>
     path.find(item => item === locationItem);

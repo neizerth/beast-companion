@@ -1,7 +1,6 @@
 
 import S from "./MapLocationLinkList.module.scss"
-import {ILocationPath} from "../../../util/interfaces";
-import {MapLocationItem} from "../GameMap/GameMap";
+import {ILocationPath, MapLocationItem} from "../../../util/interfaces";
 import classnames from "classnames";
 import {MapLocationLink} from "../../molecules/MapLocationLink/MapLocationLink";
 import React, {useState} from "react";
