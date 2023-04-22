@@ -33,6 +33,14 @@ export interface MapData {
     items: MapLocationItem[]
 }
 
+export type MapJSONData = [MapJSONSettings, MapJSONItem[]];
+
+export type MapJSONSettings = [
+    width: number,
+    height: number,
+    defaultSize: number
+];
+
 export type MapJSONItem = [
     top: number,
     left: number,

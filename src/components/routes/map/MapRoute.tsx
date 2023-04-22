@@ -1,6 +1,7 @@
-import {MapData, MapJSONItem, MapType} from "../../../util/interfaces";
+import {MapData, MapJSONData, MapJSONItem, MapType} from "../../../util/interfaces";
 import {GameMap} from "../../organisms/GameMap/GameMap";
 import {LoaderFunctionArgs, useLoaderData, useNavigate} from "react-router-dom";
+import axios from 'axios';
 
 export interface MapLoaderParams {
     type: MapType
@@ -17,11 +18,10 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
         return null;
     }
     const url = `/data/map_${type}.json`;
-    const response = await fetch(url);
-    const data = await response.json();
+    const { data } = await axios.get<MapJSONData>(url);
 
     const [width, height, defaultSize] = data[0];
-    const items = data.slice(1)
+    const items = data[1]
         .map((item: MapJSONItem) => {
             const [top, left,, size = defaultSize] = item;
             return {
@@ -53,10 +53,10 @@ export const MapRoute = () => {
 
     const goHome = () => navigate('/');
 
-    return <>
+    return <div className={S.container}>
         <GameMap
             data={mapData}
             onBack={goHome}
         />
-    </>
+    </div>
 }

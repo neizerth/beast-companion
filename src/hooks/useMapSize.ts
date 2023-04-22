@@ -1,22 +1,22 @@
 import {useEffect, useState} from "react";
 import {MapSize} from "../util/interfaces";
 
-export const useMapSize = (defaultSize?: MapSize) => {
-    const mapSize = getMapSize(defaultSize);
+export const useMapSize = (imageSize?: MapSize) => {
+    const mapSize = getMapSize(imageSize);
     const [size, setSize] = useState(mapSize);
     useEffect(() => {
-        const onResize = () => setSize(getMapSize(defaultSize));
+        const mapSize = getMapSize(imageSize);
+        const onResize = () => setSize(mapSize);
         window.addEventListener('resize', onResize);
-        onResize();
         return () => window.removeEventListener('resize', onResize);
-    }, [defaultSize]);
+    }, [imageSize]);
     return size;
 }
 
 export const getMapSize = (defaultSize?: MapSize) => {
     const { innerWidth, innerHeight } = window;
     if (!defaultSize) {
-        return { width: innerWidth, height: innerHeight, ratio: 1 };
+        return [innerWidth, innerHeight, 1];
     }
 
     let height = innerHeight - 4;
@@ -29,5 +29,5 @@ export const getMapSize = (defaultSize?: MapSize) => {
         height = ratio * defaultSize.height;
     }
 
-    return {width, height, ratio};
+    return [width, height, ratio];
 }

@@ -6,7 +6,7 @@ import classnames from "classnames";
 import {useEffect} from "react";
 
 export interface MapLocationListProps {
-    locationItems: MapLocationItem[];
+    locations: MapLocationItem[];
     ratio: number;
     onVisit: CallableFunction;
     locationPath: ILocationPath;
@@ -15,7 +15,7 @@ export interface MapLocationListProps {
 export const MapLocationList = (props: MapLocationListProps) => {
     const {
         locationPath,
-        locationItems,
+        locations,
         ratio,
         onVisit = () => void(0),
     } = props;
@@ -29,7 +29,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
     }
     // useEffect()
     return <>
-        {locationItems.map((item, key) =>
+        {locations.map((item, key) =>
             <MapLocation
                 {...item}
                 onVisit={() => onVisit(item)}

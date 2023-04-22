@@ -24,3 +24,8 @@ export const removeLocation = (path: ILocationPath, item: MapLocationItem) => {
 
 export const getLocationVisitsCount = (path: ILocationPath, locationItem: MapLocationItem) =>
     path.filter(item => item === locationItem).length;
+
+export const visitLocation = (path: ILocationPath, item: MapLocationItem) =>
+    isLocationLast(path, item) ?
+        removeLocation(path, item) :
+        addLocation(path, item);
