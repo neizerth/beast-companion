@@ -10,4 +10,9 @@
   &:hover {
     background: #fdd39b;
   }
+  &:active {
+    position: relative;
+    top: 2px;
+    left: 2px;
+  }
 }

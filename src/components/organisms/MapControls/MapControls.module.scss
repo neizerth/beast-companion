@@ -26,6 +26,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 5px;
+  box-sizing: border-box;
   &_zoom + &_zoom {
     margin-top: -20px;
   }
@@ -38,29 +40,23 @@
 }
 
 .history {
-  position: relative;
-  left: 4px;
-  width: 70px;
-  height: 70px;
-  box-sizing: border-box;
+  padding-top: 10px;
+  //padding-left: 4px;
+  padding-left: 12px;
+  .control {
+    width: 65px;
+    height: 70px;
+  }
 }
 
 .zoom {
-  position: relative;
-  left: 11px;
-  width: 65px;
+  padding-left: 11px;
+  .control + .control {
+    margin-top: -10px;
+  }
 }
 
-//.refresh {
-//  position: fixed;
-//  z-index: 3;
-//  top: 0;
-//  left: 0;
-//}
-//
-//.back {
-//  position: fixed;
-//  z-index: 3;
-//  bottom: 0;
-//  left: 0;
-//}
+.back {
+  position: relative;
+  lefT: -8px;
+}

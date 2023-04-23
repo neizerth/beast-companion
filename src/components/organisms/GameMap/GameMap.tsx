@@ -12,6 +12,7 @@ import {useMapSize} from "../../../hooks/useMapSize";
 import {MapLocationList} from "../MapLocationList/MapLocationList";
 import {useLocationPath} from "../../../hooks/useLocationPath";
 import {px} from "../../../util/common";
+import {useLocationHistory} from "../../../hooks/useLocationHistory";
 
 export interface GameMapProps {
     className?: string;
@@ -28,7 +29,6 @@ export const GameMap = (props: GameMapProps) => {
         onBack,
     } = props;
 
-
     const [width, height, ratio] = useMapSize(data.settings);
     const ref = useRef(null);
 
@@ -40,18 +40,30 @@ export const GameMap = (props: GameMapProps) => {
         onLocationVisit
     ] = useLocationPath();
 
+    const [onPathChange, undo, redo, clearHistory] = useLocationHistory(locationPath);
+
+    const visitLocation = (item: MapLocationItem) => {
+        const path = onLocationVisit(item);
+        onPathChange(path);
+    };
+
     const mainStyle: CSSProperties = {
         width: px(width),
         height: px(height)
     }
 
-    const onClear = () => setLocationPath([]);
+    const onClear = () => {
+        setLocationPath([]);
+        clearHistory();
+    };
     const identity = () => void(0);
 
-    const onRedo = identity;
-    const onUndo = identity;
+    const onRedo = () => setLocationPath(redo());
+    const onUndo = () => setLocationPath(undo());
+
     const onZoomIn = identity;
     const onZoomOut = identity;
+
     return (
         <div className={classnames(className, S.container)} ref={ref}>
             <MapControls
@@ -66,7 +78,7 @@ export const GameMap = (props: GameMapProps) => {
                 <img src={mapUrl} className={S.image} alt=""/>
             </div>
             <MapLocationList
-                onVisit={onLocationVisit}
+                onVisit={visitLocation}
                 locationPath={locationPath}
                 locations={data.items}
                 ratio={ratio}

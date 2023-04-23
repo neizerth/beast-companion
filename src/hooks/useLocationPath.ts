@@ -7,10 +7,11 @@ export type ILocationHookResult = [ILocationPath, CallableFunction, CallableFunc
 export const useLocationPath = (): ILocationHookResult => {
     const [locationPath, setLocationPath] = useState<MapLocationItem[]>([]);
 
-    const onLocationVisit = (item: MapLocationItem) =>
-        setLocationPath(
-            visitLocation(locationPath, item)
-        );
+    const onLocationVisit = (item: MapLocationItem) => {
+        const path = visitLocation(locationPath, item);
+        setLocationPath(path);
+        return path;
+    };
 
     return [locationPath, setLocationPath, onLocationVisit];
 };
