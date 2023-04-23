@@ -6,10 +6,10 @@ export const useDownloadProgress = (url: string) => {
 
     useEffect(() => {
         axios.get(url, {
-            onDownloadProgress: ({ progress }) => setProgress(progress || 0)
+            onDownloadProgress: ({ progress= 0 }) => setProgress(progress * 100)
         })
             .then(() => setProgress(100));
-    });
+    }, []);
 
     return progress
 }
