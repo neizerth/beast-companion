@@ -1,13 +1,66 @@
-.refresh {
+.primary {
   position: fixed;
+  background: #00000050;
+  padding: 10px 0;
+
+  box-sizing: border-box;
   z-index: 3;
   top: 0;
   left: 0;
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.back {
-  position: fixed;
-  z-index: 3;
-  bottom: 0;
-  left: 0;
+.clear {
+  position: relative;
+  left: 4px;
+  width: 60px;
+  height: 55px;
 }
+
+.control {
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &_zoom + &_zoom {
+    margin-top: -20px;
+  }
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history {
+  position: relative;
+  left: 4px;
+  width: 70px;
+  height: 70px;
+  box-sizing: border-box;
+}
+
+.zoom {
+  position: relative;
+  left: 11px;
+  width: 65px;
+}
+
+//.refresh {
+//  position: fixed;
+//  z-index: 3;
+//  top: 0;
+//  left: 0;
+//}
+//
+//.back {
+//  position: fixed;
+//  z-index: 3;
+//  bottom: 0;
+//  left: 0;
+//}

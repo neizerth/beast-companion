@@ -1,12 +1,14 @@
 import {useEffect, useState} from "react";
 import {MapSize} from "../util/interfaces";
 
-export const useMapSize = (imageSize?: MapSize) => {
+export const useMapSize = (imageSize: MapSize) => {
     const mapSize = getMapSize(imageSize);
     const [size, setSize] = useState(mapSize);
     useEffect(() => {
-        const mapSize = getMapSize(imageSize);
-        const onResize = () => setSize(mapSize);
+        const onResize = () => {
+            const mapSize = getMapSize(imageSize);
+            setSize(mapSize);
+        };
         window.addEventListener('resize', onResize);
         return () => window.removeEventListener('resize', onResize);
     }, [imageSize]);

@@ -2,6 +2,10 @@ import {MapData, MapJSONData, MapJSONItem, MapType} from "../../../util/interfac
 import {GameMap} from "../../organisms/GameMap/GameMap";
 import {LoaderFunctionArgs, useLoaderData, useNavigate} from "react-router-dom";
 import axios from 'axios';
+import {Progress} from "../../atoms/Progress/Progress";
+import {useDownloadProgress} from "../../../hooks/useDownloadProgress";
+
+import S from "./MapRoute.module.scss";
 
 export interface MapLoaderParams {
     type: MapType
@@ -50,13 +54,23 @@ export const MapRoute = () => {
     const navigate = useNavigate();
     const loaderData = useLoaderData() as never as MapLoaderData;
     const { mapData } = loaderData;
+    const { type } = mapData.settings;
+    const mapUrl = `/images/maps/${type}.png`;
 
+    const progress = useDownloadProgress(mapUrl);
     const goHome = () => navigate('/');
 
+
+    const isLoaded = progress === 100;
+
     return <div className={S.container}>
-        <GameMap
-            data={mapData}
-            onBack={goHome}
-        />
+        {!isLoaded ?
+            <Progress value={progress}/>:
+            <GameMap
+                mapUrl={mapUrl}
+                data={mapData}
+                onBack={goHome}
+            />
+        }
     </div>
 }

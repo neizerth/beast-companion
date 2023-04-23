@@ -15,7 +15,7 @@ export const GameControl = (props: RefreshButtonProps) => {
         className,
         onClick,
         icon,
-        name
+        name,
     } = props;
     return <div className={classnames(className, S.container)} onClick={onClick}>
         <img className={S.icon} src={icon} alt={name}/>

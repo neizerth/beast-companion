@@ -1,12 +1,11 @@
 .container {
-  width: 80px;
   cursor: pointer;
   padding: 5px;
 }
 
 .icon {
   width: 100%;
-  filter: drop-shadow(0 0 10px #ffffff70);
+  filter: drop-shadow(0 0 10px #00000070);
   &:hover {
     filter: drop-shadow(0 0 10px #ffa92c);
   }
