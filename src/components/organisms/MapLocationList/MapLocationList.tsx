@@ -1,9 +1,12 @@
 import {MapLocation} from "../../molecules/MapLocation/MapLocation";
 import S from "../MapController/MapController.module.scss";
 import {ILocationPath, IMapLocationItem} from "../../../util/interfaces";
-import {getLocationVisitsCount, isLocationFirst, isLocationLast} from "../../helpers/locationPath";
-import classnames from "classnames";
-import {useEffect} from "react";
+import {
+    getLocationVisitIndex,
+    getLocationVisitsCount,
+    isLocationFirst,
+    isLocationLast
+} from "../../helpers/locationPath";
 
 export interface MapLocationListProps {
     locations: IMapLocationItem[];
@@ -24,13 +27,15 @@ export const MapLocationList = (props: MapLocationListProps) => {
     const isLast = (item: IMapLocationItem) => isLocationLast(locationPath, item);
     const getVisitsCount = (item: IMapLocationItem) => getLocationVisitsCount(locationPath, item);
 
+    const getVisitIndex = (from: IMapLocationItem, to: IMapLocationItem, start: number) =>
+        getLocationVisitIndex(locationPath, from, to, start);
+
     const onRemove = () => {
         // console.log('location removed');
     }
 
-    // useEffect()
     return <>
-        {locations.map((item, key) =>
+        {locations.map((item, key) => (
             <MapLocation
                 {...item}
                 onClick={() => onLocationClick(item)}
@@ -42,6 +47,6 @@ export const MapLocationList = (props: MapLocationListProps) => {
                 ratio={ratio}
                 key={key}
             />
-        )}
+        ))}
     </>
 }

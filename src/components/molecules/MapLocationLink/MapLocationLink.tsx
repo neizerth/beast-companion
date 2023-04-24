@@ -1,12 +1,15 @@
 import S from './MapLocationLink.module.scss';
 import React, {useEffect, useRef} from "react";
 import {half, px, scale} from "../../../util/common";
-import {IMapLocationItem} from "../../../util/interfaces";
+import {FixedSizeArray, IMapLocationItem} from "../../../util/interfaces";
+import * as d3 from 'd3';
+import {ILocationLinkItem} from "../../organisms/MapLocationPath/MapLocationPath";
+
+export type IPoint = [number, number];
 
 export interface MapLocationLinkProps {
-    item: IMapLocationItem;
-    onConnect: CallableFunction;
-    onRemove: CallableFunction;
+    source: ILocationLinkItem;
+    target: ILocationLinkItem;
     ratio: number;
 }
 
@@ -18,28 +21,41 @@ const getLocationCenter = (item: IMapLocationItem) => {
     };
 }
 
-export const MapLocationLink = React.forwardRef((props: MapLocationLinkProps, ref: React.ForwardedRef<any>) => {
+export const MapLocationLink = (props: MapLocationLinkProps) => {
     const {
-        item,
+        source,
+        target,
         ratio,
-        onConnect,
-        onRemove
     } = props;
 
-    const { top, left, size } = item;
+    const { top, left, size } = source;
     const k = (x: number) => px(scale(x, ratio));
+    const ref = useRef(null);
 
     const style = {
         top: k(top + half(size)),
         left: k(left + half(size))
     };
 
+
     useEffect(() => {
-        onConnect();
-        return () => onRemove();
+        if (!ref?.current) {
+            return
+        }
+
+        const control: IPoint = [150, 280];
+        const point: IPoint = [350, 20];
+        const start: IPoint = [40, 100];
+
+        const svg = d3.select(ref.current);
+        const path = d3.path();
+        path.moveTo(...start);
+        path.quadraticCurveTo(...control, ...point);
+
+        svg.append('path')
+            .attr('d', path.toString());
+
     }, []);
 
-    return <div className={S.container} ref={ref} style={style}>
-
-    </div>;
-})
+    return <svg className={S.container} style={style} ref={ref}/>;
+};

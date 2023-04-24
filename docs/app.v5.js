@@ -46,7 +46,7 @@
             await this.renderImage();
             console.log('map loaded');
             this.data = await this.fetchData();
-            console.log('locations loaded');
+            console.log('path loaded');
             this.renderLocations();
             this.initReloadButton();
             this.initStepsBox();

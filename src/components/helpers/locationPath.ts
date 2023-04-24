@@ -24,6 +24,19 @@ export const removeLocation = (path: ILocationPath, item: IMapLocationItem) => {
     return [...path.slice(0, index), ...path.slice(index + 1)];
 };
 
-
 export const getLocationVisitsCount = (path: ILocationPath, locationItem: IMapLocationItem) =>
     path.filter(item => item === locationItem).length;
+
+export const getLocationVisits = (path: ILocationPath, locationItem: IMapLocationItem) =>
+    path.reduce((target, item, index, self) => {
+        if (self[index] === locationItem) {
+            target.push(index);
+        }
+        return target;
+    }, [] as number[]);
+
+export const getLocationVisitIndex = (
+    path: ILocationPath,
+    item: IMapLocationItem,
+    start = 0
+) => getLocationVisits(path, item).findIndex(index => index >= start) || 0;

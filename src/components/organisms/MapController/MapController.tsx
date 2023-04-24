@@ -26,7 +26,6 @@ export const MapController = (props: GameMapProps) => {
 
     const dispatch = useAppDispatch();
     const [width, height, ratio] = useMapSize(data.settings);
-    const ref = useRef(null);
 
     const locationPath = useAppSelector(selectPathData);
 
@@ -39,7 +38,7 @@ export const MapController = (props: GameMapProps) => {
     const onClear = () => dispatch(clearPath());
 
     return (
-        <div className={classnames(className, S.container)} ref={ref}>
+        <div className={classnames(className, S.container)}>
             <TransformWrapper>
                 {({ zoomIn, zoomOut, ...rest }) => (
                     <>

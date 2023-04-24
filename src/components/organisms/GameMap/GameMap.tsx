@@ -1,10 +1,11 @@
 import S from "./GameMap.module.scss";
 import {MapLocationList} from "../MapLocationList/MapLocationList";
-import {CSSProperties} from "react";
+import {CSSProperties, useRef} from "react";
 import {px} from "../../../util/common";
 import {useAppSelector} from "../../../hooks";
 import {selectPathData} from "../../../features/path/pathSlice";
 import {IMapLocationItem} from "../../../util/interfaces";
+import {MapLocationPath} from "../MapLocationPath/MapLocationPath";
 
 export interface GameMapProps {
     src: string;
@@ -25,6 +26,7 @@ export const GameMap = (props: GameMapProps) => {
     } = props;
 
     const path = useAppSelector(selectPathData);
+    const ref = useRef(null);
 
     const mainStyle: CSSProperties = {
         width: px(width),
@@ -32,13 +34,17 @@ export const GameMap = (props: GameMapProps) => {
     }
 
     return (
-        <div className={S.container}>
+        <div className={S.container} ref={ref}>
             <div className={S.main} style={mainStyle}>
                 <img src={src} className={S.image} alt=""/>
                 <MapLocationList
                     onLocationClick={onLocationClick}
                     locationPath={path}
                     locations={locations}
+                    ratio={ratio}
+                />
+                <MapLocationPath
+                    path={path}
                     ratio={ratio}
                 />
             </div>
