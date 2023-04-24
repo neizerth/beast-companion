@@ -1,7 +1,7 @@
 .primary {
   position: fixed;
-  background: #00000050;
-  padding: 10px 0;
+  background: #00000080;
+  padding: 1em 0;
 
   box-sizing: border-box;
   z-index: 3;
@@ -12,51 +12,45 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  font-size: 0.95vmax;
+  box-shadow: 1px 0px 10px #ffffff20;
+  @media (min-width: 1024px) {
+    font-size: 10px;
+  }
+}
+
+.history {
+  padding-top: 1em;
 }
 
 .clear {
   position: relative;
-  left: 4px;
-  width: 60px;
-  height: 55px;
+  left: 0.4em;
+  width: 6em;
+  height: 5.5em;
 }
 
 .control {
-  width: 80px;
+  width: 8em;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 5px;
+  padding: 0 0.5em;
   box-sizing: border-box;
-  &_zoom + &_zoom {
-    margin-top: -20px;
-  }
 }
 
 .group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.history {
-  padding-top: 10px;
-  //padding-left: 4px;
-  padding-left: 12px;
-  .control {
-    width: 65px;
-    height: 70px;
-  }
+  gap: 1em;
 }
 
 .zoom {
-  padding-left: 11px;
-  .control + .control {
-    margin-top: -10px;
-  }
+  padding-left: 1.1em;
 }
 
 .back {
   position: relative;
-  lefT: -4px;
+  lefT: -0.1em;
 }

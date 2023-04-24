@@ -29,6 +29,7 @@ export interface IMapData {
         width: number;
         height: number;
         defaultSize: number
+        startLocation: number
     };
     items: IMapLocationItem[]
 }
@@ -38,7 +39,8 @@ export type IMapJSONData = [IMapJSONSettings, IMapJSONItem[]];
 export type IMapJSONSettings = [
     width: number,
     height: number,
-    defaultSize: number
+    defaultSize: number,
+    startLocation: number
 ];
 
 export type IMapJSONItem = [

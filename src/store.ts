@@ -2,13 +2,11 @@ import {AnyAction, configureStore, ThunkAction} from '@reduxjs/toolkit'
 
 import historyReducer from './features/history/historySlice';
 import pathReducer from './features/path/pathSlice';
-import zoomReducer from './features/zoom/zoomSlice';
 
 export const store = configureStore({
     reducer: {
         history: historyReducer,
         path: pathReducer,
-        zoom: zoomReducer
     },
 })
 

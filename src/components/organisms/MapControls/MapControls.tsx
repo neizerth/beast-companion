@@ -1,18 +1,21 @@
 import S from "./MapControls.module.scss";
 import {GameControl} from "../../molecules/GameControl/GameControl";
 import classnames from "classnames";
-
-import { undo, redo } from "../../../features/history/historySlice";
+import {HistoryControls} from "../HistoryControls/HistoryControls";
+import {ZoomControls} from "../ZoomControls/ZoomControls";
+import {useNavigate} from "react-router-dom";
 
 export interface GameControlsProps {
     onClear: CallableFunction;
-    onBack: CallableFunction;
     onZoomIn: CallableFunction;
     onZoomOut: CallableFunction;
 }
 
 export const MapControls = (props: GameControlsProps) => {
-    const { onClear, onBack } = props;
+    const { onClear, onZoomIn, onZoomOut } = props;
+
+    const navigate = useNavigate();
+    const goHome = () => navigate('/');
 
     return (
         <div className={S.primary}>
@@ -26,45 +29,19 @@ export const MapControls = (props: GameControlsProps) => {
                     />
                 </div>
                 <div className={S.history}>
-                    <div className={S.control}>
-                        <GameControl
-                            onClick={() => undo()}
-                            className={S.undo}
-                            icon={"/images/undo.svg"}
-                            name={"Undo"}
-                            disabled={true}
-                        />
-                    </div>
-                    <div className={S.control}>
-                        <GameControl
-                            onClick={() => redo()}
-                            className={S.redo}
-                            icon={"/images/redo.svg"}
-                            name={"Redo"}
-                            disabled={true}
-                        />
-                    </div>
+                    <HistoryControls controlClassName={S.control}/>
                 </div>
                 <div className={S.zoom}>
-                    <div className={S.control}>
-                        <GameControl
-                            className={classnames(S.zoom_in, S.control)}
-                            icon={"/images/zoom_in.svg"}
-                            name={"Zoom In"}
-                        />
-                    </div>
-                    <div className={S.control}>
-                        <GameControl
-                            className={S.control}
-                            icon={"/images/zoom_out.svg"}
-                            name={"Zoom Out"}
-                        />
-                    </div>
+                    <ZoomControls
+                        controlClassName={S.control}
+                        onZoomIn={onZoomIn}
+                        onZoomOut={onZoomOut}
+                    />
                 </div>
             </div>
             <div className={S.group}>
                 <GameControl
-                    onClick={() => onBack()}
+                    onClick={goHome}
                     className={classnames(S.control, S.back)}
                     icon={"/images/back.svg"}
                     name={"Go back"}

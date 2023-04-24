@@ -1,5 +1,5 @@
 import {MapLocation} from "../../molecules/MapLocation/MapLocation";
-import S from "../GameMap/GameMap.module.scss";
+import S from "../MapController/MapController.module.scss";
 import {ILocationPath, IMapLocationItem} from "../../../util/interfaces";
 import {getLocationVisitsCount, isLocationFirst, isLocationLast} from "../../helpers/locationPath";
 import classnames from "classnames";
@@ -8,7 +8,7 @@ import {useEffect} from "react";
 export interface MapLocationListProps {
     locations: IMapLocationItem[];
     ratio: number;
-    onVisit: CallableFunction;
+    onLocationClick: CallableFunction;
     locationPath: ILocationPath;
 }
 
@@ -17,7 +17,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
         locationPath,
         locations,
         ratio,
-        onVisit = () => void(0),
+        onLocationClick = () => void(0),
     } = props;
 
     const isFirst = (item: IMapLocationItem) => isLocationFirst(locationPath, item);
@@ -25,16 +25,15 @@ export const MapLocationList = (props: MapLocationListProps) => {
     const getVisitsCount = (item: IMapLocationItem) => getLocationVisitsCount(locationPath, item);
 
     const onRemove = () => {
-        console.log('location removed');
+        // console.log('location removed');
     }
-
 
     // useEffect()
     return <>
         {locations.map((item, key) =>
             <MapLocation
                 {...item}
-                onClick={() => onVisit(item)}
+                onClick={() => onLocationClick(item)}
                 onRemove={() => onRemove()}
                 isFirst={isFirst(item)}
                 isLast={isLast(item)}

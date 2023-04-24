@@ -1,11 +1,14 @@
 import {IMapData, IMapJSONData, IMapJSONItem, MapType} from "../../../util/interfaces";
-import {GameMap} from "../../organisms/GameMap/GameMap";
+import {MapController} from "../../organisms/MapController/MapController";
 import {LoaderFunctionArgs, useLoaderData, useNavigate} from "react-router-dom";
 import axios from 'axios';
 import {Progress} from "../../atoms/Progress/Progress";
 import {useDownloadProgress} from "../../../hooks/useDownloadProgress";
 
 import S from "./MapRoute.module.scss";
+import {useEffect} from "react";
+import {useAppDispatch} from "../../../hooks";
+import {startFrom} from "../../../features/path/pathSlice";
 
 export interface MapLoaderParams {
     type: MapType
@@ -24,7 +27,13 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
     const url = `/data/map_${type}.json`;
     const { data } = await axios.get<IMapJSONData>(url);
 
-    const [width, height, defaultSize] = data[0];
+    const [
+        width,
+        height,
+        defaultSize,
+        startLocation
+    ] = data[0];
+
     const items = data[1]
         .map((item: IMapJSONItem) => {
             const [top, left,, size = defaultSize] = item;
@@ -40,7 +49,8 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
             type,
             width,
             height,
-            defaultSize
+            defaultSize,
+            startLocation
         },
         items
     };
@@ -51,25 +61,27 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
 }
 
 export const MapRoute = () => {
-    const navigate = useNavigate();
     const loaderData = useLoaderData() as never as MapLoaderData;
     const { mapData } = loaderData;
     const { type } = mapData.settings;
     const mapUrl = `/images/maps/${type}.png`;
 
+    const dispatch = useAppDispatch();
     const progress = useDownloadProgress(mapUrl);
-    const goHome = () => navigate('/');
+    const startLocation = mapData.items[mapData.settings.startLocation];
 
+    useEffect(() => {
+        dispatch(startFrom(startLocation));
+    }, [])
 
     const isLoaded = progress === 100;
 
     return <div className={S.container}>
         {!isLoaded ?
             <Progress value={progress}/>:
-            <GameMap
+            <MapController
                 mapUrl={mapUrl}
                 data={mapData}
-                onBack={goHome}
             />
         }
     </div>

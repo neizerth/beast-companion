@@ -1,6 +1,6 @@
 import * as jsPlumb from "@jsplumb/browser-ui"
 
-import S from './GameMap.module.scss';
+import S from './MapController.module.scss';
 import {ILocationPath, IMapData, IMapLocationItem, IMapSize} from "../../../util/interfaces";
 import classnames from "classnames";
 import {useEffect, useRef, useState} from "react";
