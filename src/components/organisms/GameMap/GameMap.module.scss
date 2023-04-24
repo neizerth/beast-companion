@@ -1,0 +1,19 @@
+.image {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(2px 4px 20px white);
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  position: relative;
+  padding: 5px;
+  box-sizing: border-box;
+}
