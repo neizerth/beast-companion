@@ -2,17 +2,18 @@ import S from "./MapControls.module.scss";
 import {GameControl} from "../../molecules/GameControl/GameControl";
 import classnames from "classnames";
 
+import { undo, redo } from "../../../features/history/historySlice";
+
 export interface GameControlsProps {
     onClear: CallableFunction;
     onBack: CallableFunction;
-    onUndo: CallableFunction;
-    onRedo: CallableFunction;
     onZoomIn: CallableFunction;
     onZoomOut: CallableFunction;
 }
 
 export const MapControls = (props: GameControlsProps) => {
-    const { onClear, onBack, onUndo, onRedo } = props;
+    const { onClear, onBack } = props;
+
     return (
         <div className={S.primary}>
             <div className={S.group}>
@@ -27,18 +28,20 @@ export const MapControls = (props: GameControlsProps) => {
                 <div className={S.history}>
                     <div className={S.control}>
                         <GameControl
-                            onClick={() => onUndo()}
+                            onClick={() => undo()}
                             className={S.undo}
                             icon={"/images/undo.svg"}
                             name={"Undo"}
+                            disabled={true}
                         />
                     </div>
                     <div className={S.control}>
                         <GameControl
-                            onClick={() => onRedo()}
+                            onClick={() => redo()}
                             className={S.redo}
                             icon={"/images/redo.svg"}
                             name={"Redo"}
+                            disabled={true}
                         />
                     </div>
                 </div>
@@ -61,7 +64,7 @@ export const MapControls = (props: GameControlsProps) => {
             </div>
             <div className={S.group}>
                 <GameControl
-                    onClick={e => onBack()}
+                    onClick={() => onBack()}
                     className={classnames(S.control, S.back)}
                     icon={"/images/back.svg"}
                     name={"Go back"}

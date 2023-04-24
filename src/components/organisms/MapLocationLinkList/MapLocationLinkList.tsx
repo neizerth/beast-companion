@@ -1,6 +1,6 @@
 
 import S from "./MapLocationLinkList.module.scss"
-import {ILocationPath, MapLocationItem} from "../../../util/interfaces";
+import {ILocationPath, IMapLocationItem} from "../../../util/interfaces";
 import classnames from "classnames";
 import {MapLocationLink} from "../../molecules/MapLocationLink/MapLocationLink";
 import React, {useState} from "react";
@@ -8,7 +8,7 @@ import {BezierConnector, DotEndpoint, JsPlumbInstance} from "@jsplumb/browser-ui
 import {indexOf} from "lodash";
 
 export interface MapLocationLinkListProps {
-    locationItems: MapLocationItem[];
+    locationItems: IMapLocationItem[];
     ratio: number;
     locationPath: ILocationPath;
     pathGraph: JsPlumbInstance;

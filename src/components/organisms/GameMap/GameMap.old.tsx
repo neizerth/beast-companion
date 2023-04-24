@@ -1,7 +1,7 @@
 import * as jsPlumb from "@jsplumb/browser-ui"
 
 import S from './GameMap.module.scss';
-import {ILocationPath, MapData, MapLocationItem, MapSize} from "../../../util/interfaces";
+import {ILocationPath, IMapData, IMapLocationItem, IMapSize} from "../../../util/interfaces";
 import classnames from "classnames";
 import {useEffect, useRef, useState} from "react";
 import {RefreshButton} from "../../molecules/GameControl/GameControl";
@@ -16,7 +16,7 @@ import {useMapSize} from "../../../hooks/useMapSize";
 
 export interface GameMapProps {
     className?: string;
-    data: MapData
+    data: IMapData
 }
 
 export const GameMap = (props: GameMapProps) => {
@@ -30,7 +30,7 @@ export const GameMap = (props: GameMapProps) => {
     // const {width, height, ratio} = useMapSize(defaultSize);
 
     const refreshPath = () => setLocationPath([]);
-    const onLocationVisit = (item: MapLocationItem) => {
+    const onLocationVisit = (item: IMapLocationItem) => {
         const isLast = isLocationLast(locationPath, item);
         if (isLast) {
             const connections = pathGraph?.getConnections() || [];
@@ -41,10 +41,10 @@ export const GameMap = (props: GameMapProps) => {
         const visitsCount = getLocationVisitsCount(locationPath, item);
 
         // if (inPath && visitsCount === VISITS_LIMIT) {
-        //     return setLocationPath(removeLocation(locationPath, item));
+        //     return setLocationPath(removeLocation(path, item));
         // }
 
-        // setLocationPath(addLocation(locationPath, item));
+        // setLocationPath(addLocation(path, item));
     };
 
     const ref = useRef(null);
@@ -68,7 +68,7 @@ export const GameMap = (props: GameMapProps) => {
     //     }
     //     pathGraph.reset();
     //     // const connections
-    // }, [locationPath]);
+    // }, [path]);
 
     return (
         <div className={classnames(className, S.container)} ref={ref}>
@@ -78,14 +78,14 @@ export const GameMap = (props: GameMapProps) => {
 
                 {/*<MapLocationList*/}
                 {/*    onVisit={onLocationVisit}*/}
-                {/*    locationPath={locationPath}*/}
+                {/*    path={path}*/}
                 {/*    locationItems={data.items}*/}
                 {/*    ratio={ratio}*/}
                 {/*/>*/}
 
                 {/*<MapLocationLinkList*/}
                 {/*    pathGraph={pathGraph}*/}
-                {/*    locationPath={locationPath}*/}
+                {/*    path={path}*/}
                 {/*    locationItems={data.items}*/}
                 {/*    ratio={ratio}*/}
                 {/*/>*/}

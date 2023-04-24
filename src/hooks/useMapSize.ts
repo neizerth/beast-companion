@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import {MapSize} from "../util/interfaces";
+import {IMapSize} from "../util/interfaces";
 
-export const useMapSize = (imageSize: MapSize) => {
+export const useMapSize = (imageSize: IMapSize) => {
     const mapSize = getMapSize(imageSize);
     const [size, setSize] = useState(mapSize);
     useEffect(() => {
@@ -15,7 +15,7 @@ export const useMapSize = (imageSize: MapSize) => {
     return size;
 }
 
-export const getMapSize = (defaultSize?: MapSize) => {
+export const getMapSize = (defaultSize?: IMapSize) => {
     const { innerWidth, innerHeight } = window;
     if (!defaultSize) {
         return [innerWidth, innerHeight, 1];

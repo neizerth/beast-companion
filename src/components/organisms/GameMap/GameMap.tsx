@@ -1,7 +1,7 @@
 import * as jsPlumb from "@jsplumb/browser-ui"
 
 import S from './GameMap.module.scss';
-import {ILocationPath, MapData, MapLocationItem, MapSize} from "../../../util/interfaces";
+import {ILocationPath, IMapData, IMapLocationItem, IMapSize} from "../../../util/interfaces";
 import classnames from "classnames";
 import {CSSProperties, useEffect, useRef} from "react";
 import {MapControls} from "../MapControls/MapControls";
@@ -13,10 +13,13 @@ import {MapLocationList} from "../MapLocationList/MapLocationList";
 import {useLocationPath} from "../../../hooks/useLocationPath";
 import {px} from "../../../util/common";
 import {useLocationHistory} from "../../../hooks/useLocationHistory";
+import {useAppDispatch, useAppSelector} from "../../../hooks";
+import {addPathItem, clearPath, removePathItem, selectPathData} from "../../../features/path/pathSlice";
+import {isLocationLast} from "../../helpers/locationPath";
 
 export interface GameMapProps {
     className?: string;
-    data: MapData;
+    data: IMapData;
     mapUrl: string;
     onBack: CallableFunction;
 }
@@ -29,37 +32,38 @@ export const GameMap = (props: GameMapProps) => {
         onBack,
     } = props;
 
+    const dispatch = useAppDispatch();
     const [width, height, ratio] = useMapSize(data.settings);
     const ref = useRef(null);
 
     useEffect(() => console.log('map rendered'));
 
-    const [
-        locationPath,
-        setLocationPath,
-        onLocationVisit
-    ] = useLocationPath();
+    // const [
+    //     locationPath,
+    //     setLocationPath,
+    //     onLocationVisit
+    // ] = useLocationPath();
 
-    const [onPathChange, undo, redo, clearHistory] = useLocationHistory(locationPath);
+    // const [onPathChange, undo, redo, clearHistory] = useLocationHistory(locationPath);
 
-    const visitLocation = (item: MapLocationItem) => {
-        const path = onLocationVisit(item);
-        onPathChange(path);
-    };
+    const locationPath = useAppSelector(selectPathData);
+
+    const visitLocation = (item: IMapLocationItem) => dispatch(
+        isLocationLast(locationPath, item) ?
+            removePathItem(item) :
+            addPathItem(item)
+    );
 
     const mainStyle: CSSProperties = {
         width: px(width),
         height: px(height)
     }
 
-    const onClear = () => {
-        setLocationPath([]);
-        clearHistory();
-    };
+    const onClear = () => dispatch(clearPath());
     const identity = () => void(0);
 
-    const onRedo = () => setLocationPath(redo());
-    const onUndo = () => setLocationPath(undo());
+    const onRedo = identity;
+    const onUndo = identity;
 
     const onZoomIn = identity;
     const onZoomOut = identity;
@@ -69,8 +73,6 @@ export const GameMap = (props: GameMapProps) => {
             <MapControls
                 onBack={onBack}
                 onClear={onClear}
-                onRedo={onRedo}
-                onUndo={onUndo}
                 onZoomIn={onZoomIn}
                 onZoomOut={onZoomOut}
             />

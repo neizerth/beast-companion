@@ -1,4 +1,4 @@
-import {MapData, MapJSONData, MapJSONItem, MapType} from "../../../util/interfaces";
+import {IMapData, IMapJSONData, IMapJSONItem, MapType} from "../../../util/interfaces";
 import {GameMap} from "../../organisms/GameMap/GameMap";
 import {LoaderFunctionArgs, useLoaderData, useNavigate} from "react-router-dom";
 import axios from 'axios';
@@ -12,7 +12,7 @@ export interface MapLoaderParams {
 }
 
 export interface MapLoaderData {
-    mapData: MapData
+    mapData: IMapData
 }
 
 export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | null> => {
@@ -22,11 +22,11 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
         return null;
     }
     const url = `/data/map_${type}.json`;
-    const { data } = await axios.get<MapJSONData>(url);
+    const { data } = await axios.get<IMapJSONData>(url);
 
     const [width, height, defaultSize] = data[0];
     const items = data[1]
-        .map((item: MapJSONItem) => {
+        .map((item: IMapJSONItem) => {
             const [top, left,, size = defaultSize] = item;
             return {
                 top,
@@ -35,7 +35,7 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
             };
         });
 
-    const mapData: MapData = {
+    const mapData: IMapData = {
         settings: {
             type,
             width,

@@ -1,4 +1,4 @@
-import {ILocationPath, MapLocationItem} from "../util/interfaces";
+import {ILocationPath, IMapLocationItem} from "../util/interfaces";
 import {useState} from "react";
 
 export type LocationHistoryHookResult = [CallableFunction, CallableFunction, CallableFunction, CallableFunction];

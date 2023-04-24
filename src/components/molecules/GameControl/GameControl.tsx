@@ -4,20 +4,29 @@ import S from './GameControl.module.scss';
 import classnames from "classnames";
 
 export interface RefreshButtonProps {
-    onClick?: React.MouseEventHandler;
+    onClick?: CallableFunction;
     className?: string;
     icon: string;
     name: string;
+    disabled?: boolean;
 }
 
 export const GameControl = (props: RefreshButtonProps) => {
     const {
         className,
-        onClick,
+        onClick = () => void(0),
         icon,
         name,
+        disabled
     } = props;
-    return <div className={classnames(className, S.container)} onClick={onClick}>
-        <img className={S.icon} src={icon} alt={name}/>
+    const iconClassName = classnames(
+        S.icon,
+        {
+            [S.disabled]: disabled,
+            [S.active]: !disabled
+        }
+    );
+    return <div className={classnames(className, S.container)} onClick={() => !disabled && onClick()}>
+        <img className={iconClassName} src={icon} alt={name}/>
     </div>
 }

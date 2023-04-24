@@ -5,7 +5,7 @@ import classnames from "classnames";
 import {px, scale} from "../../../util/common";
 
 export interface MapLocationProps {
-    onVisit: CallableFunction,
+    onClick: CallableFunction,
     className: string,
     visitsCount: number,
     isFirst: boolean,
@@ -24,9 +24,9 @@ export const MapLocation = React.forwardRef((props: MapLocationProps, ref: React
         isFirst,
         isLast,
         visitsCount,
-        onVisit,
-        onConnect = (_: any) => _,
-        onRemove = (_: any) => _,
+        onClick,
+        onConnect = () => void(0),
+        onRemove = () => void(0),
         ratio,
         size,
         top,
@@ -60,7 +60,7 @@ export const MapLocation = React.forwardRef((props: MapLocationProps, ref: React
     })
 
     return <div
-        onClick={() => onVisit()}
+        onClick={() => onClick()}
         style={style}
         className={classnames(className, S.container)}
     >

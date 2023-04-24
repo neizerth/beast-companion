@@ -1,16 +1,16 @@
 import S from './MapLocationLink.module.scss';
 import React, {useEffect, useRef} from "react";
 import {half, px, scale} from "../../../util/common";
-import {MapLocationItem} from "../../../util/interfaces";
+import {IMapLocationItem} from "../../../util/interfaces";
 
 export interface MapLocationLinkProps {
-    item: MapLocationItem;
+    item: IMapLocationItem;
     onConnect: CallableFunction;
     onRemove: CallableFunction;
     ratio: number;
 }
 
-const getLocationCenter = (item: MapLocationItem) => {
+const getLocationCenter = (item: IMapLocationItem) => {
     const { top, left, size } = item;
     return {
         top: top + half(size),

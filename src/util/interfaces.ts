@@ -4,44 +4,44 @@ export enum MapType {
     LARGE = 'large'
 }
 
-export type ILocationPath = MapLocationItem[];
+export type ILocationPath = IMapLocationItem[];
 
 export interface IPathItem {
-    item: MapLocationItem;
+    item: IMapLocationItem;
     visitsCount: number;
 }
 
-export interface MapSize {
+export interface IMapSize {
     width: number;
     height: number;
     ratio?: number;
 }
 
-export interface MapLocationItem {
+export interface IMapLocationItem {
     top: number;
     left: number;
     size: number;
 }
 
-export interface MapData {
+export interface IMapData {
     settings: {
         type: MapType,
         width: number;
         height: number;
         defaultSize: number
     };
-    items: MapLocationItem[]
+    items: IMapLocationItem[]
 }
 
-export type MapJSONData = [MapJSONSettings, MapJSONItem[]];
+export type IMapJSONData = [IMapJSONSettings, IMapJSONItem[]];
 
-export type MapJSONSettings = [
+export type IMapJSONSettings = [
     width: number,
     height: number,
     defaultSize: number
 ];
 
-export type MapJSONItem = [
+export type IMapJSONItem = [
     top: number,
     left: number,
     links: number[],
