@@ -2,6 +2,9 @@ import S from "./ZoomControls.module.scss";
 import {GameControl} from "../../molecules/GameControl/GameControl";
 import classnames from "classnames";
 
+import zoomInIcon from "../../../../public/images/zoom_in.svg";
+import zoomOutIcon from "../../../../public/images/zoom_out.svg";
+
 export interface ZoomControlsProps {
     controlClassName?: string
     onZoomIn: CallableFunction;
@@ -18,7 +21,7 @@ export const ZoomControls = (props: ZoomControlsProps) => {
             <GameControl
                 onClick={onZoomIn}
                 className={classnames(controlClassName, S.zoom_in, S.control)}
-                icon={"/images/zoom_in.svg"}
+                icon={zoomInIcon}
                 name={"Zoom In"}
             />
         </div>
@@ -26,7 +29,7 @@ export const ZoomControls = (props: ZoomControlsProps) => {
             <GameControl
                 onClick={onZoomOut}
                 className={classnames(controlClassName, S.zoom_out, S.control)}
-                icon={"/images/zoom_out.svg"}
+                icon={zoomOutIcon}
                 name={"Zoom Out"}
             />
         </div>

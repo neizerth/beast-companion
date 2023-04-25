@@ -1,6 +1,6 @@
 .container {
-  font-size: 50px;
-  padding: 20px;
+  font-size: 40px;
+  padding: 10px;
   background: #ffa92c;
   border: none;
   color: #fff;
@@ -14,5 +14,9 @@
     position: relative;
     top: 2px;
     left: 2px;
+  }
+  @media (min-height: 768px) {
+    font-size: 50px;
+    padding: 20px;
   }
 }

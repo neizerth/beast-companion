@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px;
+  box-sizing: border-box;
+  gap: 10px;
+  @media (min-height: 768px) {
+    gap: 30px;
+  }
+}
+
+.logo {
+  height: 100px;
+}
+
+.credits {
+  font-size: 12px;
+  background: #ffffff60;
+  padding: 10px;
+  border-radius: 4px;
+  color: #000000;
+  //text-shadow: 1px 1px 0 #ffffff;
+}
+
+.image__container {
+  flex: 0;
+}
+
+.author {
+  border-bottom: 1px solid orangered;
+  &:hover {
+    border-bottom: none;
+  }
+}

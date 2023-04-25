@@ -7,6 +7,7 @@
 .container {
   width: 100vw;
   height: 100vh;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,6 +15,5 @@
 
 .main {
   position: relative;
-  padding: 5px;
   box-sizing: border-box;
 }

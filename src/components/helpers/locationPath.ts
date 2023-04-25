@@ -40,3 +40,27 @@ export const getLocationVisitIndex = (
     item: IMapLocationItem,
     start = 0
 ) => getLocationVisits(path, item).findIndex(index => index >= start) || 0;
+
+export const getMutualLocationsVisits = (
+    path: ILocationPath,
+    from: IMapLocationItem,
+    to: IMapLocationItem
+) => path.reduce((target, item, index, self) => {
+    if (index === 0) {
+        return target;
+    }
+    if (item === from && self[index - 1] === to) {
+        target.push(index);
+    }
+    if (item === to && self[index - 1] === from) {
+        target.push(index);
+    }
+    return target;
+}, [] as number[]);
+
+export const getMutualLocationsVisitIndex = (
+    path: ILocationPath,
+    from: IMapLocationItem,
+    to: IMapLocationItem,
+    start = 0
+) => getMutualLocationsVisits(path, from, to).findIndex(index => index >= start) || 0;

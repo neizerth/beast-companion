@@ -44,6 +44,8 @@ export const GameMap = (props: GameMapProps) => {
                     ratio={ratio}
                 />
                 <MapLocationPath
+                    width={width}
+                    height={height}
                     path={path}
                     ratio={ratio}
                 />

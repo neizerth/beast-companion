@@ -27,8 +27,6 @@ export const MapLocationList = (props: MapLocationListProps) => {
     const isLast = (item: IMapLocationItem) => isLocationLast(locationPath, item);
     const getVisitsCount = (item: IMapLocationItem) => getLocationVisitsCount(locationPath, item);
 
-    const getVisitIndex = (from: IMapLocationItem, to: IMapLocationItem, start: number) =>
-        getLocationVisitIndex(locationPath, from, to, start);
 
     const onRemove = () => {
         // console.log('location removed');

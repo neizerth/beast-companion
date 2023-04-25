@@ -1,7 +1,7 @@
 import S from './MapController.module.scss';
 import {IMapData, IMapLocationItem, } from "../../../util/interfaces";
 import classnames from "classnames";
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
 import {MapControls} from "../MapControls/MapControls";
 import {useMapSize} from "../../../hooks/useMapSize";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
@@ -34,6 +34,10 @@ export const MapController = (props: GameMapProps) => {
             removePathItem(item) :
             addPathItem(item)
     );
+
+    useEffect(() => {
+        setTimeout(() => window.scrollTo(0,1), 1000);
+    }, [])
 
     const onClear = () => dispatch(clearPath());
 

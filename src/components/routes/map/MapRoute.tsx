@@ -9,6 +9,7 @@ import S from "./MapRoute.module.scss";
 import {useEffect} from "react";
 import {useAppDispatch} from "../../../hooks";
 import {startFrom} from "../../../features/path/pathSlice";
+import {maps} from "../../../util/maps";
 
 export interface MapLoaderParams {
     type: MapType
@@ -24,7 +25,7 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
     if (type === MapType.NONE) {
         return null;
     }
-    const url = `/data/map_${type}.json`;
+    const url = maps[type].data;
     const { data } = await axios.get<IMapJSONData>(url);
 
     const [
@@ -64,10 +65,10 @@ export const MapRoute = () => {
     const loaderData = useLoaderData() as never as MapLoaderData;
     const { mapData } = loaderData;
     const { type } = mapData.settings;
-    const mapUrl = `/images/maps/${type}.png`;
+    const mapInfo = maps[type];
 
     const dispatch = useAppDispatch();
-    const progress = useDownloadProgress(mapUrl);
+    const progress = useDownloadProgress(mapInfo.image);
     const startLocation = mapData.items[mapData.settings.startLocation];
 
     useEffect(() => {
@@ -80,7 +81,7 @@ export const MapRoute = () => {
         {!isLoaded ?
             <Progress value={progress}/>:
             <MapController
-                mapUrl={mapUrl}
+                mapUrl={mapInfo.image}
                 data={mapData}
             />
         }

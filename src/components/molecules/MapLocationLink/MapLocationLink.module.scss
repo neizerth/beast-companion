@@ -1,7 +1,29 @@
 .container {
   position: absolute;
-  z-index: 1;
-  border-radius: 50%;
-  width: 3px;
-  height: 3px;
+  z-index: 3;
+}
+
+.path {
+  fill: none;
+  //stroke: #ffffff60;
+  filter: drop-shadow(0 0 10px #fdeb81);
+  //filter: drop-shadow(0 0 10px #ffffff60);
+  stroke-width:0.8vw;
+  @media (min-width: 768px) {
+    stroke-width:0.4vw;
+  }
+}
+
+.index {
+  //font-size: 0.7em;
+  line-height: 1;
+  //text-shadow: 1px 1px 0 black, 1px -2px 0 #ff780a, 0 0 20px white;
+  box-shadow: 0 0 30px white;
+  @media (min-width: 767px) {
+    //font-size: 1.5em;
+  }
+}
+
+.circle {
+  filter: drop-shadow(0 0 5px #fff);
 }

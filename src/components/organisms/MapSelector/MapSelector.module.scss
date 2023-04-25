@@ -1,19 +1,5 @@
 .container {
   display: flex;
-  flex-direction: column;
-  gap: 40px;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-}
-
-.logo {
-  width: 100%;
-  max-width: 600px;
-}
-
-.buttons {
-  display: flex;
   gap: 30px;
   flex-wrap: wrap;
   justify-content: center;

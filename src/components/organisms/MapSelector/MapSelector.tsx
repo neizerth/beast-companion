@@ -15,24 +15,19 @@ export const mapTypes = [
 ];
 
 export interface MapSelectorProps {
-    className?: string,
     onSelect?: (type: MapType) => void
 }
 
 export const MapSelector = (props: MapSelectorProps) => {
     const {
         onSelect = f => f,
-        className
     } = props;
     return (
-      <div className={classnames(className, S.container)}>
-          <img className={S.logo} src="/images/beast-logo.png" alt="Beast logo"/>
-          <div className={S.buttons}>
+          <div className={S.container}>
               {mapTypes.map(
                   (item, key: number) =>
                       <Button key={key} onClick={() => onSelect(item.type)}>{item.title}</Button>
               )}
           </div>
-      </div>
     );
 }

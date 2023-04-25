@@ -4,6 +4,9 @@ import {redo, selectHistoryData, selectHistoryIndex, undo} from "../../../featur
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import classnames from "classnames";
 
+import undoIcon from "../../../../public/images/undo.svg";
+import redoIcon from "../../../../public/images/redo.svg";
+
 export interface HistoryControlsProps {
     controlClassName?: string;
 }
@@ -28,7 +31,7 @@ export const HistoryControls = (props: HistoryControlsProps) => {
                 <GameControl
                     onClick={handleUndo}
                     className={S.undo}
-                    icon={"/images/undo.svg"}
+                    icon={undoIcon}
                     name={"Undo"}
                     disabled={isUndoDisabled}
                 />
@@ -37,7 +40,7 @@ export const HistoryControls = (props: HistoryControlsProps) => {
                 <GameControl
                     onClick={handleRedo}
                     className={S.redo}
-                    icon={"/images/redo.svg"}
+                    icon={redoIcon}
                     name={"Redo"}
                     disabled={isRedoDisabled}
                 />
