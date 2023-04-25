@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'Optimus Princeps';
+  src: url('/fonts/optimusprinceps.woff2') format('woff2'),
+  url('/fonts/optimusprinceps.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Optimus Princeps';
+  src: url('/fonts/optimusprincepssemibold.woff2') format('woff2'),
+  url('/fonts/optimusprincepssemibold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  height: 100%;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.page {
+  margin: 0;
+  font-family: 'Optimus Princeps', sans-serif;
+  background: #e7ece9 url("/images/background.png") top center no-repeat;
+  background-size: cover;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  height: 100%;
+}
+
