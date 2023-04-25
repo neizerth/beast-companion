@@ -16,7 +16,7 @@ export const EMPTY_LOCATION_PATH = [];
 
 const initialState: IPathState = {
     data: EMPTY_LOCATION_PATH,
-    startLocation: null
+    startLocation: null,
 };
 
 export const pathSlice = createSlice({
@@ -25,6 +25,9 @@ export const pathSlice = createSlice({
     reducers: {
         changePath(state,action: IChangeStatePayload) {
             state.data = [...action.payload];
+            if (state.data.length) {
+                state.startLocation = state.data[state.data.length - 1];
+            }
         },
         startFrom(state, action: IStartFromStatePayload) {
             state.data = [action.payload];

@@ -4,7 +4,8 @@ import classnames from "classnames";
 
 import zoomInIcon from "../../../../public/images/zoom_in.svg";
 import zoomOutIcon from "../../../../public/images/zoom_out.svg";
-import {useControls, useTransformInit} from "react-zoom-pan-pinch";
+import {useControls, useTransformEffect, useTransformInit} from "react-zoom-pan-pinch";
+import {useState} from "react";
 
 export interface ZoomControlsProps {
     controlClassName?: string
@@ -15,11 +16,16 @@ export const ZoomControls = (props: ZoomControlsProps) => {
     } = props;
 
     const { zoomIn, zoomOut, instance } = useControls();
+    const [scale, setScale] = useState(1);
 
-    useTransformInit(({ state }) => {
-        const { scale } = state;
+    useTransformEffect(({ state }) => {
+        const value = state.scale;
 
+        setScale(value);
     });
+
+    const isZoomOutDisabled = scale === 1;
+    const isZoomInDisabled = scale === 8;
 
     return <>
         <div className={S.control}>
@@ -27,6 +33,7 @@ export const ZoomControls = (props: ZoomControlsProps) => {
                 onClick={zoomIn}
                 className={classnames(controlClassName, S.zoom_in, S.control)}
                 icon={zoomInIcon}
+                disabled={isZoomInDisabled}
                 name={"Zoom In"}
             />
         </div>
@@ -35,6 +42,7 @@ export const ZoomControls = (props: ZoomControlsProps) => {
                 onClick={zoomOut}
                 className={classnames(controlClassName, S.zoom_out, S.control)}
                 icon={zoomOutIcon}
+                disabled={isZoomOutDisabled}
                 name={"Zoom Out"}
             />
         </div>

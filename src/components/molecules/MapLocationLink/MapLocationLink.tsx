@@ -1,6 +1,6 @@
 import S from './MapLocationLink.module.scss';
 import React, {useEffect, useRef} from "react";
-import {half, px, scale, vh, vw} from "../../../util/common";
+import {half, minmax, px, scale, vh, vw} from "../../../util/common";
 import {IMapLocationItem} from "../../../util/interfaces";
 import Color from 'color';
 import * as d3 from 'd3';
@@ -104,7 +104,6 @@ export const MapLocationLink = (props: MapLocationLinkProps) => {
         pathLength
     } = props;
 
-    const { top, left, size } = source.location;
     const k = (x: number) => scale(x, ratio);
     const scalePoint = (p: IPoint): IPoint => [k(p[0]), k(p[1])];
 
@@ -118,7 +117,8 @@ export const MapLocationLink = (props: MapLocationLinkProps) => {
 
     const stroke = getStroke(index, pathLength, visitIndex);
 
-    const circleSize = Math.min(vh(1), 12);
+    const minSize = Math.min(source.location.size, target.location.size);
+    const circleSize = k(minSize) / 6;
     const center = getCenter(from, to);
     const circleCenter = scalePoint(getCenter(control, center));
 
@@ -139,8 +139,9 @@ export const MapLocationLink = (props: MapLocationLinkProps) => {
                 />
                 <text
                     textAnchor={'middle'}
+                    alignmentBaseline={'middle'}
                     x={circleCenter[0]}
-                    y={circleCenter[1] + vw(0.3)}
+                    y={circleCenter[1]}
                     fontSize={circleSize * 1.8}
                     fill={'#000'}
                     className={S.index}

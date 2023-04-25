@@ -3,6 +3,8 @@ import S from "./MapLocationPath.module.scss";
 import {useRef} from "react";
 import {MapLocationLink} from "../../molecules/MapLocationLink/MapLocationLink";
 import {getLocationVisitIndex, getLocationVisitsCount, getMutualLocationsVisitIndex} from "../../helpers/locationPath";
+import {useAppSelector} from "../../../hooks";
+import {selectPathData} from "../../../features/path/pathSlice";
 
 export interface ILocationLinkItem {
     location: IMapLocationItem;
@@ -18,7 +20,6 @@ export interface ILocationPathListItem {
 export type ILocationPathList = ILocationPathListItem[];
 
 export interface MapLocationPathProps {
-    path: ILocationPath;
     ratio: number;
     width: number;
     height: number;
@@ -28,10 +29,9 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
     const {
         width,
         height,
-        path,
         ratio
     } = props
-
+    const path = useAppSelector(selectPathData);
     const pathList: ILocationPathList = path.reduce((target, item, index, self) => {
         if (index === 0) {
             return target;

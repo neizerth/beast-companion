@@ -36,12 +36,14 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
     ] = data[0];
 
     const items = data[1]
-        .map((item: IMapJSONItem) => {
-            const [top, left,, size = defaultSize] = item;
+        .map((item: IMapJSONItem, index) => {
+            const [top, left, links, size = defaultSize] = item;
             return {
+                index,
                 top,
                 left,
-                size
+                size,
+                links
             };
         });
 
