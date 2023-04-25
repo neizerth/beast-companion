@@ -15,6 +15,7 @@ export interface GameMapProps {
     locations: IMapLocationItem[];
     onLocationClick: CallableFunction;
 }
+
 export const GameMap = (props: GameMapProps) => {
     const {
         width,
@@ -25,7 +26,6 @@ export const GameMap = (props: GameMapProps) => {
         onLocationClick = () => void(0)
     } = props;
 
-    const path = useAppSelector(selectPathData);
     const ref = useRef(null);
 
     const mainStyle: CSSProperties = {
@@ -39,14 +39,12 @@ export const GameMap = (props: GameMapProps) => {
                 <img src={src} className={S.image} alt=""/>
                 <MapLocationList
                     onLocationClick={onLocationClick}
-                    locationPath={path}
                     locations={locations}
                     ratio={ratio}
                 />
                 <MapLocationPath
                     width={width}
                     height={height}
-                    path={path}
                     ratio={ratio}
                 />
             </div>

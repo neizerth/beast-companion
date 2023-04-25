@@ -6,16 +6,15 @@ import {px, scale} from "../../../util/common";
 
 export interface MapLocationProps {
     onClick: CallableFunction,
-    className: string,
-    visitsCount: number,
-    isFirst: boolean,
-    isLast: boolean
+    className: string;
+    visitsCount: number;
+    isFirst: boolean;
+    isLast: boolean;
+    isNext: boolean;
     ratio: number;
     top: number;
     left: number;
     size: number;
-    onConnect?: CallableFunction;
-    onRemove?: CallableFunction;
 }
 
 export const MapLocation = React.forwardRef((props: MapLocationProps, ref: React.ForwardedRef<any>) => {
@@ -23,10 +22,9 @@ export const MapLocation = React.forwardRef((props: MapLocationProps, ref: React
         className,
         isFirst,
         isLast,
+        isNext,
         visitsCount,
         onClick,
-        onConnect = () => void(0),
-        onRemove = () => void(0),
         ratio,
         size,
         top,
@@ -41,7 +39,10 @@ export const MapLocation = React.forwardRef((props: MapLocationProps, ref: React
 
     const classList = [
         S.background,
-        [stateClassName]
+        [stateClassName],
+        {
+            [S.next]: isNext
+        }
     ];
 
     const k = (x: number) => px(scale(x, ratio));
@@ -53,11 +54,6 @@ export const MapLocation = React.forwardRef((props: MapLocationProps, ref: React
         top: k(top),
         left: k(left)
     };
-
-    useEffect(() => {
-        onConnect();
-        return () => onRemove();
-    })
 
     return <div
         onClick={() => onClick()}

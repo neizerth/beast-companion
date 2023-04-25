@@ -18,9 +18,11 @@ export interface IMapSize {
 }
 
 export interface IMapLocationItem {
+    index: number;
     top: number;
     left: number;
     size: number;
+    links?: number[];
 }
 
 export interface IMapData {

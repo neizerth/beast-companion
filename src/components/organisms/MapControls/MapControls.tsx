@@ -10,12 +10,10 @@ import backIcon from "../../../../public/images/back.svg";
 
 export interface GameControlsProps {
     onClear: CallableFunction;
-    onZoomIn: CallableFunction;
-    onZoomOut: CallableFunction;
 }
 
 export const MapControls = (props: GameControlsProps) => {
-    const { onClear, onZoomIn, onZoomOut } = props;
+    const { onClear } = props;
 
     const navigate = useNavigate();
     const goHome = () => navigate('/');
@@ -38,8 +36,6 @@ export const MapControls = (props: GameControlsProps) => {
                     <div className={S.zoom}>
                         <ZoomControls
                             controlClassName={S.control}
-                            onZoomIn={onZoomIn}
-                            onZoomOut={onZoomOut}
                         />
                     </div>
                 </div>

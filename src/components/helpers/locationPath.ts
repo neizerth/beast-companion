@@ -1,6 +1,7 @@
 import { flowRight } from 'lodash'
 import { add } from 'lodash/fp'
 import {ILocationPath, IPathItem, IMapLocationItem} from "../../util/interfaces";
+import {link} from "d3";
 
 export const getLocationItem = (path: ILocationPath, locationItem: IMapLocationItem) =>
     path.find(item => item === locationItem);
@@ -64,3 +65,12 @@ export const getMutualLocationsVisitIndex = (
     to: IMapLocationItem,
     start = 0
 ) => getMutualLocationsVisits(path, from, to).findIndex(index => index >= start) || 0;
+
+export const isNextLocation = (path: ILocationPath, item: IMapLocationItem) => {
+    const last = path[path.length - 1];
+    if (!last) {
+        return false;
+    }
+    const { links = []} = last;
+    return links.includes(item.index);
+}
