@@ -4,22 +4,27 @@ import classnames from "classnames";
 
 import zoomInIcon from "../../../../public/images/zoom_in.svg";
 import zoomOutIcon from "../../../../public/images/zoom_out.svg";
+import {useControls, useTransformInit} from "react-zoom-pan-pinch";
 
 export interface ZoomControlsProps {
     controlClassName?: string
-    onZoomIn: CallableFunction;
-    onZoomOut: CallableFunction;
 }
 export const ZoomControls = (props: ZoomControlsProps) => {
     const {
         controlClassName,
-        onZoomIn,
-        onZoomOut
     } = props;
+
+    const { zoomIn, zoomOut, instance } = useControls();
+
+    useTransformInit(({ state }) => {
+        const { scale } = state;
+
+    });
+
     return <>
         <div className={S.control}>
             <GameControl
-                onClick={onZoomIn}
+                onClick={zoomIn}
                 className={classnames(controlClassName, S.zoom_in, S.control)}
                 icon={zoomInIcon}
                 name={"Zoom In"}
@@ -27,7 +32,7 @@ export const ZoomControls = (props: ZoomControlsProps) => {
         </div>
         <div className={S.control}>
             <GameControl
-                onClick={onZoomOut}
+                onClick={zoomOut}
                 className={classnames(controlClassName, S.zoom_out, S.control)}
                 icon={zoomOutIcon}
                 name={"Zoom Out"}

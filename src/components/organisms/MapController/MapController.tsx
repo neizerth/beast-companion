@@ -48,8 +48,6 @@ export const MapController = (props: GameMapProps) => {
                     <>
                         <MapControls
                             onClear={onClear}
-                            onZoomIn={zoomIn}
-                            onZoomOut={zoomOut}
                         />
                         <TransformComponent>
                             <GameMap
