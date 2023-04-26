@@ -15,22 +15,25 @@
 
   box-shadow: 1px 0px 10px #ffffff20;
   font-size: 1.9vmin;
+  @media (orientation: landscape) {
+    @media (min-height: 400px) {
+      font-size: 1.5vmin;
+    }
+    @media (min-height: 600px) {
+      font-size: 10px;
+    }
+    @media (min-height: 1024px) {
+      font-size: 10px;
+    }
+  }
   @media (orientation: portrait) {
+    font-size: 1.7vw;
     padding: 0 1em 1em;
     flex-direction: row;
     bottom: 0;
     top: auto;
     height: auto;
     width: 100%;
-  }
-  @media (min-height: 400px) {
-    font-size: 1.5vmin;
-  }
-  @media (min-height: 600px) {
-    font-size: 10px;
-  }
-  @media (min-height: 1024px) {
-    font-size: 10px;
   }
 }
 
