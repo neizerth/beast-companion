@@ -21,7 +21,7 @@ export const MapControls = (props: GameControlsProps) => {
     return (
         <>
             <div className={S.primary}>
-                <div className={S.group}>
+                <div className={classnames(S.group, S.group_primary)}>
                     <div className={S.control}>
                         <GameControl
                             onClick={() => onClear()}
@@ -30,16 +30,16 @@ export const MapControls = (props: GameControlsProps) => {
                             name={"Refresh"}
                         />
                     </div>
-                    <div className={S.history}>
+                    <div className={classnames(S.group, S.history)}>
                         <HistoryControls controlClassName={S.control}/>
                     </div>
-                    <div className={S.zoom}>
+                    <div className={classnames(S.group, S.zoom)}>
                         <ZoomControls
                             controlClassName={S.control}
                         />
                     </div>
                 </div>
-                <div className={S.group}>
+                <div className={classnames(S.group, S.group_back)}>
                     <GameControl
                         onClick={goHome}
                         className={classnames(S.control, S.back)}

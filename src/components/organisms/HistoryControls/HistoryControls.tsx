@@ -26,25 +26,23 @@ export const HistoryControls = (props: HistoryControlsProps) => {
 
     const controlClassName = classnames(props.controlClassName, S.control)
     return <>
-        <div className={S.container}>
-            <div className={controlClassName}>
-                <GameControl
-                    onClick={handleUndo}
-                    className={S.undo}
-                    icon={undoIcon}
-                    name={"Undo"}
-                    disabled={isUndoDisabled}
-                />
-            </div>
-            <div className={controlClassName}>
-                <GameControl
-                    onClick={handleRedo}
-                    className={S.redo}
-                    icon={redoIcon}
-                    name={"Redo"}
-                    disabled={isRedoDisabled}
-                />
-            </div>
+        <div className={controlClassName}>
+            <GameControl
+                onClick={handleUndo}
+                className={S.undo}
+                icon={undoIcon}
+                name={"Undo"}
+                disabled={isUndoDisabled}
+            />
+        </div>
+        <div className={controlClassName}>
+            <GameControl
+                onClick={handleRedo}
+                className={S.redo}
+                icon={redoIcon}
+                name={"Redo"}
+                disabled={isRedoDisabled}
+            />
         </div>
     </>;
 }
