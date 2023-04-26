@@ -28,12 +28,16 @@
   }
   @media (orientation: portrait) {
     font-size: 1.7vw;
-    padding: 0 1em 1em;
+    padding: 1em 1em 1em;
     flex-direction: row;
     bottom: 0;
     top: auto;
     height: auto;
     width: 100%;
+    @media (min-height: 1024px) {
+      padding: 1em 2em 1em 1em;
+      font-size: 12px;
+    }
   }
 }
 
