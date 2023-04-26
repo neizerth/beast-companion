@@ -1,3 +1,4 @@
+
 # Beast Map Companion
 
 Stack:
@@ -8,6 +9,7 @@ Stack:
 - React Router
 - Redux
 - D3
+- Github Workflows
 
 
 Features:
