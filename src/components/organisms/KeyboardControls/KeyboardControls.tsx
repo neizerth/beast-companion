@@ -29,6 +29,14 @@ export const KeyboardControls = (props: KeyboardControlsProps) => {
         if (key === 'Delete') {
             return clearPath();
         }
+        if (['z', 'Z'].includes(key) && (ctrlKey || metaKey)) {
+            if (shiftKey && !isRedoDisabled) {
+                return redo();
+            }
+            if (!shiftKey && !isUndoDisabled) {
+                return undo()
+            }
+        }
         const last = path[path.length - 1];
         if (!last) {
             return;
@@ -46,15 +54,6 @@ export const KeyboardControls = (props: KeyboardControlsProps) => {
         if (['ArrowDown', 's', 'S'].includes(key) && links.bottom) {
             return addPathItem(links.bottom);
         }
-        if (['z', 'Z'].includes(key) && (ctrlKey || metaKey)) {
-            if (shiftKey && !isRedoDisabled) {
-                return redo();
-            }
-            if (!shiftKey && !isUndoDisabled) {
-                return undo()
-            }
-        }
-
     }
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
