@@ -35,8 +35,11 @@
     height: auto;
     width: 100%;
     @media (min-height: 1024px) {
-      padding: 1em 2em 1em 1em;
+      padding: 0 2em 1em 1em;
       font-size: 12px;
+
+      top: 0;
+      bottom: auto;
     }
   }
 }
