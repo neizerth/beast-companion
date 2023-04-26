@@ -17,9 +17,7 @@
 }
 
 html {
-  height: 100%;
-  background: #e7ece9 url("/images/background.png") top center no-repeat;
-  background-size: cover;
+  min-height: 100%;
 }
 
 a {
@@ -30,6 +28,8 @@ a {
 .page {
   margin: 0;
   font-family: 'Optimus Princeps', sans-serif;
+  background: #e7ece9 url("/images/background.png") top center no-repeat;
+  background-size: cover;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   height: 100%;
