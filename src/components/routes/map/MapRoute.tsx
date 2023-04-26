@@ -3,7 +3,7 @@ import {MapController} from "../../organisms/MapController/MapController";
 import {LoaderFunctionArgs, useLoaderData, useNavigate} from "react-router-dom";
 import axios from 'axios';
 import {Progress} from "../../atoms/Progress/Progress";
-import {useDownloadProgress} from "../../../hooks/useDownloadProgress";
+import {useImageDownloadProgress} from "../../../hooks/useImageDownloadProgress";
 
 import S from "./MapRoute.module.scss";
 import {useEffect} from "react";
@@ -70,7 +70,7 @@ export const MapRoute = () => {
     const mapInfo = maps[type];
 
     const dispatch = useAppDispatch();
-    const progress = useDownloadProgress(mapInfo.image);
+    const progress = useImageDownloadProgress(mapInfo.image);
     const startLocation = mapData.items[mapData.settings.startLocation];
 
     useEffect(() => {

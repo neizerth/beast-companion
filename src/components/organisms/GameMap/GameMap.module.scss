@@ -2,6 +2,9 @@
   width: 100%;
   height: 100%;
   filter: drop-shadow(2px 4px 20px white);
+  &_loading {
+    visibility: hidden;
+  }
 }
 
 .container {
