@@ -29,7 +29,21 @@
 }
 
 .author {
-  border-bottom: 1px solid orangered;
+  position: relative;
+  display: inline-block;
+  &:after {
+    content: '';
+    position: absolute;
+    top: calc(100% - 1px);
+    left: -1px;
+    width: calc(100% + 4px);
+    height: 0.5px;
+    background: radial-gradient(circle at center, #ff780a 0, orangered 15%, red);
+  }
+  &:hover:after {
+    display: none;
+  }
+  //border-bottom: 1px solid orangered;
   &:hover {
     border-bottom: none;
   }
