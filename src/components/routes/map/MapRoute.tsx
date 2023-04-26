@@ -8,7 +8,7 @@ import {useDownloadProgress} from "../../../hooks/useDownloadProgress";
 import S from "./MapRoute.module.scss";
 import {useEffect} from "react";
 import {useAppDispatch} from "../../../hooks";
-import {startFrom} from "../../../features/path/pathSlice";
+import {addPathItem, clearPath, startFrom} from "../../../features/path/pathSlice";
 import {maps} from "../../../util/maps";
 
 export interface MapLoaderParams {

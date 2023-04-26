@@ -1,4 +1,4 @@
-import S from "./MapControls.module.scss";
+import S from "./ButtonControls.module.scss";
 import {GameControl} from "../../molecules/GameControl/GameControl";
 import classnames from "classnames";
 import {HistoryControls} from "../HistoryControls/HistoryControls";
@@ -12,7 +12,7 @@ export interface GameControlsProps {
     onClear: CallableFunction;
 }
 
-export const MapControls = (props: GameControlsProps) => {
+export const ButtonControls = (props: GameControlsProps) => {
     const { onClear } = props;
 
     const navigate = useNavigate();

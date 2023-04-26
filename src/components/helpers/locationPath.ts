@@ -15,7 +15,9 @@ export const isLocationFirst = (path: ILocationPath, item: IMapLocationItem) =>
 export const isLocationLast = (path: ILocationPath, item: IMapLocationItem) =>
     path.length > 0 && path.lastIndexOf(item) === path.length - 1;
 
-export const addLocation = (path: ILocationPath, item: IMapLocationItem, visitsCount = 1) =>
+export type IPathItemAction = (path: ILocationPath, item: IMapLocationItem) => ILocationPath;
+
+export const addLocation = (path: ILocationPath, item: IMapLocationItem) =>
     [...path, item];
 
 export const clearPath = (path: ILocationPath) => [];
@@ -73,4 +75,37 @@ export const isNextLocation = (path: ILocationPath, item: IMapLocationItem) => {
     }
     const { links = []} = last;
     return links.includes(item.index);
+}
+
+export const startFromLocation = (location: IMapLocationItem | null): ILocationPath => location ? [location] : [];
+
+export const getLocationDirectedLinks = (locations: IMapLocationItem[], item: IMapLocationItem) => {
+    const { links = [] } = item;
+
+    const data = links.map(index => locations[index]);
+
+    const leftOrder = [...data].sort((a, b) =>
+        a.left > b.left ? 1 : a.left === b.left ? 0 : -1
+    );
+    const topOrder = [...data].sort((a, b) =>
+        a.top > b.top ? 1 : a.top === b.top ? 0 : -1
+    );
+    const ACCURACY = 20;
+
+    const left = leftOrder
+        .filter(location => item.left - location.left > ACCURACY)[0];
+    const right = leftOrder
+        .filter(location => location.left - item.left > ACCURACY)
+        .reverse()[0]
+    const top = topOrder
+        .filter(location => item.top - location.top > ACCURACY)[0];
+    const bottom = topOrder
+        .filter(location => location.top - item.top > ACCURACY)
+        .reverse()[0];
+    return {
+        top,
+        left,
+        right,
+        bottom
+    };
 }

@@ -1,8 +1,9 @@
 import {ActionCreator, createSlice, PayloadAction, ThunkAction} from "@reduxjs/toolkit";
 import {ILocationPath, IMapLocationItem} from "../../util/interfaces";
 import {AppSelector, AppThunk} from "../../store";
-import {addLocation, removeLocation} from "../../components/helpers/locationPath";
+import {addLocation, IPathItemAction, removeLocation, startFromLocation} from "../../components/helpers/locationPath";
 import {pushState as pushHistoryState, clear as clearHistory} from "../history/historySlice";
+import {last} from "lodash";
 
 export interface IPathState {
     data: ILocationPath;
@@ -11,57 +12,71 @@ export interface IPathState {
 
 export type IChangeStatePayload = PayloadAction<ILocationPath>;
 export type IStartFromStatePayload = PayloadAction<IMapLocationItem>;
+export type IChangeStartLocationStatePayload = PayloadAction<IMapLocationItem>;
 
 export const EMPTY_LOCATION_PATH = [];
 
 const initialState: IPathState = {
     data: EMPTY_LOCATION_PATH,
-    startLocation: null,
+    startLocation: null
 };
 
 export const pathSlice = createSlice({
     name: 'path',
     initialState,
     reducers: {
+        setStartLocation(state,action: IStartFromStatePayload) {
+            state.startLocation = action.payload;
+        },
         changePath(state,action: IChangeStatePayload) {
             state.data = [...action.payload];
-            if (state.data.length) {
-                state.startLocation = state.data[state.data.length - 1];
-            }
         },
-        startFrom(state, action: IStartFromStatePayload) {
-            state.data = [action.payload];
-            state.startLocation = action.payload;
-        }
     }
 });
 
 export const {
     changePath,
-    startFrom
+    setStartLocation
 } = pathSlice.actions;
 
-export const addPathItem: ActionCreator<AppThunk> = (item: IMapLocationItem) => (dispatch,getState) => {
-    const { path } = getState();
-    const data = addLocation(path.data, item);
-    dispatch(changePath(data));
-    dispatch(pushHistoryState(data));
+export type IPathItemActionCreatorBuilder = (action: IPathItemAction) => ActionCreator<AppThunk>;
+
+export const buildPathItemActionCreator: IPathItemActionCreatorBuilder = (pathItemAction: IPathItemAction) =>
+    (item: IMapLocationItem) => (dispatch,getState) => {
+        const { path } = getState();
+        const data = pathItemAction(path.data, item);
+        const lastItem = last(data);
+
+        dispatch(changePath(data));
+        dispatch(pushHistoryState(data));
+        if (lastItem) {
+            dispatch(setStartLocation(lastItem));
+        }
+    }
+
+export const addPathItem= buildPathItemActionCreator(addLocation);
+
+export const removePathItem= buildPathItemActionCreator(removeLocation);
+
+export const startFrom: ActionCreator<AppThunk> = (item: IMapLocationItem) => (dispatch,getState) => {
+    dispatch(setStartLocation(item));
+    dispatch(clearPath());
 }
 
-export const removePathItem: ActionCreator<AppThunk> = (item: IMapLocationItem) => (dispatch,getState) => {
+export const removeLastPathItem: ActionCreator<AppThunk> = () => (dispatch,getState) => {
     const { path } = getState();
-    const data = removeLocation(path.data, item);
-    dispatch(changePath(data));
-    dispatch(pushHistoryState(data));
+    const item = path.data[path.data.length - 1];
+    dispatch(removePathItem(item));
 }
 
 export const clearPath: ActionCreator<AppThunk> = (item: IMapLocationItem) =>
     (dispatch, getState) => {
         const { path } = getState();
         const { startLocation } = path;
-        const action = startLocation ? startFrom(startLocation) : clearPath();
-        dispatch(action);
-        dispatch(clearHistory())
+        const data = startFromLocation(startLocation);
+        dispatch(clearHistory());
+        dispatch(changePath(data));
+        dispatch(pushHistoryState(data));
     }
 
 export const selectPathData: AppSelector<ILocationPath> = ({ path }) => path.data;

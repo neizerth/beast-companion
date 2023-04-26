@@ -47,6 +47,7 @@ export const goWithHistory: ActionCreator<AppThunk> = (value: number) => (dispat
     const { history } = getState();
     const index = history.index + value;
     const path = history.data[index];
+
     dispatch(go(value));
     dispatch(changePath(path));
 };

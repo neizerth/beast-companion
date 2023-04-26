@@ -2,7 +2,7 @@ import S from './MapController.module.scss';
 import {IMapData, IMapLocationItem, } from "../../../util/interfaces";
 import classnames from "classnames";
 import {useEffect, useRef} from "react";
-import {MapControls} from "../MapControls/MapControls";
+import {ButtonControls} from "../ButtonControls/ButtonControls";
 import {useMapSize} from "../../../hooks/useMapSize";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {addPathItem, clearPath, removePathItem, selectPathData} from "../../../features/path/pathSlice";
@@ -10,6 +10,7 @@ import {isLocationLast} from "../../helpers/locationPath";
 import {GameMap} from "../GameMap/GameMap";
 
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import {KeyboardControls} from "../KeyboardControls/KeyboardControls";
 
 export interface GameMapProps {
     className?: string;
@@ -43,10 +44,13 @@ export const MapController = (props: GameMapProps) => {
 
     return (
         <div className={classnames(className, S.container)}>
+            <KeyboardControls
+                locations={data.items}
+            />
             <TransformWrapper>
                 {({ zoomIn, zoomOut, ...rest }) => (
                     <>
-                        <MapControls
+                        <ButtonControls
                             onClear={onClear}
                         />
                         <TransformComponent>

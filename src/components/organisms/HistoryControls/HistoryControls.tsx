@@ -18,7 +18,7 @@ export const HistoryControls = (props: HistoryControlsProps) => {
     const dispatch = useAppDispatch();
 
     const isHistoryEmpty = history.length === 0;
-    const isUndoDisabled = isHistoryEmpty || historyIndex === 0;
+    const isUndoDisabled = isHistoryEmpty || historyIndex < 2;
     const isRedoDisabled = isHistoryEmpty || historyIndex === history.length - 1;
 
     const handleUndo = () => dispatch(undo());
