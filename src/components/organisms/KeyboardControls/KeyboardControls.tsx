@@ -4,6 +4,7 @@ import {addPathItem, clearPath, removeLastPathItem, selectPathData} from "../../
 import {useEffect} from "react";
 import {getLocationDirectedLinks} from "../../helpers/locationPath";
 import {redo, selectHistoryData, selectHistoryIndex, undo} from "../../../features/history/historySlice";
+import {useControls} from "react-zoom-pan-pinch";
 
 export interface KeyboardControlsProps {
     locations: IMapLocationItem[]
@@ -13,6 +14,7 @@ export const KeyboardControls = (props: KeyboardControlsProps) => {
     const { locations } = props;
     const path = useAppSelector(selectPathData);
     const dispatch = useAppDispatch();
+    const { zoomIn, zoomOut } = useControls();
 
     const historyIndex = useAppSelector(selectHistoryIndex);
     const history = useAppSelector(selectHistoryData);
@@ -57,6 +59,14 @@ export const KeyboardControls = (props: KeyboardControlsProps) => {
     }
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
+            const { key } = e;
+            if (key === '=') {
+                // console.log('zoom in');
+                return zoomIn();
+            }
+            if (key === '-') {
+                return zoomOut();
+            }
             const action = getAction(e);
             if (!action) {
                 return;

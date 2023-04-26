@@ -91,7 +91,7 @@ const getStroke = (index: number, total: number, visitIndex: number) => {
     if (visitIndex === 1) {
         return white.fade(0.4);
     }
-    return orange;
+    return orange.fade(0.3);
 }
 
 export const MapLocationLink = (props: MapLocationLinkProps) => {

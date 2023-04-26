@@ -90,7 +90,7 @@ export const getLocationDirectedLinks = (locations: IMapLocationItem[], item: IM
     const topOrder = [...data].sort((a, b) =>
         a.top > b.top ? 1 : a.top === b.top ? 0 : -1
     );
-    const ACCURACY = 20;
+    const ACCURACY = 50;
 
     const left = leftOrder
         .filter(location => item.left - location.left > ACCURACY)[0];
