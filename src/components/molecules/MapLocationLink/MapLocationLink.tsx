@@ -5,6 +5,7 @@ import {IMapLocationItem} from "../../../util/interfaces";
 import Color from 'color';
 import * as d3 from 'd3';
 import {ILocationLinkItem} from "../../organisms/MapLocationPath/MapLocationPath";
+import {MapLocationLinkArrow} from "../../atoms/MapLocationLinkArrow/MapLocationLinkArrow";
 
 export type IPoint = [number, number];
 
@@ -119,6 +120,8 @@ export const MapLocationLink = (props: MapLocationLinkProps) => {
 
     const minSize = Math.min(source.location.size, target.location.size);
     const circleSize = k(minSize) / 6;
+    // const arrowSize = k(minSize) * 0.9;
+    const arrowSize = k(minSize) * 2;
     const center = getCenter(from, to);
     const circleCenter = scalePoint(getCenter(control, center));
 
@@ -129,14 +132,19 @@ export const MapLocationLink = (props: MapLocationLinkProps) => {
                 d={path.toString()}
                 stroke={stroke.toString()}
             />
+            <MapLocationLinkArrow
+                from={circleCenter}
+                to={scalePoint(to)}
+                size={arrowSize}
+            />
             <g>
-                <circle
-                    cx={circleCenter[0]}
-                    cy={circleCenter[1]}
-                    r={circleSize}
-                    fill={'#fff'}
-                    className={S.circle}
-                />
+                {/*<circle*/}
+                {/*    cx={circleCenter[0]}*/}
+                {/*    cy={circleCenter[1]}*/}
+                {/*    r={circleSize}*/}
+                {/*    fill={'#fff'}*/}
+                {/*    className={S.circle}*/}
+                {/*/>*/}
                 <text
                     textAnchor={'middle'}
                     alignmentBaseline={'middle'}
