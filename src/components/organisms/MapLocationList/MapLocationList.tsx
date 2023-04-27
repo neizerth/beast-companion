@@ -14,6 +14,7 @@ export interface MapLocationListProps {
     locations: IMapLocationItem[];
     ratio: number;
     onLocationClick: CallableFunction;
+    onLocationLurk: CallableFunction;
 }
 
 export const MapLocationList = (props: MapLocationListProps) => {
@@ -21,6 +22,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
         locations,
         ratio,
         onLocationClick = () => void(0),
+        onLocationLurk = () => void(0),
     } = props;
 
     const locationPath = useAppSelector(selectPathData);
@@ -47,11 +49,13 @@ export const MapLocationList = (props: MapLocationListProps) => {
         }
         onLocationClick(item);
     }
+    const onLurk = (item: IMapLocationItem) => onLocationLurk(item);
     return <>
         {locations.map((item, key) => (
             <MapLocation
                 {...item}
                 onClick={() => onClick(item)}
+                onLurk={() => onLurk(item)}
                 isFirst={isFirst(item)}
                 isLast={isLast(item)}
                 isNext={isNext(item)}

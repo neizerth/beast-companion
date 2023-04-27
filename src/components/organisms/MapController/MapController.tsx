@@ -36,7 +36,7 @@ export const MapController = (props: GameMapProps) => {
     );
 
     const onClear = () => dispatch(clearPath());
-
+    const lurk = (item: IMapLocationItem) => dispatch(addPathItem(item));
     return (
         <div className={classnames(className, S.container)}>
             <TransformWrapper>
@@ -50,6 +50,7 @@ export const MapController = (props: GameMapProps) => {
                     <GameMap
                         locations={data.items}
                         onLocationClick={visitLocation}
+                        onLocationLurk={lurk}
                         src={mapUrl}
                         width={width}
                         height={height}

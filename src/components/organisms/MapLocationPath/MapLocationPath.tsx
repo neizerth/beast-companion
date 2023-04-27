@@ -12,6 +12,7 @@ export interface ILocationLinkItem {
 }
 
 export interface ILocationPathListItem {
+    step: number;
     source: ILocationLinkItem;
     target: ILocationLinkItem;
     mutualVisitIndex: number;
@@ -32,6 +33,7 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
         ratio
     } = props
     const path = useAppSelector(selectPathData);
+    let step = 0;
     const pathList: ILocationPathList = path.reduce((target, item, index, self) => {
         if (index === 0) {
             return target;
@@ -45,6 +47,11 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
                 visitIndex
             };
         }
+        if (source.location === item)  {
+            step++;
+            return target;
+        }
+
         const visitIndex = getLocationVisitIndex(path, item, index);
         const mutualVisitIndex = getMutualLocationsVisitIndex(
             path,
@@ -52,7 +59,9 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
             item,
             index
         );
+
         target.push({
+            step,
             source,
             target: {
                 location: item,
@@ -61,6 +70,7 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
             mutualVisitIndex
         });
 
+        step++;
         return target;
     }, [] as ILocationPathList);
 
@@ -71,7 +81,7 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
             {pathList.map((item, key) => (
                 <MapLocationLink
                     key={key}
-                    index={key}
+                    index={item.step}
                     pathLength={pathList.length}
                     visitIndex={item.mutualVisitIndex}
                     source={item.source}

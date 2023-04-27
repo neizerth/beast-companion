@@ -139,13 +139,6 @@ export const MapLocationLink = (props: MapLocationLinkProps) => {
                 size={arrowSize}
             />
             <g>
-                {/*<circle*/}
-                {/*    cx={circleCenter[0]}*/}
-                {/*    cy={circleCenter[1]}*/}
-                {/*    r={circleSize}*/}
-                {/*    fill={'#fff'}*/}
-                {/*    className={S.circle}*/}
-                {/*/>*/}
                 <text
                     textAnchor={'middle'}
                     alignmentBaseline={'middle'}
