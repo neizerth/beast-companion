@@ -27,7 +27,7 @@ export const getAngle = (from: IPoint, to: IPoint, defaultAngle: number) => {
         angle -= atan / 1.3;
     }
     else if (atan > 90 && y > 0) {
-        angle += x > -1 ? atan / 1.5 : 90 + atan / 2;
+        angle += x > -5 ? atan / 1.5 : 90 + atan / 2;
     }
     else if (x < 0 && y < 0) {
         angle -= 180 - atan;
