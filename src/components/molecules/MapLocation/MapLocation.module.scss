@@ -57,6 +57,19 @@
 
 .next {
     box-shadow: 0 0 1.5vw yellow;
+    &:before {
+        content: '';
+        position: absolute;
+        display: block;
+        background: url("/images/circle6.svg") center center no-repeat;
+        background-size: 100%;
+        width: 180%;
+        height: 180%;
+        opacity: 0.58;
+        top: -40%;
+        left: -40%;
+        z-index: 1;
+    }
 }
 
 .last {
