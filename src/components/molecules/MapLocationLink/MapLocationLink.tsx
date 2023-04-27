@@ -122,7 +122,7 @@ export const MapLocationLink = (props: MapLocationLinkProps) => {
     const circleSize = k(minSize) / 6;
     // const arrowSize = k(minSize) * 0.9;
     // const arrowSize = k(minSize) * 2;
-    const arrowSize = k(minSize) / 6;
+    const arrowSize = k(minSize) / 1.5;
     const center = getCenter(from, to);
     const circleCenter = scalePoint(getCenter(control, center));
 
