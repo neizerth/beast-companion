@@ -50,8 +50,8 @@ export const MapLocationLinkArrow = (props: MapLocationLinkArrowProps) => {
     const SCALE = 2;
 
     const defaults = {
-        top: -4,
-        left: -4,
+        top: -55,
+        left: -55,
         // rotate: -66 + 180,
         rotate: 90,
         scale: 30
@@ -84,7 +84,7 @@ export const MapLocationLinkArrow = (props: MapLocationLinkArrowProps) => {
     const transform = [
         `translate(${left}, ${top})`,
         `scale(${scale})`,
-        `rotate(${rotate}, 4, 4)`
+        `rotate(${rotate}, 53, 55)`
     ].join(' ');
 
     return (
@@ -93,13 +93,8 @@ export const MapLocationLinkArrow = (props: MapLocationLinkArrowProps) => {
                 fill={'#fff'}
                 transform={transform}
                 className={S.icon}
-                d="M7.563,6H0.436C0.04,6-0.112,5.499,0.088,5.222l3.545-4.977 c0.202-0.276,0.531-0.346,0.733-0.069l3.545,5.081C8.113,5.533,7.958,6,7.563,6z"
-            />
-            <path
-                transform={transform}
-                className={S.tip}
-                fill="black"
-                d="M 4.936 0.991 C 5.333 0.991 2.511 1.019 3.077 1.019 L 3.64 0.24 C 3.842 -0.036 4.162 -0.106 4.364 0.171 L 4.936 0.991 Z"
+                d="M98.666,89.6H8L53.333,8Z"
+                // d="M7.563,6H0.436C0.04,6-0.112,5.499,0.088,5.222l3.545-4.977 c0.202-0.276,0.531-0.346,0.733-0.069l3.545,5.081C8.113,5.533,7.958,6,7.563,6z"
             />
         </>
         // <path fill="#fff" d={path.join(' ')} className={S.icon}/>
