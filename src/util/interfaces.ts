@@ -1,7 +1,9 @@
 export enum MapType {
     NONE = 'none',
     SMALL = 'small',
-    LARGE = 'large'
+    SMALL_HD = 'small_hd',
+    LARGE = 'large',
+    LARGE_HD = 'large_hd',
 }
 
 export type ILocationPath = IMapLocationItem[];
