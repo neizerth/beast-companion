@@ -57,12 +57,12 @@ export const MapLocation = (props: MapLocationProps) => {
         left: k(left)
     };
 
-    const canLurk = false;
+    const showLurk = false;
     return <div
         style={style}
         className={classnames(className, S.container)}
     >
-        {canLurk && <div className={S.lurk} onClick={() => onLurk()}>
+        {showLurk && <div className={S.lurk} onClick={() => onLurk()}>
             <svg xmlns="http://www.w3.org/2000/svg"
                  className={S.lurk__icon}
                  viewBox="0 0 28 28">

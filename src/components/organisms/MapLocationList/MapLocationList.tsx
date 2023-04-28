@@ -1,30 +1,26 @@
 import {MapLocation} from "../../molecules/MapLocation/MapLocation";
 import S from "../MapController/MapController.module.scss";
-import {ILocationPath, IMapLocationItem} from "../../../util/interfaces";
+import {IMapLocationItem} from "../../../util/interfaces";
 import {
-    getLocationVisitIndex,
     getLocationVisitsCount,
     isLocationFirst,
     isLocationLast, isNextLocation
 } from "../../helpers/locationPath";
-import {useAppSelector} from "../../../hooks";
-import {selectPathData} from "../../../features/path/pathSlice";
+import {useAppDispatch, useAppSelector} from "../../../hooks";
+import {addPathItem, removePathItem, selectPathData} from "../../../features/path/pathSlice";
 
 export interface MapLocationListProps {
     locations: IMapLocationItem[];
     ratio: number;
-    onLocationClick: CallableFunction;
-    onLocationLurk: CallableFunction;
 }
 
 export const MapLocationList = (props: MapLocationListProps) => {
     const {
         locations,
         ratio,
-        onLocationClick = () => void(0),
-        onLocationLurk = () => void(0),
     } = props;
 
+    const dispatch = useAppDispatch();
     const locationPath = useAppSelector(selectPathData);
     const isFirst = (item: IMapLocationItem) => isLocationFirst(locationPath, item);
     const isLast = (item: IMapLocationItem) => isLocationLast(locationPath, item);
@@ -43,13 +39,20 @@ export const MapLocationList = (props: MapLocationListProps) => {
         }
         return false;
     }
+    const visitLocation = (item: IMapLocationItem) => dispatch(
+        isLocationLast(locationPath, item) ?
+            removePathItem(item) :
+            addPathItem(item)
+    );
     const onClick = (item: IMapLocationItem) => {
         if (!canClick(item)) {
             return;
         }
-        onLocationClick(item);
+        visitLocation(item);
     }
-    const onLurk = (item: IMapLocationItem) => onLocationLurk(item);
+
+    const onLurk = (item: IMapLocationItem) => void(item);
+
     return <>
         {locations.map((item, key) => (
             <MapLocation

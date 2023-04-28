@@ -7,16 +7,18 @@ import {useNavigate} from "react-router-dom";
 
 import clearIcon from "../../../../public/images/clear.svg";
 import backIcon from "../../../../public/images/back.svg";
+import {clearPath} from "../../../features/path/pathSlice";
+import {useAppDispatch} from "../../../hooks";
 
 export interface GameControlsProps {
-    onClear: CallableFunction;
 }
 
-export const ButtonControls = (props: GameControlsProps) => {
-    const { onClear } = props;
+export const ButtonControls = () => {
+    const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
     const goHome = () => navigate('/');
+    const clear = () => dispatch(clearPath());
 
     return (
         <>
@@ -24,7 +26,7 @@ export const ButtonControls = (props: GameControlsProps) => {
                 <div className={classnames(S.group, S.group_primary)}>
                     <div className={S.control}>
                         <GameControl
-                            onClick={() => onClear()}
+                            onClick={() => clear()}
                             className={classnames(S.clear)}
                             icon={clearIcon}
                             name={"Refresh"}

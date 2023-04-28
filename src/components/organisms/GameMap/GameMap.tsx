@@ -14,8 +14,6 @@ export interface GameMapProps {
     height: number;
     ratio: number;
     locations: IMapLocationItem[];
-    onLocationClick: CallableFunction;
-    onLocationLurk: CallableFunction;
 }
 
 export const GameMap = (props: GameMapProps) => {
@@ -25,8 +23,6 @@ export const GameMap = (props: GameMapProps) => {
         ratio,
         locations,
         src,
-        onLocationClick = () => void(0),
-        onLocationLurk = () => void(0),
     } = props;
 
     const ref = useRef(null);
@@ -55,8 +51,6 @@ export const GameMap = (props: GameMapProps) => {
                 {loaded &&
                     <>
                         <MapLocationList
-                            onLocationClick={onLocationClick}
-                            onLocationLurk={onLocationLurk}
                             locations={locations}
                             ratio={ratio}
                         />

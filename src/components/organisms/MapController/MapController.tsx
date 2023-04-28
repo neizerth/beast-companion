@@ -27,30 +27,18 @@ export const MapController = (props: GameMapProps) => {
     const dispatch = useAppDispatch();
     const [width, height, ratio] = useMapSize(data.settings);
 
-    const locationPath = useAppSelector(selectPathData);
-
-    const visitLocation = (item: IMapLocationItem) => dispatch(
-        isLocationLast(locationPath, item) ?
-            removePathItem(item) :
-            addPathItem(item)
-    );
-
     const onClear = () => dispatch(clearPath());
-    const lurk = (item: IMapLocationItem) => dispatch(addPathItem(item));
+
     return (
         <div className={classnames(className, S.container)}>
             <TransformWrapper>
-                <ButtonControls
-                    onClear={onClear}
-                />
+                <ButtonControls />
                 <KeyboardControls
                     locations={data.items}
                 />
                 <TransformComponent>
                     <GameMap
                         locations={data.items}
-                        onLocationClick={visitLocation}
-                        onLocationLurk={lurk}
                         src={mapUrl}
                         width={width}
                         height={height}
