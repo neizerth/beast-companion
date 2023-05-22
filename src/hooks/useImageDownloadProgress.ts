@@ -9,7 +9,7 @@ export const useImageDownloadProgress = (url: string) => {
         const img = new Image;
         img.src = url;
         axios.get(url, {
-            onDownloadProgress: ({ progress= 0 }) => setProgress(progress * 100)
+            onDownloadProgress: ({ progress = 0 }) => setProgress(progress * 100)
         })
             .then(() => setProgress(100));
     }, []);

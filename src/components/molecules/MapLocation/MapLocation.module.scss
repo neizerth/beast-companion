@@ -57,25 +57,42 @@
 
 .lurk {
     position: absolute;
-    z-index: 2;
-    right: -50%;
-    top: -50%;
+    z-index: 3;
+    left: -25%;
+    top: -35%;
+    //border-radius: 50%;
+    width: 50%;
+    height: 50%;
+
     border-radius: 50%;
-    width: 100%;
-    height: 100%;
-    &__icon {
-        width: 75%;
-        height: 75%;
-        object-fit: contain;
-        fill: #fff;
-        filter: drop-shadow(0 0 5px #000);
-        &:active {
-            fill: #ff780a;
-            margin-top: 1px;
-            margin-left: 1px;
-        }
+    //background: url("/images/down.png") top 40% left 50% no-repeat;
+    background: #00000030 url("/images/hourglass.svg") top 40% left 50% no-repeat;
+    background-size: 80%;
+    filter: drop-shadow(0 0 5px black);
+    &:active {
+        margin-top: 1px;
+        margin-left: 1px;
     }
 }
+
+.lurk__markers {
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    top: -25%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.lurk__marker {
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #000;
+}
+
 
 .next {
     box-shadow: 0 0 1.5vw yellow;
