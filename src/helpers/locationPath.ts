@@ -1,6 +1,6 @@
 import { flowRight } from 'lodash'
 import { add } from 'lodash/fp'
-import {ILocationPath, IPathItem, IMapLocationItem} from "../../util/interfaces";
+import {ILocationPath, IPathItem, IMapLocationItem} from "../util/interfaces";
 import {link} from "d3";
 
 export const getLocationItem = (path: ILocationPath, locationItem: IMapLocationItem) =>
@@ -20,7 +20,7 @@ export type IPathItemAction = (path: ILocationPath, item: IMapLocationItem) => I
 export const addLocation = (path: ILocationPath, item: IMapLocationItem) =>
     [...path, item];
 
-export const clearPath = (path: ILocationPath) => [];
+export const clearPath = () => [];
 
 export const removeLocation = (path: ILocationPath, item: IMapLocationItem) => {
     const index = path.lastIndexOf(item);
@@ -28,7 +28,54 @@ export const removeLocation = (path: ILocationPath, item: IMapLocationItem) => {
 };
 
 export const getLocationVisitsCount = (path: ILocationPath, locationItem: IMapLocationItem) =>
-    path.filter(item => item === locationItem).length;
+    path.reduce((total, item, index, self) => {
+        if (item !== locationItem) {
+            return total;
+        }
+        if (item === self[index - 1]) {
+            return total;
+        }
+        return total + 1;
+    }, 0);
+
+export const getWaitVisits = (path: ILocationPath) => {
+    const data = path.reduce((total, item, index, self) => {
+            if (item === self[index - 1]) {
+                total.push(index);
+            }
+            return total;
+        }, [] as number[])
+
+    return groupWaitVisits(data);
+}
+
+export const groupWaitVisits = (waitList: number[]) => {
+    let groupId = 0;
+    return waitList.map((value, index, self) => {
+        if (index === 0) {
+            return groupId;
+        }
+        if (self[index - 1] !== value - 1) {
+            return ++groupId
+        }
+        return groupId;
+    });
+}
+
+export const getWaitVisitsCount = (path: ILocationPath) => getWaitVisits(path).length;
+
+export const getLocationWait = (path: ILocationPath, locationItem: IMapLocationItem) => {
+    const data = path.reduce((total, item, index, self) => {
+            if (item === locationItem && item === self[index - 1]) {
+                total.push(index);
+            }
+            return total;
+        }, [] as number[]);
+    return groupWaitVisits(data);
+}
+
+export const getLocationWaitCount = (path: ILocationPath, locationItem: IMapLocationItem) =>
+    getLocationWait(path, locationItem).length;
 
 export const getLocationVisits = (path: ILocationPath, locationItem: IMapLocationItem) =>
     path.reduce((target, item, index, self) => {
@@ -50,6 +97,9 @@ export const getMutualLocationsVisits = (
     to: IMapLocationItem
 ) => path.reduce((target, item, index, self) => {
     if (index === 0) {
+        return target;
+    }
+    if (item === self[index - 1]) {
         return target;
     }
     if (item === from && self[index - 1] === to) {

@@ -2,7 +2,7 @@ import {ILocationPath, IMapLocationItem} from "../../../util/interfaces";
 import S from "./MapLocationPath.module.scss";
 import {useRef} from "react";
 import {MapLocationLink} from "../../molecules/MapLocationLink/MapLocationLink";
-import {getLocationVisitIndex, getLocationVisitsCount, getMutualLocationsVisitIndex} from "../../helpers/locationPath";
+import {getLocationVisitIndex, getLocationVisitsCount, getMutualLocationsVisitIndex} from "../../../helpers/locationPath";
 import {useAppSelector} from "../../../hooks";
 import {selectPathData} from "../../../features/path/pathSlice";
 
@@ -12,6 +12,7 @@ export interface ILocationLinkItem {
 }
 
 export interface ILocationPathListItem {
+    index: number;
     source: ILocationLinkItem;
     target: ILocationLinkItem;
     mutualVisitIndex: number;
@@ -32,8 +33,13 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
         ratio
     } = props
     const path = useAppSelector(selectPathData);
+    let skipIndex = 0;
     const pathList: ILocationPathList = path.reduce((target, item, index, self) => {
         if (index === 0) {
+            return target;
+        }
+        if (item === self[index - 1]) {
+            skipIndex++;
             return target;
         }
         let source = target[index - 1]?.target;
@@ -55,12 +61,13 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
         );
 
         target.push({
+            index: target.length + skipIndex,
             source,
             target: {
                 location: item,
                 visitIndex
             },
-            mutualVisitIndex
+            mutualVisitIndex: mutualVisitIndex
         });
 
         return target;
@@ -74,6 +81,7 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
                 <MapLocationLink
                     key={key}
                     index={key}
+                    actionIndex={item.index}
                     pathLength={pathList.length}
                     visitIndex={item.mutualVisitIndex}
                     source={item.source}

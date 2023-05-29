@@ -2,13 +2,16 @@ import React, {CSSProperties, useEffect, useState} from "react";
 
 import S from "./MapLocation.module.scss";
 import classnames from "classnames";
-import {px, scale, vw} from "../../../util/common";
+import {MAX_WAIT_SIZE, px, scale, vw} from "../../../util/common";
+import {MapLocationWait} from "../../organisms/MapLocationWait/MapLocationWait";
 
 export interface MapLocationProps {
     onClick: CallableFunction;
-    onLurk: CallableFunction;
+    onWait: CallableFunction;
     className: string;
     visitsCount: number;
+    waitLeftCount: number;
+    waitList: number[];
     isFirst: boolean;
     isLast: boolean;
     isNext: boolean;
@@ -26,11 +29,13 @@ export const MapLocation = (props: MapLocationProps) => {
         isNext,
         visitsCount,
         onClick,
-        onLurk,
+        onWait,
         ratio,
         size,
         top,
-        left
+        left,
+        waitList,
+        waitLeftCount
     } = props;
 
     const isSelected = visitsCount > 0;
@@ -56,35 +61,20 @@ export const MapLocation = (props: MapLocationProps) => {
         top: k(top),
         left: k(left)
     };
+    const canWait = isLast || waitList.length > 0;
 
-    // const showLurk = false;
-    const showLurk = isLast;
-    const lurkList = new Array(3).fill(0).map((value, index) => value + index);
-
-    const lurkMarkerSize = Math.floor(scale(size, ratio) / 10);
-    const lurkMarkerGap = lurkMarkerSize / 2;
-    const lurkMarkerStyle = {
-        width: lurkMarkerSize,
-        height: lurkMarkerSize,
-    };
-    const lurkMarkersContainerStyle = {
-        width: lurkMarkerSize * 4 + lurkMarkerGap * 3,
-        height: lurkMarkerSize * 2 + lurkMarkerGap,
-        gap: lurkMarkerGap
-    }
     return <div
         style={style}
         className={classnames(className, S.container)}
     >
-        {showLurk && <>
-                <div className={S.lurk} onClick={() => onLurk()}/>
-                <div className={S.lurk__markers} style={lurkMarkersContainerStyle}>
-                    {lurkList.map((index) => (
-                        <div key={index} style={lurkMarkerStyle} className={S.lurk__marker}/>
-                    ))}
-                </div>
-            </>
-        }
+        {canWait && <MapLocationWait
+            isLast={isLast}
+            waitList={waitList}
+            waitLeftCount={waitLeftCount}
+            size={size}
+            ratio={ratio}
+            onWait={onWait}
+        />}
 
         <div
             onClick={() => onClick()}

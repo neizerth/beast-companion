@@ -2,12 +2,13 @@ import {MapLocation} from "../../molecules/MapLocation/MapLocation";
 import S from "../MapController/MapController.module.scss";
 import {IMapLocationItem} from "../../../util/interfaces";
 import {
-    getLocationVisitsCount,
+    getLocationVisitsCount, getLocationWait, getLocationWaitCount, getWaitVisitsCount,
     isLocationFirst,
     isLocationLast, isNextLocation
-} from "../../helpers/locationPath";
+} from "../../../helpers/locationPath";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {addPathItem, removePathItem, selectPathData} from "../../../features/path/pathSlice";
+import {MAX_WAIT_SIZE} from "../../../util/common";
 
 export interface MapLocationListProps {
     locations: IMapLocationItem[];
@@ -26,6 +27,8 @@ export const MapLocationList = (props: MapLocationListProps) => {
     const isLast = (item: IMapLocationItem) => isLocationLast(locationPath, item);
     const getVisitsCount = (item: IMapLocationItem) => getLocationVisitsCount(locationPath, item);
     const isNext = (item: IMapLocationItem) => isNextLocation(locationPath, item);
+    const getWait = (item: IMapLocationItem) => getLocationWait(locationPath, item);
+    const waitLeftCount = getWaitVisitsCount(locationPath);
 
     const canClick = (item: IMapLocationItem) => {
         if (locationPath.length === 0) {
@@ -51,17 +54,26 @@ export const MapLocationList = (props: MapLocationListProps) => {
         visitLocation(item);
     }
 
-    const onLurk = (item: IMapLocationItem) => void(item);
+    const onWait = (item: IMapLocationItem) => {
+        if (waitLeftCount === MAX_WAIT_SIZE) {
+            return;
+        }
+        // console.log('wait', item)
+        const action = addPathItem(item);
+        dispatch(action);
+    };
 
     return <>
         {locations.map((item, key) => (
             <MapLocation
                 {...item}
                 onClick={() => onClick(item)}
-                onLurk={() => onLurk(item)}
+                onWait={() => onWait(item)}
                 isFirst={isFirst(item)}
                 isLast={isLast(item)}
                 isNext={isNext(item)}
+                waitList={getWait(item)}
+                waitLeftCount={waitLeftCount}
                 visitsCount={getVisitsCount(item)}
                 className={S.location}
                 ratio={ratio}
