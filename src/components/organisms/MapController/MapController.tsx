@@ -5,7 +5,7 @@ import {ButtonControls} from "../ButtonControls/ButtonControls";
 import {useMapSize} from "../../../hooks/useMapSize";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {addPathItem, clearPath, removePathItem, selectPathData} from "../../../features/path/pathSlice";
-import {isLocationLast} from "../../helpers/locationPath";
+import {isLocationLast} from "../../../helpers/locationPath";
 import {GameMap} from "../GameMap/GameMap";
 
 import {TransformWrapper, TransformComponent, useControls} from "react-zoom-pan-pinch";

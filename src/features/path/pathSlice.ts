@@ -1,7 +1,7 @@
 import {ActionCreator, createSlice, PayloadAction, ThunkAction} from "@reduxjs/toolkit";
 import {ILocationPath, IMapLocationItem} from "../../util/interfaces";
 import {AppSelector, AppThunk} from "../../store";
-import {addLocation, IPathItemAction, removeLocation, startFromLocation} from "../../components/helpers/locationPath";
+import {addLocation, IPathItemAction, removeLocation, startFromLocation} from "../../helpers/locationPath";
 import {pushState as pushHistoryState, clear as clearHistory} from "../history/historySlice";
 import {last} from "lodash";
 

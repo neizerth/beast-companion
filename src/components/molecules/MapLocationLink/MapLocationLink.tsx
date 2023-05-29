@@ -14,6 +14,7 @@ export interface MapLocationLinkProps {
     target: ILocationLinkItem;
     visitIndex: number;
     pathLength: number;
+    actionIndex: number;
     ratio: number;
     index: number;
 }
@@ -102,7 +103,8 @@ export const MapLocationLink = (props: MapLocationLinkProps) => {
         ratio,
         index,
         visitIndex,
-        pathLength
+        pathLength,
+        actionIndex,
     } = props;
 
     const k = (x: number) => scale(x, ratio);
@@ -148,7 +150,7 @@ export const MapLocationLink = (props: MapLocationLinkProps) => {
                     fill={'#000'}
                     className={S.index}
                 >
-                    {index + 1}
+                    {actionIndex + 1}
                 </text>
             </g>
         </>

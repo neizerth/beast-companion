@@ -2,7 +2,7 @@ import {IMapLocationItem} from "../../../util/interfaces";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {addPathItem, clearPath, removeLastPathItem, selectPathData} from "../../../features/path/pathSlice";
 import {useEffect} from "react";
-import {getLocationDirectedLinks} from "../../helpers/locationPath";
+import {getLocationDirectedLinks} from "../../../helpers/locationPath";
 import {redo, selectHistoryData, selectHistoryIndex, undo} from "../../../features/history/historySlice";
 import {useControls} from "react-zoom-pan-pinch";
 

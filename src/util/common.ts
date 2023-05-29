@@ -1,5 +1,7 @@
 import {flowRight, values} from "lodash";
 
+export const MAX_WAIT_SIZE = 8;
+
 export const scale = (x: number, ratio: number) => x * ratio;
 
 export const px = (value: any) => value + 'px';
