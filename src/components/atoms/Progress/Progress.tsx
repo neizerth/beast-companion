@@ -1,6 +1,5 @@
 import S from "./Progress.module.scss";
 import {CSSProperties} from "react";
-import {px} from "../../../util/common";
 
 export interface ProgressProps {
     value: number;

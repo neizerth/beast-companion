@@ -40,6 +40,13 @@ export const MapLocationWait = (props: MapLocationWaitProps) => {
         gap: markerGap
     }
 
+    const buttonSize = Math.floor(scale(size, ratio)/ 2);
+    const buttonStyle = {
+        width: buttonSize,
+        height: buttonSize,
+        backgroundSize: Math.floor(buttonSize * 0.6)
+    }
+
     const MARKER_COLORS = [
         '#ffffff',
         '#ffd3b2',
@@ -48,7 +55,7 @@ export const MapLocationWait = (props: MapLocationWaitProps) => {
         '#ff9900',
         '#ff780a',
         '#ff430a',
-        '#ff0000',
+        '#ff0000'
     ];
 
     const getMarkerStyle = (groupId: number) => {
@@ -60,7 +67,7 @@ export const MapLocationWait = (props: MapLocationWaitProps) => {
     };
 
     return <>
-        {isLast && waitLeftCount < MAX_WAIT_SIZE && <div className={S.button} onClick={() => onWait()}/>}
+        {isLast && waitLeftCount < MAX_WAIT_SIZE && <div className={S.button} style={buttonStyle} onClick={() => onWait()}/>}
         {waitCount > 0 && <div className={S.markers} style={markersContainerStyle}>
             {waitList.map((groupId, index) => (
                 <div key={index} style={getMarkerStyle(groupId)} className={S.marker}/>

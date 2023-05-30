@@ -69,7 +69,7 @@ export const removeLastPathItem: ActionCreator<AppThunk> = () => (dispatch,getSt
     dispatch(removePathItem(item));
 }
 
-export const clearPath: ActionCreator<AppThunk> = (item: IMapLocationItem) =>
+export const clearPath: ActionCreator<AppThunk> = () =>
     (dispatch, getState) => {
         const { path } = getState();
         const { startLocation } = path;

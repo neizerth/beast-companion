@@ -1,12 +1,9 @@
-import {ActionCreator, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppSelector, AppThunk} from "../../store";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {AppSelector} from "../../store";
 
 export interface ISetZoomState {
     scale: number;
 }
-
-export const MAX_SCALE = 8;
-export const MIN_SCALE = 1;
 
 export type ISetZoomPayload = PayloadAction<number>;
 
