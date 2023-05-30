@@ -14,7 +14,7 @@ export const findLocationIndex = (path: ILocationPath, locationItem: IMapLocatio
 
 export const findLastLocationIndex = (path: ILocationPath, locationItem: IMapLocationItem) => {
     for (let i = path.length; i--; ) {
-        if (path[i].index === locationItem.index) {
+        if (path[i]?.index === locationItem?.index) {
             return i;
         }
     }
@@ -24,7 +24,7 @@ export const isLocationFirst = (path: ILocationPath, item: IMapLocationItem) =>
     path.length > 0 && findLocationIndex(path, item) === 0;
 
 export const isLocationLast = (path: ILocationPath, item: IMapLocationItem) =>
-    path.length > 0 && path.lastIndexOf(item) === path.length - 1;
+    path.length > 0 && findLastLocationIndex(path, item) === path.length - 1;
 
 export type IPathItemAction = (path: ILocationPath, item: IMapLocationItem) => ILocationPath;
 
