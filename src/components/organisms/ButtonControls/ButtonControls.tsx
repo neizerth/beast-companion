@@ -13,7 +13,7 @@ import {ModeSwitch} from "../ModeSwitch/ModeSwitch";
 import {selectMode} from "../../../features/gameMode/gameModeSlice";
 import {GameMode} from "../../../util/common";
 import {resetLocationsType} from "../../../features/locations/locationsSlice";
-import {clearPath} from "../../../features/path/pathSlice";
+import {clearPath, selectPathData} from "../../../features/path/pathSlice";
 import {ResetLocationsTypeButton} from "../ResetLocationsTypeButton/ResetLocationsTypeButton";
 
 export interface GameControlsProps {
@@ -26,10 +26,11 @@ export const ButtonControls = () => {
 
     const isPathMode = gameMode === GameMode.PATH;
     const isLocationsMode = gameMode === GameMode.LOCATIONS;
+    const path = useAppSelector(selectPathData);
     const navigate = useNavigate();
     const goHome = () => navigate('/');
-    const resetLocations = () => dispatch(resetLocationsType());
     const clear = () => dispatch(clearPath());
+    const canClear = path.length > 1;
 
     return (
         <>
@@ -44,6 +45,7 @@ export const ButtonControls = () => {
                                 onClick={() => clear()}
                                 className={classnames(S.clear)}
                                 icon={clearIcon}
+                                disabled={!canClear}
                                 name={"Refresh"}
                             />
                         </div>
