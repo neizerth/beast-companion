@@ -1,3 +1,7 @@
 .container {
     position: relative;
 }
+
+.component {
+    will-change: transform;
+}

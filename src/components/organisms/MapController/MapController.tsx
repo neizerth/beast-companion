@@ -31,7 +31,7 @@ export const MapController = (props: GameMapProps) => {
             <TransformWrapper>
                 <ButtonControls />
                 <KeyboardControls/>
-                <TransformComponent>
+                <TransformComponent contentClass={S.content} wrapperClass={S.warpper}>
                     <GameMap
                         src={mapUrl}
                         width={width}
