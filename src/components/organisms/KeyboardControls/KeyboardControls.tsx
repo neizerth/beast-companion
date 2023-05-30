@@ -26,6 +26,9 @@ export const KeyboardControls = () => {
     const isRedoDisabled = isHistoryEmpty || historyIndex === history.length - 1;
 
     const getPathAction = (e: KeyboardEvent) => {
+        if (gameMode !== GameMode.PATH) {
+            return;
+        }
         const { key, ctrlKey, metaKey, shiftKey } = e;
         if (key === 'Backspace') {
             return removeLastPathItem();
@@ -79,20 +82,29 @@ export const KeyboardControls = () => {
         }
         return false;
     };
+    const getLocationsAction = (e: KeyboardEvent) => {
+        if (gameMode !== GameMode.LOCATIONS) {
+            return;
+        }
+        const { key} = e;
+        if (key === 'Delete') {
+            return resetLocationsType();
+        }
+    }
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
             const { key } = e;
             if (handleCommonMode(key)) {
                 return;
             }
-            if (gameMode !== GameMode.PATH) {
-                return;
+            const locationsAction = getLocationsAction(e);
+            if (locationsAction) {
+                return dispatch(locationsAction);
             }
             const action = getPathAction(e);
-            if (!action) {
-                return;
+            if (action) {
+                dispatch(action);
             }
-            dispatch(action);
         };
         window.addEventListener('keyup', handler);
         return () => window.removeEventListener('keyup', handler);
