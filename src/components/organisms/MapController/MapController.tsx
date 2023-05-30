@@ -30,12 +30,9 @@ export const MapController = (props: GameMapProps) => {
         <div className={classnames(className, S.container)}>
             <TransformWrapper>
                 <ButtonControls />
-                <KeyboardControls
-                    locations={data.items}
-                />
+                <KeyboardControls/>
                 <TransformComponent>
                     <GameMap
-                        locations={data.items}
                         src={mapUrl}
                         width={width}
                         height={height}

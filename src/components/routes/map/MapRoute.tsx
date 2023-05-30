@@ -10,6 +10,7 @@ import {useEffect} from "react";
 import {useAppDispatch} from "../../../hooks";
 import {addPathItem, clearPath, startFrom} from "../../../features/path/pathSlice";
 import {maps} from "../../../util/maps";
+import {setLocations} from "../../../features/locations/locationsSlice";
 
 export interface MapLoaderParams {
     type: MapType
@@ -37,9 +38,11 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
 
     const items = data[1]
         .map((item: IMapJSONItem, index) => {
-            const [top, left, links, size = defaultSize] = item;
+            const [top, left, links, type, size = defaultSize] = item;
             return {
                 index,
+                defaultType: type,
+                type,
                 top,
                 left,
                 size,
@@ -74,6 +77,7 @@ export const MapRoute = () => {
     const startLocation = mapData.items[mapData.settings.startLocation];
 
     useEffect(() => {
+        dispatch(setLocations(mapData.items));
         dispatch(startFrom(startLocation));
     }, [])
 

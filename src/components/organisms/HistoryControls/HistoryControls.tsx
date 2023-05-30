@@ -24,7 +24,8 @@ export const HistoryControls = (props: HistoryControlsProps) => {
     const handleUndo = () => dispatch(undo());
     const handleRedo = () => dispatch(redo());
 
-    const controlClassName = classnames(props.controlClassName, S.control)
+    const controlClassName = classnames(props.controlClassName, S.control);
+
     return <>
         <div className={controlClassName}>
             <GameControl

@@ -6,13 +6,13 @@ import {MapLocationPath, MapLocationList} from "../..";
 import classnames from "classnames";
 import {useAppSelector} from "../../../hooks";
 import {selectMode} from "../../../features/gameMode/gameModeSlice";
+import {selectLocations} from "../../../features/locations/locationsSlice";
 
 export interface GameMapProps {
     src: string;
     width: number;
     height: number;
     ratio: number;
-    locations: IMapLocationItem[];
 }
 
 export const GameMap = (props: GameMapProps) => {
@@ -20,11 +20,12 @@ export const GameMap = (props: GameMapProps) => {
         width,
         height,
         ratio,
-        locations,
         src,
     } = props;
 
     const mode = useAppSelector(selectMode);
+    const locations = useAppSelector(selectLocations);
+
     const [loaded, setLoaded] = useState(false);
 
     const mainStyle: CSSProperties = {
@@ -50,7 +51,6 @@ export const GameMap = (props: GameMapProps) => {
                 {loaded &&
                     <>
                         <MapLocationList
-                            locations={locations}
                             ratio={ratio}
                         />
                         {mode === GameMode.PATH && <MapLocationPath

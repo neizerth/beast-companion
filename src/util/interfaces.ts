@@ -6,6 +6,14 @@ export enum MapType {
     LARGE_HD = 'large_hd',
 }
 
+export enum MapLocationType {
+    CAVES = 0,
+    FOREST = 1,
+    MIXED = 2,
+    SETTLEMENT = 3,
+    SWAMP = 4,
+}
+
 export type ILocationPath = IMapLocationItem[];
 
 export interface IPathItem {
@@ -21,6 +29,8 @@ export interface IMapSize {
 
 export interface IMapLocationItem {
     index: number;
+    type: MapLocationType;
+    defaultType: MapLocationType;
     top: number;
     left: number;
     size: number;
@@ -51,6 +61,7 @@ export type IMapJSONItem = [
     top: number,
     left: number,
     links: number[],
+    type: MapLocationType,
     size: number | undefined
 ];
 

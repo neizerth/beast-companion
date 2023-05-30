@@ -50,19 +50,19 @@
 
 .mode {
   position: relative;
-  padding: 0.5em 1em 0;
+  padding: 0.5em 1em 0.3em 0.7em;
   left: 0.5em;
 }
 
 .clear {
   position: relative;
-  left: 0.4em;
   width: 6em;
   height: 5.5em;
 }
 
 .control {
-  width: 8em;
+  max-width: 8em;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;

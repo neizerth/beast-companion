@@ -3,7 +3,9 @@ import React from "react";
 import S from "./MapLocation.module.scss";
 import classnames from "classnames";
 import {GameMode, px, scale} from "../../../util/common";
-import {MapLocationWait} from "../..";
+import {MapLocationImage, MapLocationWait} from "../..";
+import {MapLocationType} from "../../../util/interfaces";
+import {MapLocationImageList} from "../../../util/locations";
 
 export interface MapLocationProps {
     onClick: CallableFunction;
@@ -19,7 +21,9 @@ export interface MapLocationProps {
     top: number;
     left: number;
     size: number;
+    type: MapLocationType;
     gameMode: GameMode;
+    isDefaultType: boolean;
 }
 
 export const MapLocation = (props: MapLocationProps) => {
@@ -37,11 +41,14 @@ export const MapLocation = (props: MapLocationProps) => {
         left,
         waitList,
         waitLeftCount,
-        gameMode
+        gameMode,
+        type,
+        isDefaultType
     } = props;
 
     const isSelected = visitsCount > 0;
     const isPathMode = gameMode === GameMode.PATH;
+    const isLocationsMode = gameMode === GameMode.LOCATIONS;
 
     const stateClassName = isLast ? S.last :
         isFirst ? S.first :
@@ -49,6 +56,7 @@ export const MapLocation = (props: MapLocationProps) => {
 
     const classList = [
         S.background,
+        isLocationsMode && !isDefaultType && S.modified,
         isPathMode && stateClassName,
         isPathMode && isNext && S.next
     ];
@@ -64,10 +72,20 @@ export const MapLocation = (props: MapLocationProps) => {
     };
     const canWait = isPathMode && (isLast || waitList.length > 0);
 
+    const locationTypeItem = MapLocationImageList[type];
+    const locationImageUrl = locationTypeItem.url;
+
     return <div
         style={style}
         className={classnames(className, S.container)}
     >
+        <MapLocationImage
+            type={type}
+            ratio={ratio}
+            locationSize={size}
+            className={S.image}
+        />
+
         {canWait && <MapLocationWait
             isLast={isLast}
             waitList={waitList}

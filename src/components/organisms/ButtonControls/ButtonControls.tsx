@@ -6,21 +6,29 @@ import {ZoomControls} from "../ZoomControls/ZoomControls";
 import {useNavigate} from "react-router-dom";
 
 import clearIcon from "../../../../public/images/clear.svg";
+import clearLocationsIcon from "../../../../public/images/clear_locations.svg";
 import backIcon from "../../../../public/images/back.svg";
-import changeIcon from "../../../../public/images/change.svg";
-import {clearPath} from "../../../features/path/pathSlice";
-import {useAppDispatch} from "../../../hooks";
+import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {ModeSwitch} from "../ModeSwitch/ModeSwitch";
+import {selectMode} from "../../../features/gameMode/gameModeSlice";
+import {GameMode} from "../../../util/common";
+import {resetLocationsType} from "../../../features/locations/locationsSlice";
+import {clearPath} from "../../../features/path/pathSlice";
 
 export interface GameControlsProps {
 }
 
 export const ButtonControls = () => {
+    const gameMode = useAppSelector(selectMode);
+
     const dispatch = useAppDispatch();
 
+    const isPathMode = gameMode === GameMode.PATH;
+    const isLocationsMode = gameMode === GameMode.LOCATIONS;
     const navigate = useNavigate();
     const goHome = () => navigate('/');
     const clear = () => dispatch(clearPath());
+    const resetLocations = () => dispatch(resetLocationsType());
 
     return (
         <>
@@ -29,17 +37,29 @@ export const ButtonControls = () => {
                     <div className={S.control}>
                         <ModeSwitch className={S.mode}/>
                     </div>
-                    <div className={S.control}>
-                        <GameControl
-                            onClick={() => clear()}
-                            className={classnames(S.clear)}
-                            icon={clearIcon}
-                            name={"Refresh"}
-                        />
-                    </div>
-                    <div className={classnames(S.group, S.history)}>
-                        <HistoryControls controlClassName={S.control}/>
-                    </div>
+                    {isPathMode && <>
+                        <div className={S.control}>
+                            <GameControl
+                                onClick={() => clear()}
+                                className={classnames(S.clear)}
+                                icon={clearIcon}
+                                name={"Refresh"}
+                            />
+                        </div>
+                        <div className={classnames(S.group, S.history)}>
+                            <HistoryControls controlClassName={S.control}/>
+                        </div>
+                    </>}
+                    {isLocationsMode && <>
+                        <div className={S.control}>
+                            <GameControl
+                                onClick={() => resetLocations()}
+                                className={classnames(S.clear)}
+                                icon={clearLocationsIcon}
+                                name={"Clear Locations"}
+                            />
+                        </div>
+                    </>}
                     <div className={classnames(S.group, S.zoom)}>
                         <ZoomControls
                             controlClassName={S.control}

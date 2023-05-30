@@ -23,7 +23,7 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
         if (index === 0) {
             return target;
         }
-        if (item === self[index - 1]) {
+        if (item.index === self[index - 1]?.index) {
             skipIndex++;
             return target;
         }

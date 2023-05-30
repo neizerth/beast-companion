@@ -2,6 +2,7 @@
 export { Button } from './atoms/Button/Button';
 export { MapLocationLinkArrow } from './atoms/MapLocationLinkArrow/MapLocationLinkArrow';
 export { Progress } from './atoms/Progress/Progress';
+export { MapLocationImage } from './atoms/MapLocationImage/MapLocationImage';
 
 // molecules
 export { GameControl } from './molecules/GameControl/GameControl';
