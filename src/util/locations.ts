@@ -14,6 +14,7 @@ export interface MapLocationListItem {
 export const USER_LOCATION_TYPES = [
     MapLocationType.SWAMP,
     MapLocationType.CAVES,
+    MapLocationType.FOREST,
     MapLocationType.SETTLEMENT
 ];
 

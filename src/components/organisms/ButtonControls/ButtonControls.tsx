@@ -14,6 +14,7 @@ import {selectMode} from "../../../features/gameMode/gameModeSlice";
 import {GameMode} from "../../../util/common";
 import {resetLocationsType} from "../../../features/locations/locationsSlice";
 import {clearPath} from "../../../features/path/pathSlice";
+import {ResetLocationsTypeButton} from "../ResetLocationsTypeButton/ResetLocationsTypeButton";
 
 export interface GameControlsProps {
 }
@@ -27,8 +28,8 @@ export const ButtonControls = () => {
     const isLocationsMode = gameMode === GameMode.LOCATIONS;
     const navigate = useNavigate();
     const goHome = () => navigate('/');
-    const clear = () => dispatch(clearPath());
     const resetLocations = () => dispatch(resetLocationsType());
+    const clear = () => dispatch(clearPath());
 
     return (
         <>
@@ -52,12 +53,7 @@ export const ButtonControls = () => {
                     </>}
                     {isLocationsMode && <>
                         <div className={S.control}>
-                            <GameControl
-                                onClick={() => resetLocations()}
-                                className={classnames(S.clear)}
-                                icon={clearLocationsIcon}
-                                name={"Clear Locations"}
-                            />
+                            <ResetLocationsTypeButton className={S.clear}/>
                         </div>
                     </>}
                     <div className={classnames(S.group, S.zoom)}>

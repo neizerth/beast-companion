@@ -79,12 +79,14 @@ export const MapLocation = (props: MapLocationProps) => {
         style={style}
         className={classnames(className, S.container)}
     >
-        <MapLocationImage
-            type={type}
-            ratio={ratio}
-            locationSize={size}
-            className={S.image}
-        />
+        {!isDefaultType &&
+            <MapLocationImage
+                type={type}
+                ratio={ratio}
+                locationSize={size}
+                className={S.image}
+            />
+        }
 
         {canWait && <MapLocationWait
             isLast={isLast}

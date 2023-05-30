@@ -21,3 +21,4 @@ export { MapLocationWait } from './organisms/MapLocationWait/MapLocationWait';
 export { MapSelector } from './organisms/MapSelector/MapSelector';
 export { ZoomControls } from './organisms/ZoomControls/ZoomControls';
 export { ModeSwitch } from './organisms/ModeSwitch/ModeSwitch';
+export { ResetLocationsTypeButton } from './organisms/ResetLocationsTypeButton/ResetLocationsTypeButton';
