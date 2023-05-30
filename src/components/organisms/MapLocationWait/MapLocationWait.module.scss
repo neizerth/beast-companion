@@ -5,12 +5,9 @@
   left: -35%;
   top: -35%;
   //border-radius: 50%;
-  width: 50%;
-  height: 50%;
-
   border-radius: 50%;
   //background: url("/images/down.png") top 40% left 50% no-repeat;
-  background: #00000030 url("/images/hourglass.svg") top 50% left 50% no-repeat;
+  background: #00000030 url("/images/hourglass.svg") center center no-repeat;
   background-size: 80%;
   filter: drop-shadow(0 0 5px black);
   &:active {

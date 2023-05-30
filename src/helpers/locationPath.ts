@@ -4,13 +4,24 @@ import {ILocationPath, IPathItem, IMapLocationItem} from "../util/interfaces";
 import {link} from "d3";
 
 export const getLocationItem = (path: ILocationPath, locationItem: IMapLocationItem) =>
-    path.find(item => item === locationItem);
+    path.find(item => item.index === locationItem.index);
 
 export const isLocationExists = (path: ILocationPath, locationItem: IMapLocationItem) =>
     getLocationItem(path, locationItem) !== undefined;
 
+export const findLocationIndex = (path: ILocationPath, locationItem: IMapLocationItem) =>
+    path.findIndex(item => item.index === locationItem.index);
+
+export const findLastLocationIndex = (path: ILocationPath, locationItem: IMapLocationItem) => {
+    for (let i = path.length; i--; ) {
+        if (path[i].index === locationItem.index) {
+            return i;
+        }
+    }
+}
+
 export const isLocationFirst = (path: ILocationPath, item: IMapLocationItem) =>
-    path.length > 0 && path.indexOf(item) === 0;
+    path.length > 0 && findLocationIndex(path, item) === 0;
 
 export const isLocationLast = (path: ILocationPath, item: IMapLocationItem) =>
     path.length > 0 && path.lastIndexOf(item) === path.length - 1;
@@ -23,16 +34,16 @@ export const addLocation = (path: ILocationPath, item: IMapLocationItem) =>
 export const clearPath = () => [];
 
 export const removeLocation = (path: ILocationPath, item: IMapLocationItem) => {
-    const index = path.lastIndexOf(item);
+    const index = findLocationIndex(path, item);
     return [...path.slice(0, index), ...path.slice(index + 1)];
 };
 
 export const getLocationVisitsCount = (path: ILocationPath, locationItem: IMapLocationItem) =>
     path.reduce((total, item, index, self) => {
-        if (item !== locationItem) {
+        if (item.index !== locationItem.index) {
             return total;
         }
-        if (item === self[index - 1]) {
+        if (item.index === self[index - 1]?.index) {
             return total;
         }
         return total + 1;
@@ -40,7 +51,7 @@ export const getLocationVisitsCount = (path: ILocationPath, locationItem: IMapLo
 
 export const getWaitVisits = (path: ILocationPath) => {
     const data = path.reduce((total, item, index, self) => {
-            if (item === self[index - 1]) {
+            if (item.index === self[index - 1]?.index) {
                 total.push(index);
             }
             return total;
@@ -66,7 +77,7 @@ export const getWaitVisitsCount = (path: ILocationPath) => getWaitVisits(path).l
 
 export const getLocationWait = (path: ILocationPath, locationItem: IMapLocationItem) => {
     const data = path.reduce((total, item, index, self) => {
-            if (item === locationItem && item === self[index - 1]) {
+            if (item.index === locationItem.index && item.index === self[index - 1]?.index) {
                 total.push(index);
             }
             return total;
@@ -79,7 +90,7 @@ export const getLocationWaitCount = (path: ILocationPath, locationItem: IMapLoca
 
 export const getLocationVisits = (path: ILocationPath, locationItem: IMapLocationItem) =>
     path.reduce((target, item, index, self) => {
-        if (self[index] === locationItem) {
+        if (self[index].index === locationItem.index) {
             target.push(index);
         }
         return target;
@@ -99,13 +110,13 @@ export const getMutualLocationsVisits = (
     if (index === 0) {
         return target;
     }
-    if (item === self[index - 1]) {
+    if (item.index === self[index - 1]?.index) {
         return target;
     }
-    if (item === from && self[index - 1] === to) {
+    if (item.index === from.index && self[index - 1]?.index === to.index) {
         target.push(index);
     }
-    if (item === to && self[index - 1] === from) {
+    if (item.index === to.index && self[index - 1]?.index === from.index) {
         target.push(index);
     }
     return target;

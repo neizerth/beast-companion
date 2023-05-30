@@ -1,25 +1,32 @@
 import {MapLocation} from "../../molecules/MapLocation/MapLocation";
 import S from "../MapController/MapController.module.scss";
-import {IMapLocationItem} from "../../../util/interfaces";
+import {IMapLocationItem, MapLocationType} from "../../../util/interfaces";
 import {
-    getLocationVisitsCount, getLocationWait, getLocationWaitCount, getWaitVisitsCount,
+    getLocationVisitsCount,
+    getLocationWait,
+    getWaitVisitsCount,
     isLocationFirst,
-    isLocationLast, isNextLocation
+    isLocationLast,
+    isNextLocation
 } from "../../../helpers/locationPath";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {addPathItem, removePathItem, selectPathData} from "../../../features/path/pathSlice";
-import {MAX_WAIT_SIZE} from "../../../util/common";
+import {GameMode, MAX_WAIT_SIZE} from "../../../util/common";
+import {selectMode} from "../../../features/gameMode/gameModeSlice";
+import {changeLocationType, selectLocations} from "../../../features/locations/locationsSlice";
+import {USER_LOCATION_TYPES} from "../../../util/locations";
 
 export interface MapLocationListProps {
-    locations: IMapLocationItem[];
     ratio: number;
 }
 
 export const MapLocationList = (props: MapLocationListProps) => {
     const {
-        locations,
         ratio,
     } = props;
+
+    const gameMode = useAppSelector(selectMode);
+    const locations = useAppSelector(selectLocations);
 
     const dispatch = useAppDispatch();
     const locationPath = useAppSelector(selectPathData);
@@ -42,12 +49,34 @@ export const MapLocationList = (props: MapLocationListProps) => {
         }
         return false;
     }
+
     const visitLocation = (item: IMapLocationItem) => dispatch(
         isLocationLast(locationPath, item) ?
             removePathItem(item) :
             addPathItem(item)
     );
+
+    const switchLocationType = (item: IMapLocationItem) => {
+        const locationTypesList = USER_LOCATION_TYPES
+            .filter(type => type !== item.defaultType)
+            .concat([item.defaultType]);
+        const currentTypeIndex = locationTypesList.indexOf(item.type);
+        const nextTypeIndex = currentTypeIndex === locationTypesList.length - 1 ? 0 : currentTypeIndex + 1;
+        const nextType = locationTypesList[nextTypeIndex];
+
+        console.log('switching', {
+            locationTypesList,
+            nextTypeIndex,
+            nextType
+        })
+        dispatch(
+            changeLocationType(item, nextType)
+        );
+    }
     const onClick = (item: IMapLocationItem) => {
+        if (gameMode === GameMode.LOCATIONS) {
+            return switchLocationType(item)
+        }
         if (!canClick(item)) {
             return;
         }
@@ -76,8 +105,11 @@ export const MapLocationList = (props: MapLocationListProps) => {
                 waitLeftCount={waitLeftCount}
                 visitsCount={getVisitsCount(item)}
                 className={S.location}
+                type={item.type}
+                isDefaultType={item.type === item.defaultType}
                 ratio={ratio}
                 key={key}
+                gameMode={gameMode}
             />
         ))}
     </>
