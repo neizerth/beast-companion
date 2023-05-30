@@ -45,8 +45,13 @@
 }
 
 .history {
-  padding-top: 1em;
-  padding-left: 1.2em;
+  padding: 1em 0.4em 0;
+}
+
+.mode {
+  position: relative;
+  padding: 0.5em 1em 0;
+  left: 0.5em;
 }
 
 .clear {

@@ -1,5 +1,5 @@
 import S from "./HistoryControls.module.scss"
-import {GameControl} from "../../molecules/GameControl/GameControl";
+import {GameControl} from "../..";
 import {redo, selectHistoryData, selectHistoryIndex, undo} from "../../../features/history/historySlice";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import classnames from "classnames";

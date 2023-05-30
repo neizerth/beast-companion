@@ -1,15 +1,12 @@
 import S from './MapController.module.scss';
-import {IMapData, IMapLocationItem, } from "../../../util/interfaces";
+import {IMapData, } from "../../../util/interfaces";
 import classnames from "classnames";
-import {ButtonControls} from "../ButtonControls/ButtonControls";
+import {ButtonControls, GameMap, KeyboardControls} from "../..";
 import {useMapSize} from "../../../hooks/useMapSize";
-import {useAppDispatch, useAppSelector} from "../../../hooks";
-import {addPathItem, clearPath, removePathItem, selectPathData} from "../../../features/path/pathSlice";
-import {isLocationLast} from "../../../helpers/locationPath";
-import {GameMap} from "../GameMap/GameMap";
+import {useAppDispatch} from "../../../hooks";
+import {clearPath} from "../../../features/path/pathSlice";
 
-import {TransformWrapper, TransformComponent, useControls} from "react-zoom-pan-pinch";
-import {KeyboardControls} from "../KeyboardControls/KeyboardControls";
+import {TransformWrapper, TransformComponent} from "react-zoom-pan-pinch";
 
 export interface GameMapProps {
     className?: string;

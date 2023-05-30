@@ -1,11 +1,10 @@
 import S from './MapLocationLink.module.scss';
-import React, {useEffect, useRef} from "react";
-import {half, minmax, px, scale, vh, vw} from "../../../util/common";
-import {IMapLocationItem} from "../../../util/interfaces";
+import React from "react";
+import {half, scale} from "../../../util/common";
+import {ILocationLinkItem, IMapLocationItem} from "../../../util/interfaces";
 import Color from 'color';
 import * as d3 from 'd3';
-import {ILocationLinkItem} from "../../organisms/MapLocationPath/MapLocationPath";
-import {MapLocationLinkArrow} from "../../atoms/MapLocationLinkArrow/MapLocationLinkArrow";
+import {MapLocationLinkArrow} from "../..";
 
 export type IPoint = [number, number];
 

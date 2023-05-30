@@ -1,9 +1,9 @@
-import React, {CSSProperties, useEffect, useState} from "react";
+import React from "react";
 
 import S from "./MapLocation.module.scss";
 import classnames from "classnames";
-import {MAX_WAIT_SIZE, px, scale, vw} from "../../../util/common";
-import {MapLocationWait} from "../../organisms/MapLocationWait/MapLocationWait";
+import {GameMode, px, scale} from "../../../util/common";
+import {MapLocationWait} from "../..";
 
 export interface MapLocationProps {
     onClick: CallableFunction;
@@ -19,6 +19,7 @@ export interface MapLocationProps {
     top: number;
     left: number;
     size: number;
+    gameMode: GameMode;
 }
 
 export const MapLocation = (props: MapLocationProps) => {
@@ -35,10 +36,12 @@ export const MapLocation = (props: MapLocationProps) => {
         top,
         left,
         waitList,
-        waitLeftCount
+        waitLeftCount,
+        gameMode
     } = props;
 
     const isSelected = visitsCount > 0;
+    const isPathMode = gameMode === GameMode.PATH;
 
     const stateClassName = isLast ? S.last :
         isFirst ? S.first :
@@ -46,10 +49,8 @@ export const MapLocation = (props: MapLocationProps) => {
 
     const classList = [
         S.background,
-        [stateClassName],
-        {
-            [S.next]: isNext
-        }
+        isPathMode && stateClassName,
+        isPathMode && isNext && S.next
     ];
 
     const k = (x: number) => px(scale(x, ratio));
@@ -61,7 +62,7 @@ export const MapLocation = (props: MapLocationProps) => {
         top: k(top),
         left: k(left)
     };
-    const canWait = isLast || waitList.length > 0;
+    const canWait = isPathMode && (isLast || waitList.length > 0);
 
     return <div
         style={style}
@@ -80,7 +81,7 @@ export const MapLocation = (props: MapLocationProps) => {
             onClick={() => onClick()}
             className={classnames(classList)}
         >
-            {visitsCount > 1 && <span className={S.counter}>{visitsCount}</span>}
+            {isPathMode && visitsCount > 1 && <span className={S.counter}>{visitsCount}</span>}
         </div>
     </div>
 };

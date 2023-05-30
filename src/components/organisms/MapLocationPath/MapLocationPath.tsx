@@ -1,24 +1,9 @@
-import {ILocationPath, IMapLocationItem} from "../../../util/interfaces";
+import {ILocationPathList} from "../../../util/interfaces";
 import S from "./MapLocationPath.module.scss";
-import {useRef} from "react";
 import {MapLocationLink} from "../../molecules/MapLocationLink/MapLocationLink";
-import {getLocationVisitIndex, getLocationVisitsCount, getMutualLocationsVisitIndex} from "../../../helpers/locationPath";
+import {getLocationVisitIndex, getMutualLocationsVisitIndex} from "../../../helpers/locationPath";
 import {useAppSelector} from "../../../hooks";
 import {selectPathData} from "../../../features/path/pathSlice";
-
-export interface ILocationLinkItem {
-    location: IMapLocationItem;
-    visitIndex: number;
-}
-
-export interface ILocationPathListItem {
-    index: number;
-    source: ILocationLinkItem;
-    target: ILocationLinkItem;
-    mutualVisitIndex: number;
-}
-
-export type ILocationPathList = ILocationPathListItem[];
 
 export interface MapLocationPathProps {
     ratio: number;

@@ -7,8 +7,10 @@ import {useNavigate} from "react-router-dom";
 
 import clearIcon from "../../../../public/images/clear.svg";
 import backIcon from "../../../../public/images/back.svg";
+import changeIcon from "../../../../public/images/change.svg";
 import {clearPath} from "../../../features/path/pathSlice";
 import {useAppDispatch} from "../../../hooks";
+import {ModeSwitch} from "../ModeSwitch/ModeSwitch";
 
 export interface GameControlsProps {
 }
@@ -24,6 +26,9 @@ export const ButtonControls = () => {
         <>
             <div className={S.primary}>
                 <div className={classnames(S.group, S.group_primary)}>
+                    <div className={S.control}>
+                        <ModeSwitch className={S.mode}/>
+                    </div>
                     <div className={S.control}>
                         <GameControl
                             onClick={() => clear()}

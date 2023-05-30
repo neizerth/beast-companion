@@ -53,3 +53,17 @@ export type IMapJSONItem = [
     links: number[],
     size: number | undefined
 ];
+
+export interface ILocationLinkItem {
+    location: IMapLocationItem;
+    visitIndex: number;
+}
+
+export interface ILocationPathListItem {
+    index: number;
+    source: ILocationLinkItem;
+    target: ILocationLinkItem;
+    mutualVisitIndex: number;
+}
+
+export type ILocationPathList = ILocationPathListItem[];

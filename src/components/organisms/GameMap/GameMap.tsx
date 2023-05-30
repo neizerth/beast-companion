@@ -1,12 +1,11 @@
 import S from "./GameMap.module.scss";
-import {MapLocationList} from "../MapLocationList/MapLocationList";
 import {CSSProperties, useRef, useState} from "react";
-import {px} from "../../../util/common";
-import {useAppSelector} from "../../../hooks";
-import {selectPathData} from "../../../features/path/pathSlice";
+import {GameMode, px} from "../../../util/common";
 import {IMapLocationItem} from "../../../util/interfaces";
-import {MapLocationPath} from "../MapLocationPath/MapLocationPath";
+import {MapLocationPath, MapLocationList} from "../..";
 import classnames from "classnames";
+import {useAppSelector} from "../../../hooks";
+import {selectMode} from "../../../features/gameMode/gameModeSlice";
 
 export interface GameMapProps {
     src: string;
@@ -25,7 +24,7 @@ export const GameMap = (props: GameMapProps) => {
         src,
     } = props;
 
-    const ref = useRef(null);
+    const mode = useAppSelector(selectMode);
     const [loaded, setLoaded] = useState(false);
 
     const mainStyle: CSSProperties = {
@@ -54,11 +53,11 @@ export const GameMap = (props: GameMapProps) => {
                             locations={locations}
                             ratio={ratio}
                         />
-                        <MapLocationPath
+                        {mode === GameMode.PATH && <MapLocationPath
                             width={width}
                             height={height}
                             ratio={ratio}
-                        />
+                        />}
                     </>
                 }
             </div>

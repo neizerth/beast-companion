@@ -2,13 +2,17 @@ import {MapLocation} from "../../molecules/MapLocation/MapLocation";
 import S from "../MapController/MapController.module.scss";
 import {IMapLocationItem} from "../../../util/interfaces";
 import {
-    getLocationVisitsCount, getLocationWait, getLocationWaitCount, getWaitVisitsCount,
+    getLocationVisitsCount,
+    getLocationWait,
+    getWaitVisitsCount,
     isLocationFirst,
-    isLocationLast, isNextLocation
+    isLocationLast,
+    isNextLocation
 } from "../../../helpers/locationPath";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {addPathItem, removePathItem, selectPathData} from "../../../features/path/pathSlice";
-import {MAX_WAIT_SIZE} from "../../../util/common";
+import {GameMode, MAX_WAIT_SIZE} from "../../../util/common";
+import {selectMode} from "../../../features/gameMode/gameModeSlice";
 
 export interface MapLocationListProps {
     locations: IMapLocationItem[];
@@ -20,6 +24,8 @@ export const MapLocationList = (props: MapLocationListProps) => {
         locations,
         ratio,
     } = props;
+
+    const gameMode = useAppSelector(selectMode);
 
     const dispatch = useAppDispatch();
     const locationPath = useAppSelector(selectPathData);
@@ -78,6 +84,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
                 className={S.location}
                 ratio={ratio}
                 key={key}
+                gameMode={gameMode}
             />
         ))}
     </>
