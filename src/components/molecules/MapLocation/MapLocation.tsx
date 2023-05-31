@@ -93,16 +93,6 @@ export const MapLocation = (props: MapLocationProps) => {
     const locationImageUrl = locationTypeItem.url;
 
     return <>
-        {!isDefaultType &&
-             <div className={classnames(className, S.container, S.type)} style={style}>
-                 <MapLocationImage
-                    type={type}
-                    ratio={ratio}
-                    locationSize={size}
-                    className={S.image}
-                />
-            </div>
-        }
         <div
             style={style}
             className={classnames(className, S.container, S.main)}
@@ -123,5 +113,15 @@ export const MapLocation = (props: MapLocationProps) => {
                 {isPathMode && visitsCount > 1 && <span className={S.counter}>{visitsCount}</span>}
             </div>
         </div>
+        {!isDefaultType &&
+            <div className={classnames(className, S.container, S.type)} style={style}>
+                <MapLocationImage
+                    type={type}
+                    ratio={ratio}
+                    locationSize={size}
+                    className={S.image}
+                />
+            </div>
+        }
     </>
 };
