@@ -66,7 +66,7 @@ export const MapLocation = (props: MapLocationProps) => {
 
     const classList = [
         S.background,
-        !isSelected && typeClassName,
+        isLocationsMode && typeClassName,
         isLocationsMode && !isDefaultType && S.modified,
         isPathMode && stateClassName,
         isPathMode && isNext && S.next,
