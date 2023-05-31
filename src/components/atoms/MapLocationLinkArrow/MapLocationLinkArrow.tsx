@@ -1,6 +1,6 @@
 import S from "./MapLocationLinkArrow.module.scss";
-import {IPoint} from "../../molecules/MapLocationLink/MapLocationLink";
 import React from "react";
+import {IPoint} from "../../../helpers/calculatePath";
 
 export interface MapLocationLinkArrowProps {
     from: IPoint;

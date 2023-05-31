@@ -64,11 +64,6 @@ export const MapLocationList = (props: MapLocationListProps) => {
         const nextTypeIndex = currentTypeIndex === locationTypesList.length - 1 ? 0 : currentTypeIndex + 1;
         const nextType = locationTypesList[nextTypeIndex];
 
-        console.log('switching', {
-            locationTypesList,
-            nextTypeIndex,
-            nextType
-        })
         dispatch(
             changeLocationType(item, nextType)
         );
