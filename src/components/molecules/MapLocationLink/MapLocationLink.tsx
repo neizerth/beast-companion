@@ -2,8 +2,7 @@ import S from './MapLocationLink.module.scss';
 import React from "react";
 import {scale, vw} from "../../../util/common";
 import {ILocationLinkItem} from "../../../util/interfaces";
-import * as d3 from 'd3';
-import {createPath, getBoundingRect, getControlPoint, getLocationCenter, getStroke, IPoint} from "../../../helpers/calculatePath";
+import {createPath, getStroke} from "../../../helpers/calculatePath";
 
 export interface MapLocationLinkProps {
     source: ILocationLinkItem;

@@ -1,6 +1,6 @@
 import {ILocationPathList, ILocationPathListItem} from "../../../util/interfaces";
 import {createPath, getStroke, PathRenderItem, PathRenderItemType} from "../../../helpers/calculatePath";
-import {vw} from "../../../util/common";
+import {vmin, vw} from "../../../util/common";
 
 export interface RenderPathOptions {
     pathList: ILocationPathList;
@@ -57,7 +57,7 @@ export const renderPathItem = (options: RenderPathItemOptions) => {
         mutualVisitIndex
     } = item;
 
-    const strokeWidth = vw(0.4);
+    const strokeWidth = vmin(1);
 
     const pathItems = createPath({
         ratio,
@@ -69,7 +69,8 @@ export const renderPathItem = (options: RenderPathItemOptions) => {
 
     const stroke = getStroke(index, pathLength, mutualVisitIndex);
 
-    context.strokeStyle = stroke.toString();
+    // context.strokeStyle = stroke.toString();
+    context.strokeStyle = '#000';
     context.fillStyle = stroke.toString();
     pathItems.forEach(item => drawOperation({
         context,

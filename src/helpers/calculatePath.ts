@@ -10,7 +10,7 @@ export const getLocationCenter = (item: IMapLocationItem): IPoint => {
         top + half(size)
     ];
 }
-const getCenter = (p0: IPoint, p1: IPoint): IPoint => {
+export const getCenter = (p0: IPoint, p1: IPoint): IPoint => {
     return [
         half(p0[0] + p1[0]),
         half(p0[1] + p1[1]),
@@ -19,7 +19,7 @@ const getCenter = (p0: IPoint, p1: IPoint): IPoint => {
 const BASE_CURVINESS = 16;
 const NEGATIVE_CURVINESS = [-40, -24, -20, -18, -17];
 const POSITIVE_CURVINESS = [20, 18];
-const getCurviness = (visitIndex: number) => {
+export const getCurviness = (visitIndex: number) => {
     const isOdd = visitIndex % 2 !== 0;
     const sign = isOdd ? 1 : -1;
     const index = Math.floor(visitIndex / 2);
@@ -28,7 +28,21 @@ const getCurviness = (visitIndex: number) => {
 
     return source[index] || BASE_CURVINESS * sign;
 }
-export const getControlPoint = (source: ILocationLinkItem, target: ILocationLinkItem, visitIndex: number): IPoint => {
+
+export interface GetControlPointOptions {
+    source: ILocationLinkItem,
+    target: ILocationLinkItem,
+    visitIndex: number;
+    ratio?: number
+}
+
+export const getControlPoint = (options: GetControlPointOptions): IPoint => {
+    const {
+        source,
+        target,
+        visitIndex,
+        ratio = 1
+    } = options
     const from = source.location;
     const to = target.location;
 
@@ -41,7 +55,7 @@ export const getControlPoint = (source: ILocationLinkItem, target: ILocationLink
     }
 
     const sign = getCurviness(visitIndex - 1);
-    const k = sign * visitIndex;
+    const k = sign * visitIndex * ratio;
     const dX = Math.abs(fromCenter[0] - toCenter[0]);
     const dY = Math.abs(fromCenter[1] - toCenter[1]);
 
@@ -57,6 +71,7 @@ export const getControlPoint = (source: ILocationLinkItem, target: ILocationLink
         center[1],
     ];
 }
+
 export const getStroke = (index: number, total: number, visitIndex: number) => {
     const orange = Color('#ff780a');
     const red = Color('#ff2626');
@@ -75,12 +90,12 @@ export const getStroke = (index: number, total: number, visitIndex: number) => {
     return orange;
 }
 
-const getDX = (from: IPoint, to: IPoint) => to[0] - from[0];
-const getDY = (from: IPoint, to: IPoint) => to[1] - from[1];
-const getLeft = (points: IPoint[]) => Math.min(...points.map(p => p[0]));
-const getTop = (points: IPoint[]) => Math.min(...points.map(p => p[1]));
-const getBottom = (points: IPoint[]) => Math.max(...points.map(p => p[1]));
-const getRight = (points: IPoint[]) => Math.max(...points.map(p => p[0]));
+export const getDX = (from: IPoint, to: IPoint) => to[0] - from[0];
+export const getDY = (from: IPoint, to: IPoint) => to[1] - from[1];
+export const getLeft = (points: IPoint[]) => Math.min(...points.map(p => p[0]));
+export const getTop = (points: IPoint[]) => Math.min(...points.map(p => p[1]));
+export const getBottom = (points: IPoint[]) => Math.max(...points.map(p => p[1]));
+export const getRight = (points: IPoint[]) => Math.max(...points.map(p => p[0]));
 
 export interface RectOptions {
     points: IPoint[];
@@ -123,12 +138,12 @@ export interface CreatePathOptions {
     target: ILocationLinkItem;
 }
 
-const getSkew = (from: IPoint, to: IPoint) => {
+export const getSkew = (from: IPoint, to: IPoint) => {
     const dX = getDX(from, to);
     const dY = getDY(from, to);
 
     if (dX === 0) {
-        return - Math.PI / 2;
+        return Math.sign(dY) * Math.PI / 2;
     }
 
     const tg = dY / dX;
@@ -141,7 +156,23 @@ const getSkew = (from: IPoint, to: IPoint) => {
     return rad;
 }
 
-const rad2deg = (rad: number) => rad * 180 / Math.PI;
+export const rad2deg = (rad: number) => rad * 180 / Math.PI;
+
+const getCircleOffset = (from: IPoint, to: IPoint, radius: number): IPoint => {
+    const skewRad = getSkew(from, to);
+    const halfPI = half(Math.PI);
+
+    const absRad = skewRad % halfPI;
+
+    // const skewDeg = rad2deg(skewRad);
+    const x = Math.sin(skewRad);
+    const y = Math.cos(skewRad);
+
+    const dX = x * radius;
+    const dY = y * radius;
+
+    return [dX, dY];
+}
 
 
 export enum PathRenderItemType {
@@ -197,6 +228,10 @@ const quadraticCurveTo = (control: IPoint, to: IPoint): PathRenderItem =>
 const add = (offset: IPoint) => (point: IPoint) => [point[0] + offset[0], point[1] + offset[1]] as IPoint;
 const subtract = (base: IPoint) => (point: IPoint) => [point[0] - base[0], point[1] - base[1]] as IPoint;
 
+
+export const scalePoint = (ratio: number) =>
+    (p: IPoint) => p.map(x => scale(x, ratio)) as IPoint;
+
 export const createPath = (options: CreatePathOptions) => {
     const {
         ratio,
@@ -206,8 +241,6 @@ export const createPath = (options: CreatePathOptions) => {
         visitIndex
     } = options;
 
-    const k = (x: number) => scale(x, ratio);
-    const scalePoint = (p: IPoint) => p.map(k) as IPoint;
     const makeMainLine = (points: IPoint[]) => {
         const [from, to, control] = points;
         return [
@@ -218,32 +251,33 @@ export const createPath = (options: CreatePathOptions) => {
 
     const fromPoint = getLocationCenter(source.location);
     const toPoint = getLocationCenter(target.location);
-    const controlPoint = getControlPoint(source, target, visitIndex);
-
-    const points = [fromPoint, toPoint, controlPoint].map(scalePoint);
-    const [from, to] = points;
-    const R = Math.ceil(strokeWidth / 2);
-
-    const skewRad = getSkew(from, to);
-    const halfPI = half(Math.PI);
-    // const skewDeg = rad2deg(skewRad);
-    const dY = R * Math.sin(skewRad % halfPI);
-    const dX = R * Math.cos(skewRad % halfPI);
-
-    console.log({
-        skewRad,
-        dX,
-        dY,
-        R
+    const controlPoint = getControlPoint({
+        source,
+        target,
+        visitIndex
     });
 
-    // const topLineOffset: IPoint = [dX, dY + R];
-    const topLineOffset: IPoint = [0 , -R];
-    const bottomLineOffset: IPoint = [0, R];
-    // const bottomLineOffset: IPoint = [-dX, -dY - R];
+    const points = [fromPoint, toPoint, controlPoint].map(scalePoint(ratio));
+    const [from, to, control] = points;
+    const R = Math.ceil(strokeWidth / 2);
 
-    const topPoints = points.map(add(topLineOffset));
-    const bottomPoints = points.map(add(bottomLineOffset));
+    const [dX, dY] = getCircleOffset(from, to, R);
+
+    const topLineOffset: IPoint = [dX , -dY];
+    const bottomLineOffset: IPoint = [-dX, dY];
+
+    const topPoints = [from, to, control].map(add(topLineOffset));
+    const bottomPoints = [to, from, control].map(add(bottomLineOffset));
+
+    const simpleLine = [
+        beginPath(),
+        moveTo(topPoints[0]),
+        lineTo(bottomPoints[0]),
+        lineTo(bottomPoints[1]),
+        lineTo(topPoints[1]),
+        closePath(),
+        fill(),
+    ]
 
     const path = [
         beginPath(),
@@ -252,15 +286,12 @@ export const createPath = (options: CreatePathOptions) => {
         fill(),
 
         beginPath(),
-        // ...makeMainLine(topPoints),
-        moveTo(topPoints[0]),
+        ...makeMainLine(topPoints),
         lineTo(bottomPoints[0]),
-        lineTo(bottomPoints[1]),
         lineTo(topPoints[1]),
-        // stroke(),
-        // ...makeMainLine(bottomPoints),
-        // moveTo(topPoints[0]),
-        // lineTo(bottomPoints[0]),
+        ...makeMainLine(bottomPoints),
+        lineTo(topPoints[0]),
+        lineTo(topPoints[1]),
         closePath(),
         fill(),
 

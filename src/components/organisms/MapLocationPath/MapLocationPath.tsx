@@ -1,12 +1,11 @@
-import {ILocationPathList} from "../../../util/interfaces";
+import {ILocationPathList, ILocationPathListItem} from "../../../util/interfaces";
 import S from "./MapLocationPath.module.scss";
-import {MapLocationLink} from "../../molecules/MapLocationLink/MapLocationLink";
-import {getLocationVisitIndex, getMutualLocationsVisitIndex} from "../../../helpers/locationPath";
 import {useAppSelector} from "../../../hooks";
 import {selectPathData} from "../../../features/path/pathSlice";
 import {generatePathList} from "../../../helpers/pathList";
 import {useEffect, useRef} from "react";
 import {renderPath} from "./renderPath";
+import {MapLocationLinkArrow} from "../../atoms/MapLocationLinkArrow/MapLocationLinkArrow";
 
 export interface MapLocationPathProps {
     ratio: number;
@@ -36,9 +35,21 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
         });
     }, [ref, pathList]);
 
+    const getArrowAngle = (item: ILocationPathListItem) => {
+
+    };
+
     return (
         <>
             <canvas className={S.container} width={width} height={height} ref={ref}/>
+            {pathList.map((item, key) =>
+                <MapLocationLinkArrow
+                    key={key}
+                    pathItem={item}
+                    isLast={false}
+                    ratio={ratio}
+                />
+            )}
         </>
     );
 }
