@@ -92,33 +92,36 @@ export const MapLocation = (props: MapLocationProps) => {
     const locationTypeItem = MapLocationImageList[type];
     const locationImageUrl = locationTypeItem.url;
 
-    return <div
-        style={style}
-        className={classnames(className, S.container)}
-    >
+    return <>
         {!isDefaultType &&
-            <MapLocationImage
-                type={type}
-                ratio={ratio}
-                locationSize={size}
-                className={S.image}
-            />
+             <div className={classnames(className, S.container, S.type)} style={style}>
+                 <MapLocationImage
+                    type={type}
+                    ratio={ratio}
+                    locationSize={size}
+                    className={S.image}
+                />
+            </div>
         }
-
-        {canWait && <MapLocationWait
-            isLast={isLast}
-            waitList={waitList}
-            waitLeftCount={waitLeftCount}
-            size={size}
-            ratio={ratio}
-            onWait={onWait}
-        />}
-
         <div
-            onClick={() => onClick()}
-            className={classnames(classList)}
+            style={style}
+            className={classnames(className, S.container, S.main)}
         >
-            {isPathMode && visitsCount > 1 && <span className={S.counter}>{visitsCount}</span>}
+            {canWait && <MapLocationWait
+                isLast={isLast}
+                waitList={waitList}
+                waitLeftCount={waitLeftCount}
+                size={size}
+                ratio={ratio}
+                onWait={onWait}
+            />}
+
+            <div
+                onClick={() => onClick()}
+                className={classnames(classList)}
+            >
+                {isPathMode && visitsCount > 1 && <span className={S.counter}>{visitsCount}</span>}
+            </div>
         </div>
-    </div>
+    </>
 };

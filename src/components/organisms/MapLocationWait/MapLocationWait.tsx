@@ -44,7 +44,7 @@ export const MapLocationWait = (props: MapLocationWaitProps) => {
     const buttonStyle = {
         width: buttonSize,
         height: buttonSize,
-        backgroundSize: Math.floor(buttonSize * 0.6)
+        backgroundSize: Math.floor(buttonSize * 0.7)
     }
 
     const MARKER_COLORS = [

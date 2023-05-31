@@ -1,6 +1,8 @@
+.type {
+    z-index: 1;
+}
 .image {
     position: absolute;
-    z-index: -3;
     left: -6%;
     top: -9%;
     width: 114%;
@@ -9,13 +11,16 @@
 
 .container {
     position: absolute;
-    z-index: 3;
     cursor: pointer;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0.05em 0 0 0;
+}
+
+.main {
+    z-index: 3;
 }
 
 .modified {
@@ -86,7 +91,7 @@
         content: '';
         position: absolute;
         display: block;
-        background: url("/images/location_next.svg") center center no-repeat;
+        background: url("/images/png/location_next.png") center center no-repeat;
         background-size: 100%;
         width: 180%;
         height: 180%;
@@ -104,7 +109,7 @@
         content: '';
         position: absolute;
         display: block;
-        background: url("/images/paw.svg") center center no-repeat;
+        background: url("/images/png/paw.png") center center no-repeat;
         background-size: 70%;
         width: 100%;
         height: 100%;

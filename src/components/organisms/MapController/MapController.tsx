@@ -28,7 +28,7 @@ export const MapController = (props: GameMapProps) => {
 
     const doubleClickOptions = {
         disabled: true
-    };
+    }
 
     return (
         <div className={classnames(className, S.container)}>

@@ -1,16 +1,15 @@
 .container {
   position: absolute;
   z-index: 3;
+  left: 0;
+  top: 0;
 }
 
 .path {
   fill: none;
-  //stroke: #ffffff60;
-  filter: drop-shadow(0 0 10px #fdeb81);
-  //filter: drop-shadow(0 0 10px #ffffff60);
-  stroke-width:0.8vw;
+  //stroke-width:0.8vw;
   @media (min-width: 768px) {
-    stroke-width:0.4vw;
+    //stroke-width:0.4vw;
   }
 }
 
