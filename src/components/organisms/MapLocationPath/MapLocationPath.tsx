@@ -46,7 +46,7 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
                 <MapLocationLinkArrow
                     key={key}
                     pathItem={item}
-                    isLast={false}
+                    isLast={key === pathList.length - 1}
                     ratio={ratio}
                 />
             )}

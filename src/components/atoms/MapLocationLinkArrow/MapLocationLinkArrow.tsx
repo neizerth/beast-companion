@@ -6,6 +6,7 @@ import arrowImg from '../../../../public/images/png/arrow.png';
 import {getAngle} from "./MapLocationLinkArrowOld";
 import {getLocationCenter, getSkew, rad2deg} from "../../../helpers/calculatePath";
 import {getArrowPosition} from "./arrowPosition";
+import classnames from "classnames";
 
 export interface MapLocationLinkArrowProps {
     pathItem: ILocationPathListItem;
@@ -40,12 +41,12 @@ export const MapLocationLinkArrow = (props: MapLocationLinkArrowProps) => {
     };
 
     const textStyle = {
-        fontSize: scale * 12
+        fontSize: scale * 12,
     }
 
-
+    const containerClassNames = classnames(S.container, isLast && S.last);
     return (
-        <div className={S.container} style={containerStyle}>
+        <div className={containerClassNames} style={containerStyle}>
             <img src={arrowImg} className={S.icon} style={iconStyle} alt=""/>
             <div className={S.text} style={textStyle}>{pathItem.index + 1}</div>
         </div>
