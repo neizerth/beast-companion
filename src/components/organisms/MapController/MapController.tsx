@@ -26,9 +26,13 @@ export const MapController = (props: GameMapProps) => {
 
     const onClear = () => dispatch(clearPath());
 
+    const doubleClickOptions = {
+        disabled: true
+    };
+
     return (
         <div className={classnames(className, S.container)}>
-            <TransformWrapper>
+            <TransformWrapper doubleClick={doubleClickOptions}>
                 <ButtonControls />
                 <KeyboardControls/>
                 <TransformComponent contentClass={S.content} wrapperClass={S.warpper}>
