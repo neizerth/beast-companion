@@ -51,7 +51,7 @@ export const getArrowPosition = (options: ArrowPositionOptions) => {
     const [left, top] = controlPoint.map(k);
 
     const minSize = Math.min(source.location.size, target.location.size);
-    const size = k(minSize) * 0.014;
+    const size = k(minSize) * 0.02;
 
     return {
         angle,
