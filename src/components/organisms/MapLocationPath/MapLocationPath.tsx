@@ -1,4 +1,4 @@
-import {ILocationPathListItem} from "../../../util/interfaces";
+import {ILocationPathList, ILocationPathListItem} from "../../../util/interfaces";
 import S from "./MapLocationPath.module.scss";
 import {useAppSelector} from "../../../hooks";
 import {selectPathData} from "../../../features/path/pathSlice";
@@ -6,8 +6,6 @@ import {generatePathList} from "../../../helpers/pathList";
 import {useEffect, useRef} from "react";
 import {renderPath} from "./renderPath";
 import {MapLocationLinkArrow} from "../../atoms/MapLocationLinkArrow/MapLocationLinkArrow";
-import {selectMode} from "../../../features/gameMode/gameModeSlice";
-import {GameMode} from "../../../util/common";
 
 export interface MapLocationPathProps {
     ratio: number;
@@ -24,8 +22,6 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
     const path = useAppSelector(selectPathData);
     const ref = useRef<HTMLCanvasElement>(null);
 
-    const mode = useAppSelector(selectMode);
-    const isPathMode = mode === GameMode.PATH;
     const pathList = generatePathList(path);
 
     useEffect(() => {
@@ -45,7 +41,7 @@ export const MapLocationPath = (props: MapLocationPathProps) => {
 
     return (
         <>
-            {isPathMode && <canvas className={S.container} width={width} height={height} ref={ref}/>}
+            <canvas className={S.container} width={width} height={height} ref={ref}/>
             {pathList.map((item, key) =>
                 <MapLocationLinkArrow
                     key={key}
