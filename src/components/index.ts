@@ -7,7 +7,6 @@ export { MapLocationImage } from './atoms/MapLocationImage/MapLocationImage';
 // molecules
 export { GameControl } from './molecules/GameControl/GameControl';
 export { MapLocation } from './molecules/MapLocation/MapLocation';
-export { MapLocationLink } from './molecules/MapLocationLink/MapLocationLink';
 
 // organisms
 export { GameMap } from './organisms/GameMap/GameMap';
