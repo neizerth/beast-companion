@@ -82,7 +82,7 @@
 
 .next {
     box-shadow: 0 0 1.5vw yellow;
-    &:before {
+    &:before, &_locationsMode:before {
         content: '';
         position: absolute;
         display: block;
@@ -112,5 +112,10 @@
         top: 0;
         left: 0;
         z-index: 1;
+    }
+    &_locationsMode {
+        border-radius: 50%;
+        outline-offset: 0.5vw;
+        outline: 0.5vw solid #00677896;
     }
 }

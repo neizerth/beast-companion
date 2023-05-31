@@ -68,10 +68,14 @@ export const MapLocation = (props: MapLocationProps) => {
         S.background,
         isLocationsMode && [
             typeClassName,
-            !isDefaultType && S.modified
+            !isDefaultType && S.modified,
+            isNext && S.next_locationsMode,
+            isLast && S.last_locationsMode
         ],
-        isPathMode && stateClassName,
-        isNext && S.next,
+        isPathMode && [
+            stateClassName,
+            isNext && S.next
+        ],
     ];
 
     const k = (x: number) => px(scale(x, ratio));
