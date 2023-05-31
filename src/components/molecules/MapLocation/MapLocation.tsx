@@ -7,6 +7,14 @@ import {MapLocationImage, MapLocationWait} from "../..";
 import {MapLocationType} from "../../../util/interfaces";
 import {MapLocationImageList} from "../../../util/locations";
 
+const TYPE_CLASS_NAMES = {
+    [MapLocationType.FOREST]: S.forest,
+    [MapLocationType.CAVES]: S.caves,
+    [MapLocationType.MIXED]: S.mixed,
+    [MapLocationType.SETTLEMENT]: S.settlement,
+    [MapLocationType.SWAMP]: S.swamp,
+}
+
 export interface MapLocationProps {
     onClick: CallableFunction;
     onWait: CallableFunction;
@@ -54,11 +62,14 @@ export const MapLocation = (props: MapLocationProps) => {
         isFirst ? S.first :
             isSelected && S.selected;
 
+    const typeClassName = TYPE_CLASS_NAMES[type];
+
     const classList = [
         S.background,
+        !isSelected && typeClassName,
         isLocationsMode && !isDefaultType && S.modified,
         isPathMode && stateClassName,
-        isPathMode && isNext && S.next
+        isPathMode && isNext && S.next,
     ];
 
     const k = (x: number) => px(scale(x, ratio));
