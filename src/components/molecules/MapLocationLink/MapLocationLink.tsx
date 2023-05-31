@@ -118,6 +118,7 @@ export const MapLocationLink = (props: MapLocationLinkProps) => {
     path.quadraticCurveTo(...scalePoint(control), ...scalePoint(to));
 
     const stroke = getStroke(index, pathLength, visitIndex);
+    const isLast = index === pathLength - 1;
 
     const minSize = Math.min(source.location.size, target.location.size);
     const circleSize = k(minSize) / 6;
@@ -126,6 +127,7 @@ export const MapLocationLink = (props: MapLocationLinkProps) => {
     const arrowSize = k(minSize) / 1.5;
     const center = getCenter(from, to);
     const circleCenter = scalePoint(getCenter(control, center));
+    const textFill = isLast ? 'red' : '#000';
 
     return (
         <>
@@ -145,8 +147,9 @@ export const MapLocationLink = (props: MapLocationLinkProps) => {
                     alignmentBaseline={'middle'}
                     x={circleCenter[0]}
                     y={circleCenter[1]}
+                    fontWeight={'bold'}
                     fontSize={circleSize * 1.8}
-                    fill={'#000'}
+                    fill={textFill}
                     className={S.index}
                 >
                     {actionIndex + 1}
