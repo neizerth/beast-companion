@@ -44,10 +44,14 @@ export const MapLocationLinkArrow = (props: MapLocationLinkArrowProps) => {
     const containerStyle = {
         top,
         left,
+        width: iconSize,
+        height: iconSize,
+        marginTop: -halfSize,
+        marginLeft: -halfSize,
     };
 
-    const marginLeft = -scale * 1.7 * Math.cos(rad);
-    const marginTop = -scale * 2.7 * Math.sin(rad);
+    const marginLeft = -scale * 2 * Math.cos(rad);
+    const marginTop = 1.2 + -scale * 4 * Math.sin(rad);
     const textStyle = {
         fontSize: scale * 10,
         width: iconSize,
