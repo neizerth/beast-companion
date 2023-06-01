@@ -33,7 +33,7 @@ export const MapController = (props: GameMapProps) => {
     return (
         <div className={classnames(className, S.container)}>
             <TransformWrapper doubleClick={doubleClickOptions}>
-                <PWAInstaller/>
+                {/*<PWAInstaller/>*/}
                 <ButtonControls />
                 <KeyboardControls/>
                 <TransformComponent contentClass={S.content} wrapperClass={S.warpper}>
