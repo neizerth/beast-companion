@@ -46,8 +46,8 @@ export const MapLocationLinkArrow = (props: MapLocationLinkArrowProps) => {
         left,
     };
 
-    const marginLeft = -2 * Math.cos(rad);
-    const marginTop = -3.5 * Math.sin(rad);
+    const marginLeft = -scale * 1.7 * Math.cos(rad);
+    const marginTop = -scale * 2.7 * Math.sin(rad);
     const textStyle = {
         fontSize: scale * 10,
         width: iconSize,
