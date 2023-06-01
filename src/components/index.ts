@@ -9,7 +9,6 @@ export { GameControl } from './molecules/GameControl/GameControl';
 export { MapLocation } from './molecules/MapLocation/MapLocation';
 
 // organisms
-export { PWAInstaller } from './organisms/PWAInstaller/PWAInstaller';
 export { GameMap } from './organisms/GameMap/GameMap';
 export { HistoryControls } from './organisms/HistoryControls/HistoryControls';
 export { ButtonControls } from './organisms/ButtonControls/ButtonControls';

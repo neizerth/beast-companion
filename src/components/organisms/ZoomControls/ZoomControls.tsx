@@ -28,7 +28,7 @@ export const ZoomControls = (props: ZoomControlsProps) => {
 
     const setZoomValue = debounce(
         (value: number) => dispatch(setZoom(value)),
-        200
+        50
     );
 
     useTransformEffect(({ state }) => {
