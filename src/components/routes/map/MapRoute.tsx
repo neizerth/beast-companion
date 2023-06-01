@@ -1,6 +1,6 @@
 import {IMapData, IMapJSONData, IMapJSONItem, MapType} from "../../../util/interfaces";
 import {MapController} from "../../organisms/MapController/MapController";
-import {LoaderFunctionArgs, useLoaderData, useNavigate} from "react-router-dom";
+import {LoaderFunctionArgs, useLoaderData} from "react-router-dom";
 import axios from 'axios';
 import {Progress} from "../../atoms/Progress/Progress";
 import {useImageDownloadProgress} from "../../../hooks/useImageDownloadProgress";
@@ -8,9 +8,11 @@ import {useImageDownloadProgress} from "../../../hooks/useImageDownloadProgress"
 import S from "./MapRoute.module.scss";
 import {useEffect} from "react";
 import {useAppDispatch} from "../../../hooks";
-import {addPathItem, clearPath, startFrom} from "../../../features/path/pathSlice";
+import {startFrom} from "../../../features/path/pathSlice";
 import {maps} from "../../../util/maps";
 import {setLocations} from "../../../features/locations/locationsSlice";
+import {setGameMode} from "../../../features/gameMode/gameModeSlice";
+import {GameMode} from "../../../util/common";
 
 export interface MapLoaderParams {
     type: MapType
@@ -77,6 +79,7 @@ export const MapRoute = () => {
     const startLocation = mapData.items[mapData.settings.startLocation];
 
     useEffect(() => {
+        dispatch(setGameMode(GameMode.PATH));
         dispatch(setLocations(mapData.items));
         dispatch(startFrom(startLocation));
     }, [])
