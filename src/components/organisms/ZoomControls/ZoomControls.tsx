@@ -5,6 +5,7 @@ import classnames from "classnames";
 import zoomInIcon from "../../../../public/images/zoom_in.svg";
 import zoomOutIcon from "../../../../public/images/zoom_out.svg";
 import {useControls, useTransformEffect, useTransformInit} from "react-zoom-pan-pinch";
+
 import {
     selectZoomScale,
     setZoom,

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dotmind/react-use-pwa": "^1.0.4",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/axios": "^0.14.0",
     "@types/color": "^3.0.3",

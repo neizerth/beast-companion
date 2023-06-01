@@ -1118,6 +1118,11 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
+"@dotmind/react-use-pwa@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@dotmind/react-use-pwa/-/react-use-pwa-1.0.4.tgz#09cbeaae7e06f28e338f8861723e69daa3ea1092"
+  integrity sha512-qZauJLQu9hbdy6eAIm49YfI+8Dxty9tr8Zmv99M4rV37zwT7LVSdohXlGmFXXo19v5YV/Ig0Mnn5hRGPCxWDrA==
+
 "@esbuild/android-arm64@0.17.17":
   version "0.17.17"
   resolved "https://registry.yarnpkg.com/@esbuild/android-arm64/-/android-arm64-0.17.17.tgz#164b054d58551f8856285f386e1a8f45d9ba3a31"
