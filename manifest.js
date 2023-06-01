@@ -19,6 +19,7 @@ export default {
             "purpose": "maskable"
         }
     ],
+    "orientation": "landscape",
     "theme_color": "#000000",
     "background_color": "#000000",
     "display": "standalone"
