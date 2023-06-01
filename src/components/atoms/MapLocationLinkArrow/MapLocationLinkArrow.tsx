@@ -51,7 +51,7 @@ export const MapLocationLinkArrow = (props: MapLocationLinkArrowProps) => {
     };
 
     const marginLeft = -scale * 2 * Math.cos(rad);
-    const marginTop = 1.2 + -scale * 4 * Math.sin(rad);
+    const marginTop = 0.7 + -scale * 2 * Math.sin(rad);
     const textStyle = {
         fontSize: scale * 10,
         width: iconSize,
@@ -63,8 +63,7 @@ export const MapLocationLinkArrow = (props: MapLocationLinkArrowProps) => {
     const containerClassNames = classnames(S.container, isLast && S.last);
     return (
         <div className={containerClassNames} style={containerStyle}>
-            <img src={arrowImg} className={S.icon} style={iconStyle} alt=""/>
-            <div className={S.text} style={textStyle}>{pathItem.index + 1}</div>
+            <img src={arrowImg} className={S.icon} style={iconStyle} alt=""/>            <div className={S.text} style={textStyle}>{pathItem.index + 1}</div>
         </div>
     );
 }
