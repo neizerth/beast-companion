@@ -11,6 +11,7 @@ import {
 } from "../../../features/zoom/zoomSlice";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {MAX_ZOOM, MIN_ZOOM} from "../../../util/common";
+import {debounce} from "lodash";
 
 export interface ZoomControlsProps {
     controlClassName?: string
@@ -24,10 +25,15 @@ export const ZoomControls = (props: ZoomControlsProps) => {
     const scale = useAppSelector(selectZoomScale);
     const dispatch = useAppDispatch();
 
+    const setZoomValue = debounce(
+        (value: number) => dispatch(setZoom(value)),
+        200
+    );
+
     useTransformEffect(({ state }) => {
         const value = state.scale;
 
-        dispatch(setZoom(value));
+        setZoomValue(value);
     });
 
     const isZoomOutDisabled = scale === MIN_ZOOM;
