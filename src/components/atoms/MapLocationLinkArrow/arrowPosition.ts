@@ -43,7 +43,7 @@ export const getArrowPosition = (options: ArrowPositionOptions) => {
     const points = [controlPoint, toPoint];
 
     const rad = getSkew(controlPoint, toPoint);
-    const angle = rad2deg(rad);
+    const deg = rad2deg(rad);
 
     const start: IPoint = [getLeft(points), getTop(points)];
     const end: IPoint = [getRight(points), getBottom(points)];
@@ -54,7 +54,10 @@ export const getArrowPosition = (options: ArrowPositionOptions) => {
     const size = k(minSize) * 0.02;
 
     return {
-        angle,
+        angle: {
+            rad,
+            deg
+        },
         left,
         top,
         scale: size

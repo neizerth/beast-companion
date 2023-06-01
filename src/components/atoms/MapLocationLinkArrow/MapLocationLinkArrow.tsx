@@ -2,9 +2,7 @@ import S from "./MapLocationLinkArrow.module.scss";
 import React from "react";
 import {ILocationPathListItem} from "../../../util/interfaces";
 
-import arrowImg from '../../../../public/images/png/arrow.png';
-import {getAngle} from "./MapLocationLinkArrowOld";
-import {getLocationCenter, getSkew, rad2deg} from "../../../helpers/calculatePath";
+import arrowImg from '../../../../public/images/arrow_alt4.svg';
 import {getArrowPosition} from "./arrowPosition";
 import classnames from "classnames";
 
@@ -29,19 +27,33 @@ export const MapLocationLinkArrow = (props: MapLocationLinkArrowProps) => {
     const { angle, top, left, scale } = position;
 
     const defaultAngle = -90;
-    const rotate = defaultAngle + angle;
+
+    const { deg, rad } = angle;
+    const rotate = defaultAngle + deg;
+
+    const iconSize = scale * 20;
+    const halfSize = iconSize / 2;
 
     const iconStyle = {
-        transform: `rotate(${rotate}deg) scale(${scale})`
+        transform: `rotate(${rotate}deg)`,
+        width: iconSize,
+        height: iconSize,
+        transformOrigin: `${halfSize}px ${halfSize}px`
     }
 
     const containerStyle = {
         top,
-        left
+        left,
     };
 
+    const marginLeft = -2 * Math.cos(rad);
+    const marginTop = -3.5 * Math.sin(rad);
     const textStyle = {
-        fontSize: scale * 12,
+        fontSize: scale * 10,
+        width: iconSize,
+        height: iconSize,
+        marginLeft,
+        marginTop
     }
 
     const containerClassNames = classnames(S.container, isLast && S.last);

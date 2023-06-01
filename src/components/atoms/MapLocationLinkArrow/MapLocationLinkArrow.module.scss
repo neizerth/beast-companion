@@ -21,14 +21,12 @@
 }
 
 .text {
+  line-height: 1;
   position: absolute;
   z-index: 1;
-  margin-top: -7px;
-  margin-left: -3px;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
