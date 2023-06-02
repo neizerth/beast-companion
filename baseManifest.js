@@ -1,5 +1,5 @@
 export default {
-    "name": "Beast",
+    "name": "Beast Digital Map",
     "short_name": "Beast",
     "icons": [
         {
