@@ -95,6 +95,19 @@ export const MapLocation = (props: MapLocationProps) => {
     return <>
         <div
             style={style}
+            className={classnames(className, S.container, S.wait)}
+        >
+            {canWait && <MapLocationWait
+                isLast={isLast}
+                waitList={waitList}
+                waitLeftCount={waitLeftCount}
+                size={size}
+                ratio={ratio}
+                onWait={onWait}
+            />}
+        </div>
+        <div
+            style={style}
             className={classnames(className, S.container, S.main)}
         >
             {canWait && <MapLocationWait
@@ -105,9 +118,8 @@ export const MapLocation = (props: MapLocationProps) => {
                 ratio={ratio}
                 onWait={onWait}
             />}
-
+            <div className={S.area} onClick={() => onClick()}/>
             <div
-                onClick={() => onClick()}
                 className={classnames(classList)}
             >
                 {isPathMode && visitsCount > 1 && <span className={S.counter}>{visitsCount}</span>}
