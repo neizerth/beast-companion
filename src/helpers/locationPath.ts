@@ -31,7 +31,10 @@ export const addLocation = (path: ILocationPath, item: IMapLocationItem) =>
 export const clearLocationPath = () => [];
 
 export const removeLocation = (path: ILocationPath, item: IMapLocationItem) => {
-    const index = findLocationIndex(path, item);
+    const index = findLastLocationIndex(path, item);
+    if (index === undefined) {
+        return path;
+    }
     return [...path.slice(0, index), ...path.slice(index + 1)];
 };
 
