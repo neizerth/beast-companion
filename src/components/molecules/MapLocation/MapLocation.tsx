@@ -97,7 +97,6 @@ export const MapLocation = (props: MapLocationProps) => {
             style={style}
             className={classnames(className, S.container, S.wait)}
         >
-
             <div className={S.area} onClick={() => onClick()}/>
             {canWait && <MapLocationWait
                 isLast={isLast}
