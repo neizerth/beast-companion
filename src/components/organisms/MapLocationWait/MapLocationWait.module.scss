@@ -1,27 +1,27 @@
-
-.button {
-  position: absolute;
-  cursor: pointer;
-  left: -40%;
-  top: -35%;
-  //border-radius: 50%;
-  border-radius: 50%;
-  //background: url("/images/down.png") top 40% left 50% no-repeat;
-  background: #00000030 url("/images/png/hourglass.png") center center no-repeat;
-  background-size: 80%;
-  filter: drop-shadow(0 0 5px black);
-  &:active {
-    margin-top: 1px;
-    margin-left: 1px;
+.container {
+  top: -7%;
+  left: -7%;
+  width: 114%;
+  height: 114%;
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    left: 0.5%;
+    top: -5%;
+    background: url(/images/hourglass.svg) top center no-repeat;
+    background-size: 20%;
   }
 }
 
 .markers {
   position: absolute;
   opacity: 0.9;
-  top: -7%;
-  left: -7%;
-  width: 114%;
-  height: 114%;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
   filter: drop-shadow(0 0 1px black);
 }

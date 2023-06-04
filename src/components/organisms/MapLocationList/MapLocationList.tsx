@@ -41,7 +41,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
         if (locationPath.length === 0) {
             return true;
         }
-        if (isLast(item)) {
+        if (isLast(item) && waitLeftCount < MAX_WAIT_SIZE) {
             return true;
         }
         if (isNext(item)) {
@@ -51,9 +51,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
     }
 
     const visitLocation = (item: IMapLocationItem) => dispatch(
-        isLocationLast(locationPath, item) ?
-            removePathItem(item) :
-            addPathItem(item)
+        addPathItem(item)
     );
 
     const switchLocationType = (item: IMapLocationItem) => {
@@ -78,26 +76,15 @@ export const MapLocationList = (props: MapLocationListProps) => {
         visitLocation(item);
     }
 
-    const onWait = (item: IMapLocationItem) => {
-        if (waitLeftCount === MAX_WAIT_SIZE) {
-            return;
-        }
-        // console.log('wait', item)
-        const action = addPathItem(item);
-        dispatch(action);
-    };
-
     return <>
         {locations.map((item, key) => (
             <MapLocation
                 {...item}
                 onClick={() => onClick(item)}
-                onWait={() => onWait(item)}
                 isFirst={isFirst(item)}
                 isLast={isLast(item)}
                 isNext={isNext(item)}
                 waitList={getWait(item)}
-                waitLeftCount={waitLeftCount}
                 visitsCount={getVisitsCount(item)}
                 className={S.location}
                 type={item.type}

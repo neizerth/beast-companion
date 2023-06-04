@@ -17,10 +17,8 @@ const TYPE_CLASS_NAMES = {
 
 export interface MapLocationProps {
     onClick: CallableFunction;
-    onWait: CallableFunction;
     className: string;
     visitsCount: number;
-    waitLeftCount: number;
     waitList: number[];
     isFirst: boolean;
     isLast: boolean;
@@ -42,13 +40,11 @@ export const MapLocation = (props: MapLocationProps) => {
         isNext,
         visitsCount,
         onClick,
-        onWait,
         ratio,
         size,
         top,
         left,
         waitList,
-        waitLeftCount,
         gameMode,
         type,
         isDefaultType
@@ -98,27 +94,14 @@ export const MapLocation = (props: MapLocationProps) => {
             className={classnames(className, S.container, S.wait)}
         >
             <div className={S.area} onClick={() => onClick()}/>
-            {canWait && <MapLocationWait
-                isLast={isLast}
+            {waitList.length > 0 && <MapLocationWait
                 waitList={waitList}
-                waitLeftCount={waitLeftCount}
-                size={size}
-                ratio={ratio}
-                onWait={onWait}
             />}
         </div>
         <div
             style={style}
             className={classnames(className, S.container, S.main)}
         >
-            {canWait && <MapLocationWait
-                isLast={isLast}
-                waitList={waitList}
-                waitLeftCount={waitLeftCount}
-                size={size}
-                ratio={ratio}
-                onWait={onWait}
-            />}
             <div
                 className={classnames(classList)}
             >
