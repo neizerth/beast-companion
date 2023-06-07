@@ -35,12 +35,12 @@ export const MapLocationList = (props: MapLocationListProps) => {
     const getVisitsCount = (item: IMapLocationItem) => getLocationVisitsCount(locationPath, item);
     const isNext = (item: IMapLocationItem) => isNextLocation(locationPath, item);
     const getWait = (item: IMapLocationItem) => getLocationWait(locationPath, item);
-    const waitLeftCount = getWaitVisitsCount(locationPath);
 
     const canClick = (item: IMapLocationItem) => {
         if (locationPath.length === 0) {
             return true;
         }
+        const waitLeftCount = getWait(item).length;
         if (isLast(item) && waitLeftCount < MAX_WAIT_SIZE) {
             return true;
         }
