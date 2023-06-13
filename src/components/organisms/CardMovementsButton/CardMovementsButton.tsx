@@ -23,12 +23,12 @@ export const CardMovementsButton = (props: CardMovementsButtonProps) => {
     const [lastMode, setLastMode] = useState(gameMode);
 
     useEffect(() => {
-        if (!selected) {
-            setLastMode(gameMode);
+        if (selected) {
+            return resetTransform();
         }
-        else {
-            resetTransform();
-        }
+
+        setLastMode(gameMode);
+
     }, [gameMode]);
 
     const className = classNames(
