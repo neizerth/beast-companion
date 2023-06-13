@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {selectMode, setGameMode} from "../../../features/gameMode/gameModeSlice";
 import {GameMode} from "../../../util/common";
 import {useEffect, useState} from "react";
+import {useControls} from "react-zoom-pan-pinch";
 
 export interface CardMovementsButtonProps {
     className?: string;
@@ -14,6 +15,9 @@ export interface CardMovementsButtonProps {
 export const CardMovementsButton = (props: CardMovementsButtonProps) => {
     const dispatch = useAppDispatch();
     const gameMode = useAppSelector(selectMode);
+
+    const { resetTransform } = useControls();
+
     const selected = gameMode === GameMode.MOVEMENT;
 
     const [lastMode, setLastMode] = useState(gameMode);
@@ -21,6 +25,9 @@ export const CardMovementsButton = (props: CardMovementsButtonProps) => {
     useEffect(() => {
         if (!selected) {
             setLastMode(gameMode);
+        }
+        else {
+            resetTransform();
         }
     }, [gameMode]);
 
