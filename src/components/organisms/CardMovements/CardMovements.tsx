@@ -45,7 +45,7 @@ export const CardMovements = () => {
 
     let movementImg = noMovementImg;
 
-    if (source.location !== target.location) {
+    if (target && source && source.location !== target.location) {
         const fromPoint = getLocationCenter(source.location);
         const toPoint = getLocationCenter(target.location);
         const rad = getSkew(fromPoint, toPoint);
