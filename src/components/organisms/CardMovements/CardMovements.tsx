@@ -8,6 +8,7 @@ import westImg from '../../../../public/images/movement/west.png';
 import southImg from '../../../../public/images/movement/south.png';
 import eastImg from '../../../../public/images/movement/east.png';
 import northImg from '../../../../public/images/movement/north.png';
+import noMovementImg from '../../../../public/images/movement/no-movement.png';
 
 import prevImg from '../../../../public/images/movement/prev.png';
 import nextImg from '../../../../public/images/movement/next.png';
@@ -17,7 +18,7 @@ import classNames from "classnames";
 
 export const CardMovements = () => {
     const path = useAppSelector(selectPathData);
-    const pathList = generatePathList(path);
+    const pathList = generatePathList(path, false);
 
     const [index, setIndex] = useState(0);
 
@@ -36,16 +37,23 @@ export const CardMovements = () => {
         return () => window.removeEventListener('keyup', handler);
     }, [index])
 
-    const movementImages = [eastImg, southImg, westImg, northImg]
+    const movementImages = [eastImg, southImg, westImg, northImg];
+
 
     const pathItem = pathList[pathList.length - index - 1];
     const { source, target } = pathItem;
-    const fromPoint = getLocationCenter(source.location);
-    const toPoint = getLocationCenter(target.location);
-    const rad = getSkew(fromPoint, toPoint);
 
-    const deg = (rad2deg(rad) + 45 + 360) % 360;
-    const quadrant = Math.floor(deg / 90);
+    let movementImg = noMovementImg;
+
+    if (source.location !== target.location) {
+        const fromPoint = getLocationCenter(source.location);
+        const toPoint = getLocationCenter(target.location);
+        const rad = getSkew(fromPoint, toPoint);
+
+        const deg = (rad2deg(rad) + 45 + 360) % 360;
+        const quadrant = Math.floor(deg / 90);
+        movementImg = movementImages[quadrant]
+    }
 
     const hasPrev = index < pathList.length - 1;
     const hasNext = index !== 0;
@@ -61,7 +69,7 @@ export const CardMovements = () => {
             <div className={classNames(S.movement, S.item)}>
                 <div className={S.movement__container}>
                     <div className={S.index}>{index + 1}</div>
-                    <img src={movementImages[quadrant]} className={S.movement__image} alt=""/>
+                    <img src={movementImg} className={S.movement__image} alt=""/>
                 </div>
             </div>
             <div className={classNames(S.item, S.control)} onClick={next}>
