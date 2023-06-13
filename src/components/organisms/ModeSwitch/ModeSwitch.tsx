@@ -14,7 +14,8 @@ export interface ModeSwitchProps {
 
 const icons = {
     [GameMode.PATH]: changeIcon,
-    [GameMode.LOCATIONS]: pathIcon
+    [GameMode.LOCATIONS]: pathIcon,
+    [GameMode.MOVEMENT]: null
 }
 
 export const ModeSwitch = (props: ModeSwitchProps) => {
@@ -29,11 +30,13 @@ export const ModeSwitch = (props: ModeSwitchProps) => {
     }
 
     return (
-        <GameControl
-            onClick={toggleMode}
-            className={classnames(className, S.button)}
-            icon={icon}
-            name={""}
-        />
+        <>
+            {icon && <GameControl
+                onClick={toggleMode}
+                className={classnames(className, S.button)}
+                icon={icon}
+                name={""}
+            />}
+        </>
     );
 }
