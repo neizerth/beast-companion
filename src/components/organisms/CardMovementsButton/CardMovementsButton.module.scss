@@ -1,0 +1,21 @@
+.container {
+  width: 10vh;
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: 0 0 5px white;
+  cursor: pointer;
+  filter: grayscale(1);
+  outline: none;
+  &:hover {
+    box-shadow: 0 0 10px #ffa92c;
+  }
+}
+
+.selected {
+  filter: grayscale(0);
+}
+
+.image {
+  width: 100%;
+}

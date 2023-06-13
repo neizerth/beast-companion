@@ -1,0 +1,64 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 10vw;
+  right: 10vw;
+  z-index: 4;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  padding: 20px;
+  box-sizing: border-box;
+  gap: 5vw;
+  @media (orientation: portrait) {
+    left: 0;
+    right: 0;
+  }
+}
+
+.movement {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.index {
+  position: absolute;
+  top: 1vw;
+  font-size: 12vmin;
+  text-align: center;
+  width: 100%;
+  color: black;
+  text-shadow: 1px 1px 0 white;
+}
+
+.movement__container {
+  display: inline-block;
+  position: relative;
+}
+
+.movement__image {
+  border-radius: 10px;
+  max-width: 100%;
+  max-height: calc(100vh - 40px);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.control {
+  &:active {
+    position: relative;
+    top: 1px;
+    left: 1px;
+  }
+}
+
+.arrow {
+  max-width: 100%;
+  max-height: 40vmin;
+}

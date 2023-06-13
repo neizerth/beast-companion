@@ -56,7 +56,7 @@ export const KeyboardControls = () => {
             return addPathItem(links.left);
         }
         if (['ArrowUp', 'w', 'W'].includes(key) && links.top) {
-            return  addPathItem(links.top);
+            return addPathItem(links.top);
         }
         if (['ArrowRight', 'd', 'D'].includes(key) && links.right) {
             return addPathItem(links.right);

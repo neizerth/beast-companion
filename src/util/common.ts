@@ -3,7 +3,8 @@ export const MAX_ZOOM = 8;
 export const MIN_ZOOM = 1;
 export enum GameMode {
     LOCATIONS = 'locations',
-    PATH = 'path'
+    PATH = 'path',
+    MOVEMENT = 'movement'
 }
 
 export const scale = (x: number, ratio: number) => x * ratio;
