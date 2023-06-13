@@ -1,5 +1,3 @@
-import React from "react";
-
 import S from "./MapLocation.module.scss";
 import classnames from "classnames";
 import {GameMode, px, scale} from "../../../util/common";

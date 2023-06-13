@@ -1,12 +1,10 @@
 import S from "./GameMap.module.scss";
-import {CSSProperties, useRef, useState} from "react";
+import {CSSProperties, useState} from "react";
 import {GameMode, px} from "../../../util/common";
-import {IMapLocationItem} from "../../../util/interfaces";
-import {MapLocationPath, MapLocationList} from "../..";
+import {CardMovements, MapLocationList, MapLocationPath} from "../..";
 import classnames from "classnames";
 import {useAppSelector} from "../../../hooks";
 import {selectMode} from "../../../features/gameMode/gameModeSlice";
-import {selectLocations} from "../../../features/locations/locationsSlice";
 
 export interface GameMapProps {
     src: string;
@@ -24,7 +22,6 @@ export const GameMap = (props: GameMapProps) => {
     } = props;
 
     const mode = useAppSelector(selectMode);
-    const locations = useAppSelector(selectLocations);
 
     const [loaded, setLoaded] = useState(false);
 
@@ -36,7 +33,8 @@ export const GameMap = (props: GameMapProps) => {
     const imageClassName = classnames(
         S.image,
         {
-            [S.image_loading]: !loaded
+            [S.image_loading]: !loaded,
+            [S.image_hidden]: mode === GameMode.MOVEMENT
         }
     )
     return (
@@ -50,14 +48,15 @@ export const GameMap = (props: GameMapProps) => {
                 />
                 {loaded &&
                     <>
-                        <MapLocationList
+                        {mode !== GameMode.MOVEMENT && <MapLocationList
                             ratio={ratio}
-                        />
+                        />}
                         {mode === GameMode.PATH && <MapLocationPath
                             width={width}
                             height={height}
                             ratio={ratio}
                         />}
+                        {mode === GameMode.MOVEMENT && <CardMovements/>}
                     </>
                 }
             </div>

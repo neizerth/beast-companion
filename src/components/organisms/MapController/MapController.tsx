@@ -1,12 +1,14 @@
 import S from './MapController.module.scss';
-import {IMapData, } from "../../../util/interfaces";
+import {IMapData,} from "../../../util/interfaces";
 import classnames from "classnames";
 import {ButtonControls, GameMap, KeyboardControls} from "../..";
 import {useMapSize} from "../../../hooks/useMapSize";
-import {useAppDispatch} from "../../../hooks";
+import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {clearPath} from "../../../features/path/pathSlice";
 
-import {TransformWrapper, TransformComponent} from "react-zoom-pan-pinch";
+import {TransformComponent, TransformWrapper} from "react-zoom-pan-pinch";
+import {selectMode} from "../../../features/gameMode/gameModeSlice";
+import {GameMode} from "../../../util/common";
 
 export interface GameMapProps {
     className?: string;
@@ -22,6 +24,7 @@ export const MapController = (props: GameMapProps) => {
     } = props;
 
     const dispatch = useAppDispatch();
+    const gameMode = useAppSelector(selectMode);
     const [width, height, ratio] = useMapSize(data.settings);
 
     const onClear = () => dispatch(clearPath());
@@ -32,7 +35,7 @@ export const MapController = (props: GameMapProps) => {
 
     return (
         <div className={classnames(className, S.container)}>
-            <TransformWrapper doubleClick={doubleClickOptions}>
+            <TransformWrapper doubleClick={doubleClickOptions} disabled={gameMode === GameMode.MOVEMENT}>
                 <ButtonControls />
                 <KeyboardControls/>
                 <TransformComponent contentClass={S.content} wrapperClass={S.warpper}>

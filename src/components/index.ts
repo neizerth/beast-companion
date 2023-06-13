@@ -3,6 +3,7 @@ export { Button } from './atoms/Button/Button';
 export { MapLocationLinkArrow } from './atoms/MapLocationLinkArrow/MapLocationLinkArrow';
 export { Progress } from './atoms/Progress/Progress';
 export { MapLocationImage } from './atoms/MapLocationImage/MapLocationImage';
+export { CardMovementsButton } from './organisms/CardMovementsButton/CardMovementsButton';
 
 // molecules
 export { GameControl } from './molecules/GameControl/GameControl';
@@ -21,3 +22,4 @@ export { MapSelector } from './organisms/MapSelector/MapSelector';
 export { ZoomControls } from './organisms/ZoomControls/ZoomControls';
 export { ModeSwitch } from './organisms/ModeSwitch/ModeSwitch';
 export { ResetLocationsTypeButton } from './organisms/ResetLocationsTypeButton/ResetLocationsTypeButton';
+export { CardMovements } from './organisms/CardMovements/CardMovements';

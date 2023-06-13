@@ -6,15 +6,15 @@ import {ZoomControls} from "../ZoomControls/ZoomControls";
 import {useNavigate} from "react-router-dom";
 
 import clearIcon from "../../../../public/images/clear.svg";
-import clearLocationsIcon from "../../../../public/images/clear_locations.svg";
 import backIcon from "../../../../public/images/back.svg";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {ModeSwitch} from "../ModeSwitch/ModeSwitch";
-import {selectMode} from "../../../features/gameMode/gameModeSlice";
+import {selectMode, setGameMode} from "../../../features/gameMode/gameModeSlice";
 import {GameMode} from "../../../util/common";
-import {resetLocationsType} from "../../../features/locations/locationsSlice";
 import {clearPath, selectPathData} from "../../../features/path/pathSlice";
 import {ResetLocationsTypeButton} from "../ResetLocationsTypeButton/ResetLocationsTypeButton";
+import {CardMovementsButton} from "../CardMovementsButton/CardMovementsButton";
+import {useEffect} from "react";
 
 export interface GameControlsProps {
 }
@@ -26,14 +26,19 @@ export const ButtonControls = () => {
 
     const isPathMode = gameMode === GameMode.PATH;
     const isLocationsMode = gameMode === GameMode.LOCATIONS;
+    const isMovementMode = gameMode === GameMode.MOVEMENT;
+
     const path = useAppSelector(selectPathData);
     const navigate = useNavigate();
+
     const goHome = () => navigate('/');
     const clear = () => dispatch(clearPath());
     const canClear = path.length > 1;
+    const showMovementButton = path.length > 1;
 
     return (
         <>
+            {showMovementButton && <CardMovementsButton className={S.movement}/>}
             <div className={S.primary}>
                 <div className={classnames(S.group, S.group_primary)}>
                     <div className={S.control}>
@@ -58,11 +63,13 @@ export const ButtonControls = () => {
                             <ResetLocationsTypeButton className={S.clear}/>
                         </div>
                     </>}
-                    <div className={classnames(S.group, S.zoom)}>
+
+                    {!isMovementMode && <div className={classnames(S.group, S.zoom)}>
                         <ZoomControls
                             controlClassName={S.control}
                         />
-                    </div>
+                    </div>}
+
                 </div>
                 <div className={classnames(S.group, S.group_back)}>
                     <GameControl
