@@ -1,15 +1,18 @@
 import S from "./MapLocationMeeple.module.scss";
-import {MapMeepleType} from "../../../util/interfaces";
+import {MapMeeple} from "../../../util/interfaces";
 import classNames from "classnames";
-import {MEEPLE_TYPE} from "../../../util/meeples";
+import {MEEPLE_TYPE} from "../../../util/meeple";
+import {MapMeepleWounds} from "../..";
 
 export interface MapLocationMeepleProps {
-    type: MapMeepleType;
-    isDefault: boolean
+    onInjure: CallableFunction,
+    meeple: MapMeeple;
+    isDefault: boolean;
 }
 
 export const MapLocationMeeple = (props: MapLocationMeepleProps) => {
-    const { type, isDefault } = props;
+    const { isDefault, meeple, onInjure } = props;
+    const { type } = meeple;
     const meepleTypeClassName = 'type_' + MEEPLE_TYPE[type];
     const className = classNames(
             S.item,
@@ -19,7 +22,9 @@ export const MapLocationMeeple = (props: MapLocationMeepleProps) => {
             }
         );
 
-    return <div className={S.container}>
-        <div className={className}></div>
+    return <div className={S.container} onClick={() => onInjure()}>
+        <div className={className}>
+            <MapMeepleWounds wounds={meeple.wounds}/>
+        </div>
     </div>;
 }

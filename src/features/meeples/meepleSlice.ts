@@ -1,8 +1,9 @@
 import {ActionCreator, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {GameMode} from "../../util/common";
 import {AppSelector, AppThunk} from "../../store";
-import {IMapLocationItem, MapLocationType, MapMeepleType} from "../../util/interfaces";
+import {IMapLocationItem, MapLocationType, MapMeeple, MapMeepleType} from "../../util/interfaces";
 import {setLocations} from "../locations/locationsSlice";
+import {toMeeple} from "../../util/meeple";
 
 export interface ILocationsState {
     data: IMapLocationItem[]
@@ -28,12 +29,25 @@ export const {
     setLocationMeeple
 } = meeplesSlice.actions;
 
-export const changeLocationMeeple: ActionCreator<AppThunk> = (locationItem: IMapLocationItem, meepleType: MapMeepleType) =>
+export const changeLocationMeeple: ActionCreator<AppThunk> = (locationItem: IMapLocationItem, meeple: MapMeeple) =>
     (dispatch, getState) => {
         const { locations } = getState();
         const data = locations.data.map(item => locationItem === item ? {
             ...item,
-            meepleType,
+            meeple,
+        }: item);
+        dispatch(setLocations(data));
+    }
+
+export const injureLocationMeeple: ActionCreator<AppThunk> = (locationItem: IMapLocationItem, wounds = 1) =>
+    (dispatch, getState) => {
+        const { locations } = getState();
+        const data = locations.data.map(item => locationItem === item ? {
+            ...item,
+            meeple: {
+                ...item.meeple,
+                wounds: item.meeple.wounds + wounds,
+            },
         }: item);
         dispatch(setLocations(data));
     }
@@ -43,7 +57,7 @@ export const resetLocationsMeeple: ActionCreator<AppThunk> =  () =>
         const { locations } = getState();
         const data = locations.data.map(item => ({
             ...item,
-            meepleType: item.defaultMeepleType
+            meeple: toMeeple(item.defaultMeepleType)
         }));
         dispatch(setLocations(data));
     }

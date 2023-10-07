@@ -13,11 +13,18 @@ export enum MapLocationType {
 }
 
 export enum MapMeepleType {
+    NO_MEEPLE = -1,
     BEAR = 0,
     BOAR = 1,
     FARMER = 2,
     NOBLE = 3,
     SHEEP = 4
+}
+
+export interface MapMeeple {
+    type: MapMeepleType,
+    health: number,
+    wounds: number
 }
 
 export type ILocationPath = IMapLocationItem[];
@@ -41,8 +48,8 @@ export interface IMapLocationItem {
     left: number;
     size: number;
     links: number[];
-    defaultMeepleType: MapMeepleType | null;
-    meepleType: MapMeepleType | null;
+    defaultMeepleType: MapMeepleType;
+    meeple: MapMeeple;
 }
 
 export interface IMapData {

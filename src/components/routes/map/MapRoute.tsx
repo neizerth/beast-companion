@@ -1,4 +1,4 @@
-import {IMapData, IMapJSONData, IMapJSONItem, MapType} from "../../../util/interfaces";
+import {IMapData, IMapJSONData, IMapJSONItem, MapMeepleType, MapType} from "../../../util/interfaces";
 import {MapController} from "../../organisms/MapController/MapController";
 import {LoaderFunctionArgs, useLoaderData} from "react-router-dom";
 import axios from 'axios';
@@ -9,11 +9,11 @@ import S from "./MapRoute.module.scss";
 import {useEffect} from "react";
 import {useAppDispatch} from "../../../hooks";
 import {startFrom} from "../../../features/path/pathSlice";
-import {maps} from "../../../util/maps";
+import {map} from "../../../util/map";
 import {setLocations} from "../../../features/locations/locationsSlice";
 import {setGameMode} from "../../../features/gameMode/gameModeSlice";
 import {GameMode} from "../../../util/common";
-import {NO_MEEPLE_TYPE} from "../../../util/meeples";
+import {toMeeple} from "../../../util/meeple";
 
 export interface MapLoaderParams {
     type: MapType
@@ -29,7 +29,7 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
     if (type === MapType.NONE) {
         return null;
     }
-    const url = maps[type].data;
+    const url = map[type].data;
     const { data } = await axios.get<IMapJSONData>(url);
 
     const [
@@ -47,8 +47,11 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
                 links,
                 type,
                 size,
-                meepleType = NO_MEEPLE_TYPE
+                meepleType = MapMeepleType.NO_MEEPLE
             ] = item;
+
+            const meeple = toMeeple(meepleType);
+
             return {
                 index,
                 defaultType: type,
@@ -58,7 +61,7 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
                 size: size || defaultSize,
                 links,
                 defaultMeepleType: meepleType,
-                meepleType
+                meeple
             };
         });
 
@@ -82,7 +85,7 @@ export const MapRoute = () => {
     const loaderData = useLoaderData() as never as MapLoaderData;
     const { mapData } = loaderData;
     const { type } = mapData.settings;
-    const mapInfo = maps[type];
+    const mapInfo = map[type];
 
     const dispatch = useAppDispatch();
     const progress = useImageDownloadProgress(mapInfo.image);

@@ -8,6 +8,7 @@ import S from "./ModeSwitch.module.scss";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {selectMode, setGameMode} from "../../../features/gameMode/gameModeSlice";
 import {GameMode} from "../../../util/common";
+import {GAME_MODES, getNextGameMode} from "../../../util/gameMode";
 
 export interface ModeSwitchProps {
     className?: string;
@@ -20,21 +21,17 @@ const icons = {
     [GameMode.MOVEMENT]: null
 }
 
+
+
 export const ModeSwitch = (props: ModeSwitchProps) => {
     const { className } = props;
     const gameMode = useAppSelector(selectMode);
     const dispatch = useAppDispatch();
 
-    const modes = [GameMode.PATH, GameMode.LOCATIONS, GameMode.MEEPLE];
-    const modeIndex = modes.indexOf(gameMode);
-    const nextIndex = modeIndex === modes.length - 1 ? 0 : modeIndex + 1;
-
-    const nextMode = modes[nextIndex];
+    const nextMode = getNextGameMode(gameMode);
     const icon = icons[nextMode];
 
     const toggleMode = () => {
-
-        // const mode = gameMode === GameMode.PATH ? GameMode.LOCATIONS : GameMode.PATH;
         dispatch(setGameMode(nextMode));
     }
 

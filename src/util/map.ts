@@ -13,7 +13,7 @@ export type IMapCollection = {
     [index: string]: IMapInfo
 }
 
-export const maps: IMapCollection = {
+export const map: IMapCollection = {
     small: {
         image: smallMapImage,
         data: smallMapData,

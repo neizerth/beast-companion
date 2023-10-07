@@ -2,9 +2,7 @@ import S from "./MapLocation.module.scss";
 import classnames from "classnames";
 import {GameMode, px, scale} from "../../../util/common";
 import {MapLocationImage, MapLocationMeeple, MapLocationWait} from "../..";
-import {MapLocationType, MapMeepleType} from "../../../util/interfaces";
-import {MapLocationImageList} from "../../../util/locations";
-import {NO_MEEPLE_TYPE} from "../../../util/meeples";
+import {MapLocationType, MapMeeple, MapMeepleType} from "../../../util/interfaces";
 
 const TYPE_CLASS_NAMES = {
     [MapLocationType.FOREST]: S.forest,
@@ -16,6 +14,7 @@ const TYPE_CLASS_NAMES = {
 
 export interface MapLocationProps {
     onClick: CallableFunction;
+    onMeepleInjure: CallableFunction;
     className: string;
     visitsCount: number;
     waitList: number[];
@@ -28,7 +27,7 @@ export interface MapLocationProps {
     size: number;
     type: MapLocationType;
     gameMode: GameMode;
-    meepleType: MapMeepleType | null;
+    meeple: MapMeeple;
     isDefaultMeeple: boolean;
     isDefaultType: boolean;
 }
@@ -50,15 +49,16 @@ export const MapLocation = (props: MapLocationProps) => {
         type,
         isDefaultType,
         isDefaultMeeple,
-        meepleType
+        onMeepleInjure,
+        meeple
     } = props;
-
-    const haveMeeple = meepleType !== NO_MEEPLE_TYPE;
 
     const isSelected = visitsCount > 0;
     const isMeepleMode = gameMode === GameMode.MEEPLE;
     const isPathMode = gameMode === GameMode.PATH;
     const isLocationsMode = gameMode === GameMode.LOCATIONS;
+
+    const haveMeeple = meeple.type !== MapMeepleType.NO_MEEPLE;
 
     const stateClassName = isLast ? S.last :
         isFirst ? S.first :
@@ -126,7 +126,11 @@ export const MapLocation = (props: MapLocationProps) => {
         {haveMeeple && isMeepleMode &&
             <div className={S.meeple} style={style}>
                 <div className={S.area} onClick={() => onClick()}/>
-                <MapLocationMeeple type={meepleType} isDefault={isDefaultMeeple}/>
+                <MapLocationMeeple
+                    onInjure={onMeepleInjure}
+                    meeple={meeple}
+                    isDefault={isDefaultMeeple}
+                />
             </div>
         }
     </>
