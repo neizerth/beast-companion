@@ -1,9 +1,10 @@
 import S from "./MapLocation.module.scss";
 import classnames from "classnames";
 import {GameMode, px, scale} from "../../../util/common";
-import {MapLocationImage, MapLocationWait} from "../..";
-import {MapLocationType} from "../../../util/interfaces";
+import {MapLocationImage, MapLocationMeeple, MapLocationWait} from "../..";
+import {MapLocationType, MapMeepleType} from "../../../util/interfaces";
 import {MapLocationImageList} from "../../../util/locations";
+import {NO_MEEPLE_TYPE} from "../../../util/meeples";
 
 const TYPE_CLASS_NAMES = {
     [MapLocationType.FOREST]: S.forest,
@@ -27,6 +28,8 @@ export interface MapLocationProps {
     size: number;
     type: MapLocationType;
     gameMode: GameMode;
+    meepleType: MapMeepleType | null;
+    isDefaultMeeple: boolean;
     isDefaultType: boolean;
 }
 
@@ -45,10 +48,15 @@ export const MapLocation = (props: MapLocationProps) => {
         waitList,
         gameMode,
         type,
-        isDefaultType
+        isDefaultType,
+        isDefaultMeeple,
+        meepleType
     } = props;
 
+    const haveMeeple = meepleType !== NO_MEEPLE_TYPE;
+
     const isSelected = visitsCount > 0;
+    const isMeepleMode = gameMode === GameMode.MEEPLE;
     const isPathMode = gameMode === GameMode.PATH;
     const isLocationsMode = gameMode === GameMode.LOCATIONS;
 
@@ -60,6 +68,9 @@ export const MapLocation = (props: MapLocationProps) => {
 
     const classList = [
         S.background,
+        isMeepleMode && [
+            isLast && S.last_locationsMode
+        ],
         isLocationsMode && [
             typeClassName,
             !isDefaultType && S.modified,
@@ -81,10 +92,6 @@ export const MapLocation = (props: MapLocationProps) => {
         top: k(top),
         left: k(left)
     };
-    const canWait = isPathMode && (isLast || waitList.length > 0);
-
-    const locationTypeItem = MapLocationImageList[type];
-    const locationImageUrl = locationTypeItem.url;
 
     return <>
         <div
@@ -114,6 +121,12 @@ export const MapLocation = (props: MapLocationProps) => {
                     locationSize={size}
                     className={S.image}
                 />
+            </div>
+        }
+        {haveMeeple && isMeepleMode &&
+            <div className={S.meeple} style={style}>
+                <div className={S.area} onClick={() => onClick()}/>
+                <MapLocationMeeple type={meepleType} isDefault={isDefaultMeeple}/>
             </div>
         }
     </>

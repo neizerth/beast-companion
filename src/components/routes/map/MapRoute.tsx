@@ -13,6 +13,7 @@ import {maps} from "../../../util/maps";
 import {setLocations} from "../../../features/locations/locationsSlice";
 import {setGameMode} from "../../../features/gameMode/gameModeSlice";
 import {GameMode} from "../../../util/common";
+import {NO_MEEPLE_TYPE} from "../../../util/meeples";
 
 export interface MapLoaderParams {
     type: MapType
@@ -40,15 +41,24 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
 
     const items = data[1]
         .map((item: IMapJSONItem, index) => {
-            const [top, left, links, type, size = defaultSize] = item;
+            const [
+                top,
+                left,
+                links,
+                type,
+                size,
+                meepleType = NO_MEEPLE_TYPE
+            ] = item;
             return {
                 index,
                 defaultType: type,
                 type,
                 top,
                 left,
-                size,
-                links
+                size: size || defaultSize,
+                links,
+                defaultMeepleType: meepleType,
+                meepleType
             };
         });
 

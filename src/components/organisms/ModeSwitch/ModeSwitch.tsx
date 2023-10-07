@@ -31,10 +31,6 @@ export const ModeSwitch = (props: ModeSwitchProps) => {
 
     const nextMode = modes[nextIndex];
     const icon = icons[nextMode];
-    console.log({
-        gameMode,
-        nextMode
-    })
 
     const toggleMode = () => {
 

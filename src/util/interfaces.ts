@@ -1,9 +1,7 @@
 export enum MapType {
     NONE = 'none',
     SMALL = 'small',
-    SMALL_HD = 'small_hd',
     LARGE = 'large',
-    LARGE_HD = 'large_hd',
 }
 
 export enum MapLocationType {
@@ -12,6 +10,14 @@ export enum MapLocationType {
     MIXED = 2,
     SETTLEMENT = 3,
     SWAMP = 4,
+}
+
+export enum MapMeepleType {
+    BEAR = 0,
+    BOAR = 1,
+    FARMER = 2,
+    NOBLE = 3,
+    SHEEP = 4
 }
 
 export type ILocationPath = IMapLocationItem[];
@@ -34,7 +40,9 @@ export interface IMapLocationItem {
     top: number;
     left: number;
     size: number;
-    links?: number[];
+    links: number[];
+    defaultMeepleType: MapMeepleType | null;
+    meepleType: MapMeepleType | null;
 }
 
 export interface IMapData {
@@ -42,8 +50,8 @@ export interface IMapData {
         type: MapType,
         width: number;
         height: number;
-        defaultSize: number
-        startLocation: number
+        defaultSize: number;
+        startLocation: number;
     };
     items: IMapLocationItem[]
 }
@@ -62,7 +70,8 @@ export type IMapJSONItem = [
     left: number,
     links: number[],
     type: MapLocationType,
-    size: number | undefined
+    size?: number | null,
+    meepleType?: MapMeepleType
 ];
 
 export interface ILocationLinkItem {

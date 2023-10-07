@@ -5,6 +5,7 @@ import pathReducer from './features/path/pathSlice';
 import zoomReducer from './features/zoom/zoomSlice';
 import modeReducer from './features/gameMode/gameModeSlice';
 import locationsReducer from './features/locations/locationsSlice';
+import meeplesReducer from './features/meeples/meepleSlice';
 
 export const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
         zoom: zoomReducer,
         gameMode: modeReducer,
         locations: locationsReducer,
+        meeples: meeplesReducer
     },
 })
 

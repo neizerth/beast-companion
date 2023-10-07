@@ -14,7 +14,9 @@ import {addPathItem, removePathItem, selectPathData} from "../../../features/pat
 import {GameMode, MAX_WAIT_SIZE} from "../../../util/common";
 import {selectMode} from "../../../features/gameMode/gameModeSlice";
 import {changeLocationType, selectLocations} from "../../../features/locations/locationsSlice";
+import {changeLocationMeeple} from "../../../features/meeples/meepleSlice";
 import {USER_LOCATION_TYPES} from "../../../util/locations";
+import {USER_MEEPLE_TYPES} from "../../../util/meeples";
 
 export interface MapLocationListProps {
     ratio: number;
@@ -66,7 +68,25 @@ export const MapLocationList = (props: MapLocationListProps) => {
             changeLocationType(item, nextType)
         );
     }
+
+    const switchLocationMeeple = (item: IMapLocationItem) => {
+        const meepleTypesList = USER_MEEPLE_TYPES
+            .filter(type => type !== item.defaultMeepleType)
+            .concat([item.defaultMeepleType]);
+
+        const currentTypeIndex = meepleTypesList.indexOf(item.meepleType);
+        const nextTypeIndex = currentTypeIndex === meepleTypesList.length - 1 ? 0 : currentTypeIndex + 1;
+        const nextType = meepleTypesList[nextTypeIndex];
+
+        dispatch(
+            changeLocationMeeple(item, nextType)
+        );
+    }
+
     const onClick = (item: IMapLocationItem) => {
+        if (gameMode === GameMode.MEEPLE) {
+            return switchLocationMeeple(item)
+        }
         if (gameMode === GameMode.LOCATIONS) {
             return switchLocationType(item)
         }
@@ -87,8 +107,10 @@ export const MapLocationList = (props: MapLocationListProps) => {
                 waitList={getWait(item)}
                 visitsCount={getVisitsCount(item)}
                 className={S.location}
+                meepleType={item.meepleType}
                 type={item.type}
                 isDefaultType={item.type === item.defaultType}
+                isDefaultMeeple={item.meepleType === item.defaultMeepleType}
                 ratio={ratio}
                 key={key}
                 gameMode={gameMode}

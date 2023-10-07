@@ -8,6 +8,7 @@ export { CardMovementsButton } from './organisms/CardMovementsButton/CardMovemen
 // molecules
 export { GameControl } from './molecules/GameControl/GameControl';
 export { MapLocation } from './molecules/MapLocation/MapLocation';
+export { MapLocationMeeple } from './molecules/MapLocationMeeple/MapLocationMeeple';
 
 // organisms
 export { GameMap } from './organisms/GameMap/GameMap';
