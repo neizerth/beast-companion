@@ -4,6 +4,7 @@ export const MIN_ZOOM = 1;
 export enum GameMode {
     LOCATIONS = 'locations',
     PATH = 'path',
+    MEEPLE = 'meeple',
     MOVEMENT = 'movement'
 }
 

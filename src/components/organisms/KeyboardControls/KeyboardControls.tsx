@@ -9,6 +9,7 @@ import {selectMode, setGameMode} from "../../../features/gameMode/gameModeSlice"
 import {GameMode} from "../../../util/common";
 import {resetLocationsType, selectLocations} from "../../../features/locations/locationsSlice";
 import {reset} from "../../../features/controls/controlsSlice";
+import {getNextGameMode} from "../../../util/gameMode";
 
 export const KeyboardControls = () => {
     const path = useAppSelector(selectPathData);
@@ -76,7 +77,7 @@ export const KeyboardControls = () => {
             return true;
         }
         if (['m', 'M'].includes(key)) {
-            const mode = gameMode === GameMode.PATH ? GameMode.LOCATIONS : GameMode.PATH;
+            const mode = getNextGameMode(gameMode);
             dispatch(setGameMode(mode));
             return true;
         }

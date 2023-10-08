@@ -1,9 +1,8 @@
 import S from "./MapLocation.module.scss";
 import classnames from "classnames";
 import {GameMode, px, scale} from "../../../util/common";
-import {MapLocationImage, MapLocationWait} from "../..";
-import {MapLocationType} from "../../../util/interfaces";
-import {MapLocationImageList} from "../../../util/locations";
+import {MapLocationImage, MapLocationMeeple, MapLocationWait} from "../..";
+import {MapLocationType, MapMeeple, MapMeepleType} from "../../../util/interfaces";
 
 const TYPE_CLASS_NAMES = {
     [MapLocationType.FOREST]: S.forest,
@@ -15,6 +14,7 @@ const TYPE_CLASS_NAMES = {
 
 export interface MapLocationProps {
     onClick: CallableFunction;
+    onMeepleInjure: CallableFunction;
     className: string;
     visitsCount: number;
     waitList: number[];
@@ -27,6 +27,8 @@ export interface MapLocationProps {
     size: number;
     type: MapLocationType;
     gameMode: GameMode;
+    meeple: MapMeeple;
+    isDefaultMeeple: boolean;
     isDefaultType: boolean;
 }
 
@@ -45,12 +47,18 @@ export const MapLocation = (props: MapLocationProps) => {
         waitList,
         gameMode,
         type,
-        isDefaultType
+        isDefaultType,
+        isDefaultMeeple,
+        onMeepleInjure,
+        meeple
     } = props;
 
     const isSelected = visitsCount > 0;
+    const isMeepleMode = gameMode === GameMode.MEEPLE;
     const isPathMode = gameMode === GameMode.PATH;
     const isLocationsMode = gameMode === GameMode.LOCATIONS;
+
+    const haveMeeple = meeple.type !== MapMeepleType.NO_MEEPLE;
 
     const stateClassName = isLast ? S.last :
         isFirst ? S.first :
@@ -60,6 +68,9 @@ export const MapLocation = (props: MapLocationProps) => {
 
     const classList = [
         S.background,
+        isMeepleMode && [
+            isLast && S.last_locationsMode
+        ],
         isLocationsMode && [
             typeClassName,
             !isDefaultType && S.modified,
@@ -81,10 +92,6 @@ export const MapLocation = (props: MapLocationProps) => {
         top: k(top),
         left: k(left)
     };
-    const canWait = isPathMode && (isLast || waitList.length > 0);
-
-    const locationTypeItem = MapLocationImageList[type];
-    const locationImageUrl = locationTypeItem.url;
 
     return <>
         <div
@@ -113,6 +120,16 @@ export const MapLocation = (props: MapLocationProps) => {
                     ratio={ratio}
                     locationSize={size}
                     className={S.image}
+                />
+            </div>
+        }
+        {haveMeeple && isMeepleMode &&
+            <div className={S.meeple} style={style}>
+                <div className={S.area} onClick={() => onClick()}/>
+                <MapLocationMeeple
+                    onInjure={onMeepleInjure}
+                    meeple={meeple}
+                    isDefault={isDefaultMeeple}
                 />
             </div>
         }

@@ -2,6 +2,16 @@
     z-index: 1;
 }
 
+.meeple {
+    position: absolute;
+    z-index: 7;
+    bottom: -25%;
+    left: 25%;
+
+    width: 50%;
+    height: 50%;
+}
+
 .image {
     position: absolute;
     left: -6%;
