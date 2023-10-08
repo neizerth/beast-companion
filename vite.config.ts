@@ -16,7 +16,7 @@ export default defineConfig({
   ],
     base: process.env.APP_BASE_PATH || '/beast-digital-map/',
     build: {
-        // outDir: 'docs'
+        outDir:  process.env.APP_OUT_DIR || 'docs'
     },
     preview: {
         port: Number(process.env.APP_PREVIEW_PORT) || 8080
