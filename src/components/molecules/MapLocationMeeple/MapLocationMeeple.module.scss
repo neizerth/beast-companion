@@ -15,6 +15,7 @@
   background-color: #e9e8e3;
   box-sizing: border-box;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
 
   border-radius: 50%;
   top: 100%;
@@ -52,7 +53,7 @@
 
 
 .changed {
-
+  box-shadow: 0 0 10px red;
   outline-color: #9d0000;
 }
 
