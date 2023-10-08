@@ -14,7 +14,7 @@ export default defineConfig({
           manifest
       })
   ],
-    base: process.env.APP_BASE_PATH || '/beast-digital-map/',
+    base: process.env.APP_BASE_PATH || '/beast-companion/',
     build: {
         outDir:  process.env.APP_BUILD_DIR || 'dist'
     },
