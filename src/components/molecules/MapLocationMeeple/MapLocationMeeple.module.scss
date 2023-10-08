@@ -1,27 +1,44 @@
 .container {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 100%;
+  left: 50%;
+  width: 100%;
   height: 100%;
-  position: relative;
+  padding: 10%;
 
-  background-repeat: no-repeat;
+  box-sizing: border-box;
+  &:hover:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10%;
+    height: 10%;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ffa92c, inset 0 0 10px #ffa930, 0 0 30px red;
+    background: radial-gradient(#ffa92c, #ff7709, #ff0000a1);
+  }
 }
 
 .item {
   position: absolute;
-  transform: translate(-50%, -50%);
 
+  left: 20%;
+  right: 20%;
+  top: 20%;
+  bottom: 20%;
   background-size: 80%;
   background-repeat: no-repeat;
   background-position: center center;
   background-color: #e9e8e3;
-  box-sizing: border-box;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
   cursor: pointer;
 
   border-radius: 50%;
-  top: 100%;
-  left: 50%;
-  width: 70%;
-  height: 70%;
+
   border: 1px solid rgba(1, 5, 6, 0.7);
   outline: 1px solid rgba(255, 169, 44, 0.7);
   &:before {
@@ -35,19 +52,6 @@
     outline: 1px solid rgba(255, 255, 255, 0.7);
     outline-offset: -1px;
     border-radius: 50%;
-  }
-  &:hover:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 15%;
-    height: 15%;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #ffa92c, inset 0 0 10px #ffa930, 0 0 30px red;
-    background: radial-gradient(#ffa92c, #ff7709, #ff0000a1);
   }
 }
 

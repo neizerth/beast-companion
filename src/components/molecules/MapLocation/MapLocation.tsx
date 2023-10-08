@@ -124,9 +124,10 @@ export const MapLocation = (props: MapLocationProps) => {
             </div>
         }
         {haveMeeple && isMeepleMode &&
-            <div className={S.meeple} style={style}>
+            <div className={S.meepleContainer} style={style}>
                 <div className={S.area} onClick={() => onClick()}/>
                 <MapLocationMeeple
+                    className={S.meeple}
                     onInjure={onMeepleInjure}
                     meeple={meeple}
                     isDefault={isDefaultMeeple}

@@ -5,6 +5,7 @@ import {MEEPLE_TYPE} from "../../../util/meeple";
 import {MapMeepleWounds} from "../..";
 
 export interface MapLocationMeepleProps {
+    className: string;
     onInjure: CallableFunction,
     meeple: MapMeeple;
     isDefault: boolean;
@@ -14,6 +15,11 @@ export const MapLocationMeeple = (props: MapLocationMeepleProps) => {
     const { isDefault, meeple, onInjure } = props;
     const { type } = meeple;
     const meepleTypeClassName = 'type_' + MEEPLE_TYPE[type];
+
+    const containerClassName = classNames(
+        props.className,
+        S.container
+    );
     const className = classNames(
             S.item,
             S[meepleTypeClassName],
@@ -22,7 +28,7 @@ export const MapLocationMeeple = (props: MapLocationMeepleProps) => {
             }
         );
 
-    return <div className={S.container} onClick={() => onInjure()}>
+    return <div className={containerClassName} onClick={() => onInjure()}>
         <div className={className}>
             <MapMeepleWounds wounds={meeple.wounds}/>
         </div>
