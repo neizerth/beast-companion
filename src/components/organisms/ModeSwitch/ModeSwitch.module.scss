@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  justify-content: center;
+
+  padding: 0.5em;
+}
+
+.list {
+  display: inline-flex;
+  background: #00000080;
+  gap: 0.5em;
+  padding: 0.5em;
+
+  border-radius: 0.5em;
+}
+
+.item {
+  width: 2em;
+  height: 2em;
+}
+
+.selected {
+  filter: grayscale(1);
+}

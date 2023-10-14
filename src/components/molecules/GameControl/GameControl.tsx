@@ -6,6 +6,7 @@ import classnames from "classnames";
 export interface RefreshButtonProps {
     onClick?: CallableFunction;
     className?: string;
+    iconClassName?: string;
     icon: string;
     name: string;
     disabled?: boolean;
@@ -21,6 +22,7 @@ export const GameControl = (props: RefreshButtonProps) => {
     } = props;
     const iconClassName = classnames(
         S.icon,
+        props.iconClassName,
         {
             [S.disabled]: disabled,
             [S.active]: !disabled

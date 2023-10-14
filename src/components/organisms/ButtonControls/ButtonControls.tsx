@@ -41,9 +41,6 @@ export const ButtonControls = () => {
             {showMovementButton && <CardMovementsButton className={S.movement}/>}
             <div className={S.primary}>
                 <div className={classnames(S.group, S.group_primary)}>
-                    <div className={S.control}>
-                        <ModeSwitch className={S.mode}/>
-                    </div>
                     {isPathMode && <>
                         <div className={S.control}>
                             <GameControl

@@ -5,3 +5,18 @@
 .content {
     will-change: transform;
 }
+
+.modes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 2;
+    @media (orientation: portrait) {
+        @media (min-height: 1024px) {
+            bottom: 0;
+            top: auto;
+        }
+    }
+}
