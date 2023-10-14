@@ -1,6 +1,7 @@
 import changeIcon from "../../../../public/images/change.svg";
 import pathIcon from "../../../../public/images/path.svg";
 import meepleIcon from "../../../../public/images/meeple.svg";
+import huntersIcon from "../../../../public/images/target.svg";
 
 import S from "./ModeSwitch.module.scss";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
@@ -17,6 +18,7 @@ const icons: [GameMode, string][] = [
     [GameMode.PATH, pathIcon],
     [GameMode.LOCATIONS, changeIcon],
     [GameMode.MEEPLE, meepleIcon],
+    [GameMode.HUNTERS, huntersIcon],
 ]
 
 export const ModeSwitch = (props: ModeSwitchProps) => {
