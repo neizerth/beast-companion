@@ -1,48 +1,45 @@
-import classnames from "classnames";
 import changeIcon from "../../../../public/images/change.svg";
 import pathIcon from "../../../../public/images/path.svg";
 import meepleIcon from "../../../../public/images/meeple.svg";
-import {GameControl} from "../..";
 
 import S from "./ModeSwitch.module.scss";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {selectMode, setGameMode} from "../../../features/gameMode/gameModeSlice";
 import {GameMode} from "../../../util/common";
-import {GAME_MODES, getNextGameMode} from "../../../util/gameMode";
+import classNames from "classnames";
+import {GameControl} from "../../molecules/GameControl/GameControl";
 
 export interface ModeSwitchProps {
     className?: string;
 }
 
-const icons = {
-    [GameMode.PATH]: pathIcon,
-    [GameMode.LOCATIONS]: changeIcon,
-    [GameMode.MEEPLE]: meepleIcon,
-    [GameMode.MOVEMENT]: null
-}
-
-
+const icons: [GameMode, string][] = [
+    [GameMode.PATH, pathIcon],
+    [GameMode.LOCATIONS, changeIcon],
+    [GameMode.MEEPLE, meepleIcon],
+]
 
 export const ModeSwitch = (props: ModeSwitchProps) => {
     const { className } = props;
-    const gameMode = useAppSelector(selectMode);
+    const currentGameMode = useAppSelector(selectMode);
     const dispatch = useAppDispatch();
 
-    const nextMode = getNextGameMode(gameMode);
-    const icon = icons[nextMode];
-
-    const toggleMode = () => {
-        dispatch(setGameMode(nextMode));
-    }
+    const getIconClassName = (gameMode: GameMode) => classNames([currentGameMode !== gameMode && S.selected])
 
     return (
-        <>
-            {icon && <GameControl
-                onClick={toggleMode}
-                className={classnames(className, S.button)}
-                icon={icon}
-                name={""}
-            />}
-        </>
+        <div className={classNames(className, S.container)}>
+            <div className={S.list}>
+                {icons.map(([gameMode,icon], index) =>
+                    <GameControl
+                        className={S.item}
+                        onClick={() => dispatch(setGameMode(gameMode))}
+                        iconClassName={getIconClassName(gameMode)}
+                        icon={icon}
+                        key={index}
+                        name={""}
+                    />
+                )}
+            </div>
+        </div>
     );
 }

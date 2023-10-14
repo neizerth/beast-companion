@@ -1,7 +1,7 @@
 import S from './MapController.module.scss';
 import {IMapData,} from "../../../util/interfaces";
 import classnames from "classnames";
-import {ButtonControls, GameMap, KeyboardControls} from "../..";
+import {ButtonControls, GameMap, KeyboardControls, ModeSwitch} from "../..";
 import {useMapSize} from "../../../hooks/useMapSize";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {clearPath} from "../../../features/path/pathSlice";
@@ -37,6 +37,7 @@ export const MapController = (props: GameMapProps) => {
         <div className={classnames(className, S.container)}>
             <TransformWrapper doubleClick={doubleClickOptions} disabled={gameMode === GameMode.MOVEMENT}>
                 <ButtonControls />
+                <ModeSwitch className={S.modes}/>
                 <KeyboardControls/>
                 <TransformComponent contentClass={S.content} wrapperClass={S.warpper}>
                     <GameMap
