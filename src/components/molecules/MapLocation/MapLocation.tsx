@@ -1,8 +1,10 @@
 import S from "./MapLocation.module.scss";
 import classnames from "classnames";
 import {GameMode, px, scale} from "../../../util/common";
-import {MapLocationImage, MapLocationMeeple, MapLocationWait} from "../..";
+import {AddHunterButton, MapLocationImage, MapLocationMeeple, MapLocationWait, MapHunter} from "../..";
 import {MapLocationType, MapMeeple, MapMeepleType} from "../../../util/interfaces";
+import {eq} from "lodash/fp";
+import {GameMapHunter} from "../../../util/hunters";
 
 const TYPE_CLASS_NAMES = {
     [MapLocationType.FOREST]: S.forest,
@@ -25,6 +27,7 @@ export interface MapLocationProps {
     top: number;
     left: number;
     size: number;
+    hunters: GameMapHunter[];
     type: MapLocationType;
     gameMode: GameMode;
     meeple: MapMeeple;
@@ -50,15 +53,23 @@ export const MapLocation = (props: MapLocationProps) => {
         isDefaultType,
         isDefaultMeeple,
         onMeepleInjure,
+        hunters,
         meeple
     } = props;
 
-    const isSelected = visitsCount > 0;
-    const isMeepleMode = gameMode === GameMode.MEEPLE;
-    const isPathMode = gameMode === GameMode.PATH;
-    const isLocationsMode = gameMode === GameMode.LOCATIONS;
+    const isMode = eq(gameMode);
+    const isType = eq(type);
 
-    const haveMeeple = meeple.type !== MapMeepleType.NO_MEEPLE;
+    const isSettlement = isType(MapLocationType.SETTLEMENT);
+
+    const isSelected = visitsCount > 0;
+    const isMeepleMode = isMode(GameMode.MEEPLE);
+    const isPathMode = isMode(GameMode.PATH);
+    const isLocationsMode = isMode(GameMode.LOCATIONS);
+    const isHuntersMode = isMode(GameMode.HUNTERS);
+
+    const hasHunters = hunters.length > 0;
+    const hasMeeple = meeple.type !== MapMeepleType.NO_MEEPLE;
 
     const stateClassName = isLast ? S.last :
         isFirst ? S.first :
@@ -68,7 +79,7 @@ export const MapLocation = (props: MapLocationProps) => {
 
     const classList = [
         S.background,
-        isMeepleMode && [
+        !isLocationsMode && [
             isLast && S.last_locationsMode
         ],
         isLocationsMode && [
@@ -123,7 +134,7 @@ export const MapLocation = (props: MapLocationProps) => {
                 />
             </div>
         }
-        {haveMeeple && isMeepleMode &&
+        {hasMeeple && isMeepleMode &&
             <div className={S.meepleContainer} style={style}>
                 <div className={S.area} onClick={() => onClick()}/>
                 <MapLocationMeeple
@@ -132,6 +143,21 @@ export const MapLocation = (props: MapLocationProps) => {
                     meeple={meeple}
                     isDefault={isDefaultMeeple}
                 />
+            </div>
+        }
+        {isHuntersMode && isSettlement &&
+            <div className={S.hunterContainer} style={style}>
+                <div className={S.area} onClick={() => onClick()}/>
+                <div className={S.hunterList}>
+                    {hasHunters && hunters.map((hunter, key) =>
+                        <MapHunter className={S.hunter} hunter={hunter} key={key}/>
+                    )}
+                </div>
+                {!hasHunters &&
+                    <AddHunterButton
+                        className={S.addHunter}
+                    />
+                }
             </div>
         }
     </>

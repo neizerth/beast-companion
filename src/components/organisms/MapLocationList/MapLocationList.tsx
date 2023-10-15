@@ -12,10 +12,17 @@ import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {addPathItem, selectPathData} from "../../../features/path/pathSlice";
 import {GameMode, MAX_WAIT_SIZE} from "../../../util/common";
 import {selectMode} from "../../../features/gameMode/gameModeSlice";
-import {changeLocationType, selectLocations} from "../../../features/locations/locationsSlice";
+import {
+    changeLocationType,
+    selectLocations,
+    selectActiveHunters,
+    addLocationHunter
+} from "../../../features/locations/locationsSlice";
 import {changeLocationMeeple, injureLocationMeeple} from "../../../features/meeples/meepleSlice";
 import {USER_LOCATION_TYPES} from "../../../util/locations";
 import {toMeeple, USER_MEEPLE_TYPES} from "../../../util/meeple";
+import {eq} from "lodash/fp";
+import {getNextAvailableHunter, toHunter} from "../../../util/hunters";
 
 export interface MapLocationListProps {
     ratio: number;
@@ -28,6 +35,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
 
     const gameMode = useAppSelector(selectMode);
     const locations = useAppSelector(selectLocations);
+    const activeHunters = useAppSelector(selectActiveHunters);
 
     const dispatch = useAppDispatch();
     const locationPath = useAppSelector(selectPathData);
@@ -36,6 +44,8 @@ export const MapLocationList = (props: MapLocationListProps) => {
     const getVisitsCount = (item: IMapLocationItem) => getLocationVisitsCount(locationPath, item);
     const isNext = (item: IMapLocationItem) => isNextLocation(locationPath, item);
     const getWait = (item: IMapLocationItem) => getLocationWait(locationPath, item);
+
+    const isMode = eq(gameMode);
 
     const canClick = (item: IMapLocationItem) => {
         if (locationPath.length === 0) {
@@ -97,12 +107,26 @@ export const MapLocationList = (props: MapLocationListProps) => {
         );
     }
 
+    const addHunter = (item: IMapLocationItem) => {
+        const type = getNextAvailableHunter(activeHunters);
+        if (!type) {
+            return;
+        }
+        const hunter = toHunter(type);
+        dispatch(
+            addLocationHunter(item, hunter)
+        );
+    };
+
     const onClick = (item: IMapLocationItem) => {
-        if (gameMode === GameMode.MEEPLE) {
+        if (isMode(GameMode.MEEPLE)) {
             return switchLocationMeeple(item)
         }
-        if (gameMode === GameMode.LOCATIONS) {
+        if (isMode(GameMode.LOCATIONS)) {
             return switchLocationType(item)
+        }
+        if (isMode(GameMode.HUNTERS)) {
+            return addHunter(item);
         }
         if (!canClick(item)) {
             return;
@@ -124,6 +148,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
                 className={S.location}
                 meeple={item.meeple}
                 type={item.type}
+                hunters={item.hunters}
                 isDefaultType={item.type === item.defaultType}
                 isDefaultMeeple={item.meeple.type === item.defaultMeepleType}
                 ratio={ratio}

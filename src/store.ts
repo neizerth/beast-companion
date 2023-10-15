@@ -14,7 +14,7 @@ export const store = configureStore({
         zoom: zoomReducer,
         gameMode: modeReducer,
         locations: locationsReducer,
-        meeples: meeplesReducer
+        meeples: meeplesReducer,
     },
 })
 

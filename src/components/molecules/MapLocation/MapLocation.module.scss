@@ -2,6 +2,44 @@
     z-index: 1;
 }
 
+.hunterContainer {
+    position: absolute;
+    z-index: 7;
+    bottom: -25%;
+    left: 25%;
+
+    width: 50%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    &:hover {
+        background: rgba(0, 0, 0, 0.4);
+    }
+}
+
+.hunterList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hunter {
+    flex-basis: 50%;
+    &:only-child {
+        flex-basis: 100%;
+    }
+}
+
+.addHunter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+}
+
 .meepleContainer {
     position: absolute;
     z-index: 7;

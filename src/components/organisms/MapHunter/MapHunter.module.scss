@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+
+  box-sizing: border-box;
+}
+
+.icon {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+@mixin hunterBorderColor($color) {
+  border: 0.4vw solid $color;
+  box-shadow: 0 0 0.4vw $color;
+}
+
+.selected {
+  @include hunterBorderColor(#fff);
+}
+
+.assar {
+  @include hunterBorderColor(#5fc3d5);
+}
+
+.iona {
+  @include hunterBorderColor(#f6dd00);
+}
+
+.krim {
+  @include hunterBorderColor(#5cb12f);
+}
+
+.varja {
+  @include hunterBorderColor(#b84240);
+}
+
+.grimgier {
+  @include hunterBorderColor(#974399);
+}
+
+.helga {
+  @include hunterBorderColor(#ed7b18);
+}
