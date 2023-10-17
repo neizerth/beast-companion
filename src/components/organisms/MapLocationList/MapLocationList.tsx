@@ -47,6 +47,8 @@ export const MapLocationList = (props: MapLocationListProps) => {
 
     const isMode = eq(gameMode);
 
+    const nextHunterType = getNextAvailableHunter(activeHunters);
+
     const canClick = (item: IMapLocationItem) => {
         if (locationPath.length === 0) {
             return true;
@@ -108,11 +110,10 @@ export const MapLocationList = (props: MapLocationListProps) => {
     }
 
     const addHunter = (item: IMapLocationItem) => {
-        const type = getNextAvailableHunter(activeHunters);
-        if (!type) {
+        if (!nextHunterType) {
             return;
         }
-        const hunter = toHunter(type);
+        const hunter = toHunter(nextHunterType);
         dispatch(
             addLocationHunter(item, hunter)
         );
@@ -149,6 +150,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
                 meeple={item.meeple}
                 type={item.type}
                 hunters={item.hunters}
+                canAddHunters={nextHunterType !== undefined}
                 isDefaultType={item.type === item.defaultType}
                 isDefaultMeeple={item.meeple.type === item.defaultMeepleType}
                 ratio={ratio}

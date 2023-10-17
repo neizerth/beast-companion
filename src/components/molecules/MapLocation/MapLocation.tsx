@@ -28,6 +28,7 @@ export interface MapLocationProps {
     left: number;
     size: number;
     hunters: GameMapHunter[];
+    canAddHunters: boolean;
     type: MapLocationType;
     gameMode: GameMode;
     meeple: MapMeeple;
@@ -52,6 +53,7 @@ export const MapLocation = (props: MapLocationProps) => {
         type,
         isDefaultType,
         isDefaultMeeple,
+        canAddHunters,
         onMeepleInjure,
         hunters,
         meeple
@@ -79,14 +81,13 @@ export const MapLocation = (props: MapLocationProps) => {
 
     const classList = [
         S.background,
-        !isLocationsMode && [
+        !isPathMode && [
             isLast && S.last_locationsMode
         ],
         isLocationsMode && [
             typeClassName,
             !isDefaultType && S.modified,
-            isNext && S.next_locationsMode,
-            isLast && S.last_locationsMode
+            isNext && S.next_locationsMode
         ],
         isPathMode && [
             stateClassName,
@@ -147,17 +148,17 @@ export const MapLocation = (props: MapLocationProps) => {
         }
         {isHuntersMode && isSettlement &&
             <div className={S.hunterContainer} style={style}>
-                <div className={S.area} onClick={() => onClick()}/>
                 <div className={S.hunterList}>
                     {hasHunters && hunters.map((hunter, key) =>
                         <MapHunter className={S.hunter} hunter={hunter} key={key}/>
                     )}
                 </div>
-                {!hasHunters &&
-                    <AddHunterButton
-                        className={S.addHunter}
-                    />
-                }
+
+                {canAddHunters && <AddHunterButton
+                    onClick={() => onClick()}
+                    className={S.addHunter}
+                />}
+
             </div>
         }
     </>

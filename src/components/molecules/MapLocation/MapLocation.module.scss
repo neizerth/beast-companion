@@ -14,16 +14,16 @@
     justify-content: center;
     align-items: center;
 
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    &:hover {
-        background: rgba(0, 0, 0, 0.4);
-    }
+
 }
 
 .hunterList {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
+    position: relative;
+
 }
 
 .hunter {
@@ -34,10 +34,19 @@
 }
 
 .addHunter {
+    position: absolute;
+    top: -50%;
+    left: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 75%;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    &:hover {
+        background: rgba(0, 0, 0, 0.4);
+    }
 }
 
 .meepleContainer {

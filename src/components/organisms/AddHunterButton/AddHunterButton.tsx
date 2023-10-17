@@ -8,11 +8,13 @@ import classNames from "classnames";
 export interface AddHunterButtonProps {
     className?: string;
     iconClassName?: string;
+    onClick: CallableFunction;
 }
 
 export const AddHunterButton = (props: AddHunterButtonProps) => {
-    const { className, iconClassName } = props;
+    const { className, iconClassName, onClick } = props;
     return <GameControl
+        onClick={onClick}
         className={classnames(className, S.container)}
         iconClassName={iconClassName}
         icon={addIcon}
