@@ -2,9 +2,12 @@ import S from "./MapLocation.module.scss";
 import classnames from "classnames";
 import {GameMode, px, scale} from "../../../util/common";
 import {AddHunterButton, MapLocationImage, MapLocationMeeple, MapLocationWait, MapHunter} from "../..";
-import {MapLocationType, MapMeeple, MapMeepleType} from "../../../util/interfaces";
+import {IMapLocationItem, MapLocationType, MapMeeple, MapMeepleType} from "../../../util/interfaces";
 import {eq} from "lodash/fp";
 import {GameMapHunter} from "../../../util/hunters";
+import {useAppSelector} from "../../../hooks";
+import {selectCurrentHunter} from "../../../features/hunters/huntersSlice";
+import {MapLocationLinks} from "../../../helpers/locationPath";
 
 const TYPE_CLASS_NAMES = {
     [MapLocationType.FOREST]: S.forest,
@@ -34,6 +37,7 @@ export interface MapLocationProps {
     meeple: MapMeeple;
     isDefaultMeeple: boolean;
     isDefaultType: boolean;
+    links: MapLocationLinks;
 }
 
 export const MapLocation = (props: MapLocationProps) => {
@@ -56,8 +60,11 @@ export const MapLocation = (props: MapLocationProps) => {
         canAddHunters,
         onMeepleInjure,
         hunters,
+        links,
         meeple
     } = props;
+
+    const currentHunter = useAppSelector(selectCurrentHunter);
 
     const isMode = eq(gameMode);
     const isType = eq(type);
@@ -150,7 +157,13 @@ export const MapLocation = (props: MapLocationProps) => {
             <div className={S.hunterContainer} style={style}>
                 <div className={S.hunterList}>
                     {hasHunters && hunters.map((hunter, key) =>
-                        <MapHunter className={S.hunter} hunter={hunter} key={key}/>
+                        <MapHunter
+                            className={S.hunter}
+                            hunter={hunter}
+                            selected={currentHunter === hunter.type}
+                            links={links}
+                            key={key}
+                        />
                     )}
                 </div>
 

@@ -11,6 +11,8 @@ export interface MapLocationListItem {
     size: number
 }
 
+export const MAP_LOCATION_NONE = -1;
+
 export const USER_LOCATION_TYPES = [
     MapLocationType.SWAMP,
     MapLocationType.CAVES,

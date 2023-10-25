@@ -2,6 +2,7 @@ import {MapLocation} from "../../molecules/MapLocation/MapLocation";
 import S from "../MapController/MapController.module.scss";
 import {IMapLocationItem, MapMeepleType} from "../../../util/interfaces";
 import {
+    getLocationDirectedLinks,
     getLocationVisitsCount,
     getLocationWait,
     isLocationFirst,
@@ -23,6 +24,7 @@ import {USER_LOCATION_TYPES} from "../../../util/locations";
 import {toMeeple, USER_MEEPLE_TYPES} from "../../../util/meeple";
 import {eq} from "lodash/fp";
 import {getNextAvailableHunter, toHunter} from "../../../util/hunters";
+import {setCurrentHunter} from "../../../features/hunters/huntersSlice";
 
 export interface MapLocationListProps {
     ratio: number;
@@ -69,10 +71,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
 
     const onMeepleInjure = (item: IMapLocationItem) => {
         const { wounds, health } = item.meeple;
-        console.log({
-            wounds,
-            health
-        })
+
         if (health - wounds > 1) {
             return dispatch(injureLocationMeeple(item));
         }
@@ -117,6 +116,10 @@ export const MapLocationList = (props: MapLocationListProps) => {
         dispatch(
             addLocationHunter(item, hunter)
         );
+
+        dispatch(
+            setCurrentHunter(nextHunterType)
+        )
     };
 
     const onClick = (item: IMapLocationItem) => {
@@ -154,6 +157,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
                 isDefaultType={item.type === item.defaultType}
                 isDefaultMeeple={item.meeple.type === item.defaultMeepleType}
                 ratio={ratio}
+                links={getLocationDirectedLinks(locations, item)}
                 key={key}
                 gameMode={gameMode}
             />

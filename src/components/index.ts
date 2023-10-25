@@ -3,7 +3,7 @@ export { Button } from './atoms/Button/Button';
 export { MapLocationLinkArrow } from './atoms/MapLocationLinkArrow/MapLocationLinkArrow';
 export { Progress } from './atoms/Progress/Progress';
 export { MapLocationImage } from './atoms/MapLocationImage/MapLocationImage';
-export { CardMovementsButton } from './organisms/CardMovementsButton/CardMovementsButton';
+export { Arrow } from './atoms/Arrow/Arrow';
 
 // molecules
 export { GameControl } from './molecules/GameControl/GameControl';
@@ -11,6 +11,7 @@ export { MapLocation } from './molecules/MapLocation/MapLocation';
 export { MapLocationMeeple } from './molecules/MapLocationMeeple/MapLocationMeeple';
 
 // organisms
+export { CardMovementsButton } from './organisms/CardMovementsButton/CardMovementsButton';
 export { GameMap } from './organisms/GameMap/GameMap';
 export { HistoryControls } from './organisms/HistoryControls/HistoryControls';
 export { ButtonControls } from './organisms/ButtonControls/ButtonControls';

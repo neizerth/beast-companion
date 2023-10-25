@@ -6,6 +6,7 @@
 
   box-sizing: border-box;
   position: relative;
+  cursor: pointer;
 
   &:hover:before{
     position: absolute;
@@ -16,9 +17,17 @@
     top: 0;
     bottom: 0;
     border-radius: 50%;
-    cursor: pointer;
     background: rgba(0, 0, 0, 0.4);
   }
+}
+
+.area {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 50%;
 }
 
 .icon {
@@ -34,8 +43,10 @@
 }
 
 .selected {
-  @include hunterBorderColor(#fff);
-  border-style: dashed;
+  @include hunterBorderColor(#000);
+  outline: 0.4vw double rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0.2vw white;
+  outline-offset: -0.4vw;
 }
 
 .assar {
@@ -60,4 +71,48 @@
 
 .helga {
   @include hunterBorderColor(#ed7b18);
+}
+
+.arrow {
+  --size: 75%;
+  --translate-x: 0;
+  --translate-y: 0;
+
+  width: var(--size);
+  position: absolute;
+  z-index: 2;
+  padding: 10%;
+
+  transform: translate(
+    var(--translate-x),
+    var(--translate-y)
+  );
+}
+
+.arrow_left {
+  left: calc(-1 * var(--size));
+  top: 50%;
+
+  --translate-y: -50%;
+}
+
+.arrow_right {
+  right: calc(-1 * var(--size));
+  top: 50%;
+
+  --translate-y: -50%;
+}
+
+.arrow_top {
+  top: calc(-1 * var(--size));
+  left: 50%;
+
+  --translate-x: -50%;
+}
+
+.arrow_bottom {
+  bottom: calc(-1 * var(--size));
+  left: 50%;
+
+  --translate-x: -50%;
 }

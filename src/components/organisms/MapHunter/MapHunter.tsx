@@ -8,10 +8,16 @@ import ionaImage from '../../../../public/images/hunters/iona.png';
 import grimgierImage from '../../../../public/images/hunters/grimgier.png';
 import assarImage from '../../../../public/images/hunters/assar.png';
 import classNames from "classnames";
+import {useAppDispatch} from "../../../hooks";
+import {setCurrentHunter, unsetCurrentHunter} from "../../../features/hunters/huntersSlice";
+import {IMapLocationItem} from "../../../util/interfaces";
+import {MapLocationLinks} from "../../../helpers/locationPath";
+import {Arrow, ArrowType} from "../../atoms/Arrow/Arrow";
 
 export interface MapHunterProps {
     className?: string,
     hunter: GameMapHunter,
+    links: MapLocationLinks,
     selected?: boolean
 }
 
@@ -34,11 +40,16 @@ export const HUNTER_CLASS_NAMES = {
 }
 
 export const MapHunter = (props: MapHunterProps) => {
-    const { hunter, selected = false } = props;
+    const {
+        hunter,
+        selected = false,
+        links
+    } = props;
+
+    const dispatch = useAppDispatch();
     const image = HUNTER_IMAGES[hunter.type];
     const iconClassName = classNames(
         S.icon,
-        selected && S.selected
     )
 
     const hunterClassName = HUNTER_CLASS_NAMES[hunter.type];
@@ -46,10 +57,35 @@ export const MapHunter = (props: MapHunterProps) => {
     const className = classNames(
         props.className,
         S.container,
-        hunterClassName
+        hunterClassName,
+        selected && S.selected
+        // selected ? S.selected : hunterClassName
     );
 
+    const getArrowClassName = (type: string) => classNames(
+        S.arrow,
+        S[`arrow_${type}`]
+    );
+
+    const handleHunterClick = () => dispatch(
+        selected ? unsetCurrentHunter() : setCurrentHunter(hunter.type)
+    );
+
+    const goToLocation = (item: IMapLocationItem) => {
+        console.log({ item });
+    };
+
     return <div className={className}>
+        <div className={S.area} onClick={handleHunterClick} />
+
         <img src={image} alt="" className={iconClassName}/>
+        {selected && Object.entries(links).map(([type, item], key) =>
+            <Arrow
+                className={getArrowClassName(type)}
+                key={key}
+                type={type as ArrowType}
+                onClick={() => goToLocation(item)
+                }/>
+        )}
     </div>
 }

@@ -1,4 +1,5 @@
 import {ILocationPath, IMapLocationItem} from "../util/interfaces";
+import {MAP_LOCATION_NONE} from "../util/locations";
 
 export const getLocationItem = (path: ILocationPath, locationItem: IMapLocationItem) =>
     path.find(item => eq(item, locationItem));
@@ -143,29 +144,19 @@ export const isNextLocation = (path: ILocationPath, item: IMapLocationItem) => {
 
 export const startFromLocation = (location: IMapLocationItem | null): ILocationPath => location ? [location] : [];
 
-export const getLocationDirectedLinks = (locations: IMapLocationItem[], item: IMapLocationItem) => {
+export interface MapLocationLinks {
+    left: IMapLocationItem | false,
+    right: IMapLocationItem | false,
+    top: IMapLocationItem | false,
+    bottom: IMapLocationItem | false
+}
+
+export const getLocationDirectedLinks = (locations: IMapLocationItem[], item: IMapLocationItem): MapLocationLinks => {
     const { links = [] } = item;
 
-    const data = links.map(index => locations[index]);
+    const [top, right, bottom, left] = links
+        .map(id => id !== null && locations[id]);
 
-    const leftOrder = [...data].sort((a, b) =>
-        a.left > b.left ? 1 : a.left === b.left ? 0 : -1
-    );
-    const topOrder = [...data].sort((a, b) =>
-        a.top > b.top ? 1 : a.top === b.top ? 0 : -1
-    );
-    const ACCURACY = 50;
-
-    const left = leftOrder
-        .filter(location => item.left - location.left > ACCURACY)[0];
-    const right = leftOrder
-        .filter(location => location.left - item.left > ACCURACY)
-        .reverse()[0]
-    const top = topOrder
-        .filter(location => item.top - location.top > ACCURACY)[0];
-    const bottom = topOrder
-        .filter(location => location.top - item.top > ACCURACY)
-        .reverse()[0];
     return {
         top,
         left,
