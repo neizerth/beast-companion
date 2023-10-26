@@ -1,5 +1,7 @@
 import S from './Arrow.module.scss';
 import classNames from "classnames";
+import arrowImg from './../../../../public/images/arrow.png';
+import arrowHoverImg from './../../../../public/images/arrow_hover.png';
 
 export enum ArrowType {
     LEFT = 'left',
@@ -25,11 +27,13 @@ export const Arrow = (props: ArrowProps) => {
         S.container,
         props.className
     );
+
     const arrowClassName = classNames(
         S.arrow,
-        typeClassName,
+        typeClassName
     )
-    return <button type={"button"} className={className} onClick={() => onClick}>
-        <div className={arrowClassName}/>
-    </button>
+    return <div className={className} onClick={() => onClick()}>
+        <img src={arrowImg} className={arrowClassName} alt=""/>
+        <img src={arrowHoverImg} className={classNames(arrowClassName, S.hovered)} alt=""/>
+    </div>
 }

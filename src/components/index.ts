@@ -28,3 +28,4 @@ export { ResetLocationsTypeButton } from './organisms/ResetLocationsTypeButton/R
 export { CardMovements } from './organisms/CardMovements/CardMovements';
 export { MapMeepleWounds } from './organisms/MapMeepleWounds/MapMeepleWounds';
 export { AddHunterButton } from './organisms/AddHunterButton/AddHunterButton';
+export { MapLocationArrows } from './organisms/MapLocationArrows/MapLocationArrows';

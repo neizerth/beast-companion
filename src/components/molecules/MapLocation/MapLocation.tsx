@@ -1,13 +1,14 @@
 import S from "./MapLocation.module.scss";
 import classnames from "classnames";
 import {GameMode, px, scale} from "../../../util/common";
-import {AddHunterButton, MapLocationImage, MapLocationMeeple, MapLocationWait, MapHunter} from "../..";
+import {AddHunterButton, MapLocationImage, MapLocationMeeple, MapLocationWait, MapHunter, MapLocationArrows} from "../..";
 import {IMapLocationItem, MapLocationType, MapMeeple, MapMeepleType} from "../../../util/interfaces";
 import {eq} from "lodash/fp";
 import {GameMapHunter} from "../../../util/hunters";
 import {useAppSelector} from "../../../hooks";
 import {selectCurrentHunter} from "../../../features/hunters/huntersSlice";
 import {MapLocationLinks} from "../../../helpers/locationPath";
+import classNames from "classnames";
 
 const TYPE_CLASS_NAMES = {
     [MapLocationType.FOREST]: S.forest,
@@ -78,6 +79,9 @@ export const MapLocation = (props: MapLocationProps) => {
     const isHuntersMode = isMode(GameMode.HUNTERS);
 
     const hasHunters = hunters.length > 0;
+    const hasSelectedHunters = hunters.findIndex(
+        ({ type }) => currentHunter === type
+    ) !== -1;
     const hasMeeple = meeple.type !== MapMeepleType.NO_MEEPLE;
 
     const stateClassName = isLast ? S.last :
@@ -153,26 +157,41 @@ export const MapLocation = (props: MapLocationProps) => {
                 />
             </div>
         }
-        {isHuntersMode && isSettlement &&
-            <div className={S.hunterContainer} style={style}>
-                <div className={S.hunterList}>
-                    {hasHunters && hunters.map((hunter, key) =>
-                        <MapHunter
-                            className={S.hunter}
-                            hunter={hunter}
-                            selected={currentHunter === hunter.type}
-                            links={links}
-                            key={key}
-                        />
-                    )}
+        {isHuntersMode &&
+            <>
+                {hasHunters && <>
+                    <div className={S.hunters} style={style}>
+                        <div className={S.hunterList}>
+                            {hunters.map((hunter, key) =>
+                                <MapHunter
+                                    className={classNames(
+                                        S.hunter,
+                                        currentHunter === hunter.type && S.selectedHunter
+                                    )}
+                                    hunter={hunter}
+                                    selected={currentHunter === hunter.type}
+                                    key={key}
+                                />
+                            )}
+                        </div>
+                        {hasSelectedHunters && currentHunter && <>
+                            <MapLocationArrows
+                                links={links}
+                                hunter={currentHunter}
+                                className={S.arrows}
+                            />
+                        </>}
+                    </div>
+
+
+                </>}
+                <div className={S.addHunterContainer} style={style}>
+                    {isSettlement && canAddHunters && <AddHunterButton
+                        onClick={() => onClick()}
+                        className={S.addHunter}
+                    />}
                 </div>
-
-                {canAddHunters && <AddHunterButton
-                    onClick={() => onClick()}
-                    className={S.addHunter}
-                />}
-
-            </div>
+            </>
         }
     </>
 };

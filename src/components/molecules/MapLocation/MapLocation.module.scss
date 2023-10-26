@@ -2,7 +2,7 @@
     z-index: 1;
 }
 
-.hunterContainer {
+.addHunterContainer {
     position: absolute;
     z-index: 7;
     bottom: -25%;
@@ -13,8 +13,33 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
 
+.hunters {
+    position: absolute;
+    z-index: 8;
+    bottom: -25%;
+    left: 25%;
 
+    width: 50%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrows {
+    position: relative;
+    z-index: 10;
+}
+
+.hunter {
+    position: relative;
+    z-index: 1;
+}
+
+.selectedHunter {
+    z-index: 2;
 }
 
 .hunterList {
@@ -23,11 +48,17 @@
     align-items: center;
     flex-wrap: wrap;
     position: relative;
-
+    z-index: -1;
 }
 
 .hunter {
-    flex-basis: 50%;
+    flex-basis: 70%;
+    &:nth-child(2n + 2) {
+        margin-left: -40%;
+    }
+    &:nth-child(2n + 3) {
+        margin-top: -25%;
+    }
     &:only-child {
         flex-basis: 100%;
     }

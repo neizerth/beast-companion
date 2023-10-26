@@ -31,10 +31,10 @@ export const HUNTERS = [
     HunterType.VARJA
 ]
 
-export const toHunter = (type: HunterType): GameMapHunter => ({
+export const toHunter = (type: HunterType, wounds = 0): GameMapHunter => ({
     type,
     health: HUNTER_HEALTH[type],
-    wounds: 0
+    wounds
 });
 
 export const getAvailableHunters = (activeHunters: HunterType[]) => HUNTERS.filter(h => !activeHunters.includes(h));

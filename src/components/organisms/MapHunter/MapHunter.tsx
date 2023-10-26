@@ -7,17 +7,20 @@ import helgaImage from '../../../../public/images/hunters/helga.png';
 import ionaImage from '../../../../public/images/hunters/iona.png';
 import grimgierImage from '../../../../public/images/hunters/grimgier.png';
 import assarImage from '../../../../public/images/hunters/assar.png';
+import woundImg from '../../../../public/images/wounds/1.png';
+
 import classNames from "classnames";
 import {useAppDispatch} from "../../../hooks";
-import {setCurrentHunter, unsetCurrentHunter} from "../../../features/hunters/huntersSlice";
+import {injureHunter, moveHunter, setCurrentHunter, unsetCurrentHunter} from "../../../features/hunters/huntersSlice";
 import {IMapLocationItem} from "../../../util/interfaces";
 import {MapLocationLinks} from "../../../helpers/locationPath";
 import {Arrow, ArrowType} from "../../atoms/Arrow/Arrow";
+import {get4PieSegment} from "../../../util/indicators";
+import React from "react";
 
 export interface MapHunterProps {
     className?: string,
     hunter: GameMapHunter,
-    links: MapLocationLinks,
     selected?: boolean
 }
 
@@ -43,7 +46,6 @@ export const MapHunter = (props: MapHunterProps) => {
     const {
         hunter,
         selected = false,
-        links
     } = props;
 
     const dispatch = useAppDispatch();
@@ -62,30 +64,36 @@ export const MapHunter = (props: MapHunterProps) => {
         // selected ? S.selected : hunterClassName
     );
 
-    const getArrowClassName = (type: string) => classNames(
-        S.arrow,
-        S[`arrow_${type}`]
-    );
-
     const handleHunterClick = () => dispatch(
         selected ? unsetCurrentHunter() : setCurrentHunter(hunter.type)
     );
 
-    const goToLocation = (item: IMapLocationItem) => {
-        console.log({ item });
-    };
+    const handleInjure = () => {
+        console.log('injure!')
+        dispatch(
+            injureHunter(hunter.type)
+        )
+    }
+
+    const woundsList = Array(hunter.wounds).fill(0);
+    const fillColor = 'red';
 
     return <div className={className}>
-        <div className={S.area} onClick={handleHunterClick} />
-
+        <div className={S.area} onClick={handleHunterClick}/>
         <img src={image} alt="" className={iconClassName}/>
-        {selected && Object.entries(links).map(([type, item], key) =>
-            <Arrow
-                className={getArrowClassName(type)}
-                key={key}
-                type={type as ArrowType}
-                onClick={() => goToLocation(item)
-                }/>
-        )}
+        {selected && <div className={S.injure} onClick={handleInjure}>
+            <img src={woundImg} className={S.injureImage} alt=""/>
+        </div>}
+        <div className={S.wounds}>
+            <svg className={S.markers} xmlns="http://www.w3.org/2000/svg" width="478" height="478" viewBox="0 0 4780 4780">
+                {woundsList.map((index, key) =>
+                    <path
+                        fill={fillColor}
+                        d={get4PieSegment(key)}
+                        key={key}
+                    />
+                )}
+            </svg>
+        </div>
     </div>
 }
