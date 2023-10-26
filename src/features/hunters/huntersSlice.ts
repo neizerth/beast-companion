@@ -1,7 +1,7 @@
 import {ActionCreator, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {GameMode} from "../../util/common";
 import {AppSelector, AppThunk} from "../../store";
-import {HunterType, toHunter} from "../../util/hunters";
+import {getNextAvailableHunter, HUNTERS, HunterType, toHunter} from "../../util/hunters";
 import {setLocations} from "../locations/locationsSlice";
 import {IMapLocationItem} from "../../util/interfaces";
 import {eq} from "../../helpers/locationPath";
@@ -17,7 +17,7 @@ const initialState: IHuntersState = {
 export type ISelectHunterPayload = PayloadAction<IHuntersState['current']>;
 
 export const huntersSlice = createSlice({
-    name: 'mode',
+    name: 'hunters',
     initialState,
     reducers: {
         setCurrentHunter(state, action: ISelectHunterPayload) {
@@ -33,6 +33,49 @@ export const {
     setCurrentHunter,
     unsetCurrentHunter
 } = huntersSlice.actions;
+
+export const changeHunter: ActionCreator<AppThunk> = (hunterType: HunterType) =>
+    (dispatch, getState) => {
+        const { locations, hunters } = getState();
+        const activeHunters = locations.data.reduce((hunters, item) => {
+            return [
+                ...hunters,
+                ...item.hunters.map(({ type }) => type)
+            ];
+        }, [] as HunterType[]);
+        const restHunters = activeHunters.filter(t => t !== hunterType);
+        const restAvailableHunters = HUNTERS.filter(t => !restHunters.includes(t));
+        const hunterGlobalIndex = restAvailableHunters.indexOf(hunterType);
+        const restSize = restAvailableHunters.length;
+
+        const nextIndex = hunterGlobalIndex === restSize - 1 ? 0 : hunterGlobalIndex + 1;
+        const nextHunterType = restAvailableHunters[nextIndex];
+        const nextHunter = toHunter(nextHunterType);
+
+        const data = locations.data
+            .map(item => {
+                const { hunters } = item;
+                const hunterIndex = hunters.findIndex(({ type }) => type === hunterType);
+                const noHunter = hunterIndex === -1;
+                if (noHunter) {
+                    return item;
+                }
+
+                return {
+                    ...item,
+                    hunters: [
+                        ...hunters.slice(0, hunterIndex),
+                        nextHunter,
+                        ...hunters.slice(hunterIndex + 2),
+                    ]
+                }
+                // const { current } = hunters;
+                // const nextType = getNextAvailableHunter();
+            });
+
+        dispatch(setLocations(data));
+        dispatch(setCurrentHunter(nextHunterType));
+    };
 
 export const injureHunter: ActionCreator<AppThunk> =  (hunterType: HunterType, wounds = 1) =>
     (dispatch, getState) => {
@@ -50,26 +93,21 @@ export const injureHunter: ActionCreator<AppThunk> =  (hunterType: HunterType, w
                const currentWounds = hunter.wounds + wounds;
                const isDead = hunter.health <= currentWounds;
 
-               if (isDead) {
-                   const restHunters = hunters
-                       .filter(({ type }) => type !== hunterType);
+               const restHunters = hunters
+                   .filter(({ type }) => type !== hunterType);
 
+               if (isDead) {
                    return {
                        ...item,
                        hunters: restHunters
                    }
                }
 
-               console.log({
-                   currentWounds
-               })
-
                return {
                    ...item,
                    hunters: [
-                       ...hunters.slice(0, hunterIndex),
-                       toHunter(hunterType, currentWounds),
-                       ...hunters.slice(hunterIndex + 2),
+                       ...restHunters,
+                       toHunter(hunterType, currentWounds)
                    ]
                }
             });

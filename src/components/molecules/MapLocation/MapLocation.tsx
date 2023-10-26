@@ -168,6 +168,7 @@ export const MapLocation = (props: MapLocationProps) => {
                                         S.hunter,
                                         currentHunter === hunter.type && S.selectedHunter
                                     )}
+                                    canChange={canAddHunters}
                                     hunter={hunter}
                                     selected={currentHunter === hunter.type}
                                     key={key}

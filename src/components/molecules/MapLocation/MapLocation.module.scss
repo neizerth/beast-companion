@@ -56,7 +56,7 @@
     &:nth-child(2n + 2) {
         margin-left: -40%;
     }
-    &:nth-child(2n + 3) {
+    &:nth-child(n + 3) {
         margin-top: -25%;
     }
     &:only-child {
