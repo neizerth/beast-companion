@@ -61,7 +61,8 @@ export const loader = async (args: LoaderFunctionArgs): Promise<MapLoaderData | 
                 size: size || defaultSize,
                 links,
                 defaultMeepleType: meepleType,
-                meeple
+                meeple,
+                hunters: []
             };
         });
 

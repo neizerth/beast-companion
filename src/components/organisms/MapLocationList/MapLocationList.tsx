@@ -2,6 +2,7 @@ import {MapLocation} from "../../molecules/MapLocation/MapLocation";
 import S from "../MapController/MapController.module.scss";
 import {IMapLocationItem, MapMeepleType} from "../../../util/interfaces";
 import {
+    getLocationDirectedLinks,
     getLocationVisitsCount,
     getLocationWait,
     isLocationFirst,
@@ -12,10 +13,18 @@ import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {addPathItem, selectPathData} from "../../../features/path/pathSlice";
 import {GameMode, MAX_WAIT_SIZE} from "../../../util/common";
 import {selectMode} from "../../../features/gameMode/gameModeSlice";
-import {changeLocationType, selectLocations} from "../../../features/locations/locationsSlice";
+import {
+    changeLocationType,
+    selectLocations,
+    selectActiveHunters,
+    addLocationHunter
+} from "../../../features/locations/locationsSlice";
 import {changeLocationMeeple, injureLocationMeeple} from "../../../features/meeples/meepleSlice";
 import {USER_LOCATION_TYPES} from "../../../util/locations";
 import {toMeeple, USER_MEEPLE_TYPES} from "../../../util/meeple";
+import {eq} from "lodash/fp";
+import {getNextAvailableHunter, toHunter} from "../../../util/hunters";
+import {setCurrentHunter} from "../../../features/hunters/huntersSlice";
 
 export interface MapLocationListProps {
     ratio: number;
@@ -28,6 +37,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
 
     const gameMode = useAppSelector(selectMode);
     const locations = useAppSelector(selectLocations);
+    const activeHunters = useAppSelector(selectActiveHunters);
 
     const dispatch = useAppDispatch();
     const locationPath = useAppSelector(selectPathData);
@@ -36,6 +46,10 @@ export const MapLocationList = (props: MapLocationListProps) => {
     const getVisitsCount = (item: IMapLocationItem) => getLocationVisitsCount(locationPath, item);
     const isNext = (item: IMapLocationItem) => isNextLocation(locationPath, item);
     const getWait = (item: IMapLocationItem) => getLocationWait(locationPath, item);
+
+    const isMode = eq(gameMode);
+
+    const nextHunterType = getNextAvailableHunter(activeHunters);
 
     const canClick = (item: IMapLocationItem) => {
         if (locationPath.length === 0) {
@@ -57,10 +71,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
 
     const onMeepleInjure = (item: IMapLocationItem) => {
         const { wounds, health } = item.meeple;
-        console.log({
-            wounds,
-            health
-        })
+
         if (health - wounds > 1) {
             return dispatch(injureLocationMeeple(item));
         }
@@ -97,12 +108,29 @@ export const MapLocationList = (props: MapLocationListProps) => {
         );
     }
 
+    const addHunter = (item: IMapLocationItem) => {
+        if (!nextHunterType) {
+            return;
+        }
+        const hunter = toHunter(nextHunterType);
+        dispatch(
+            addLocationHunter(item, hunter)
+        );
+
+        dispatch(
+            setCurrentHunter(nextHunterType)
+        )
+    };
+
     const onClick = (item: IMapLocationItem) => {
-        if (gameMode === GameMode.MEEPLE) {
+        if (isMode(GameMode.MEEPLE)) {
             return switchLocationMeeple(item)
         }
-        if (gameMode === GameMode.LOCATIONS) {
+        if (isMode(GameMode.LOCATIONS)) {
             return switchLocationType(item)
+        }
+        if (isMode(GameMode.HUNTERS)) {
+            return addHunter(item);
         }
         if (!canClick(item)) {
             return;
@@ -124,9 +152,12 @@ export const MapLocationList = (props: MapLocationListProps) => {
                 className={S.location}
                 meeple={item.meeple}
                 type={item.type}
+                hunters={item.hunters}
+                canAddHunters={nextHunterType !== undefined}
                 isDefaultType={item.type === item.defaultType}
                 isDefaultMeeple={item.meeple.type === item.defaultMeepleType}
                 ratio={ratio}
+                links={getLocationDirectedLinks(locations, item)}
                 key={key}
                 gameMode={gameMode}
             />

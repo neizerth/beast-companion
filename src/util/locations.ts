@@ -4,12 +4,14 @@ import mixedImg from "../../public/images/locations/mixed.png?url";
 import settlementImg from "../../public/images/locations/settlement.png?url";
 import swampImg from "../../public/images/locations/swamp.png?url";
 
-import {MapLocationType} from "./interfaces";
+import {IMapLocationItem, MapLocationType} from "./interfaces";
 
 export interface MapLocationListItem {
     url: string;
     size: number
 }
+
+export const MAP_LOCATION_NONE = -1;
 
 export const USER_LOCATION_TYPES = [
     MapLocationType.SWAMP,
@@ -40,3 +42,6 @@ export const MapLocationImageList = {
         size: 66
     }
 }
+
+export const filterLocations = (locationType: MapLocationType, locations: IMapLocationItem[]) => locations
+    .filter(({ type }) => locationType === type);

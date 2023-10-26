@@ -5,6 +5,7 @@ export enum GameMode {
     LOCATIONS = 'locations',
     PATH = 'path',
     MEEPLE = 'meeple',
+    HUNTERS = 'hunters',
     MOVEMENT = 'movement'
 }
 

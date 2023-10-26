@@ -53,16 +53,16 @@ export const KeyboardControls = () => {
             return addPathItem(last);
         }
         const links = getLocationDirectedLinks(locations, last);
-        if (['ArrowLeft', 'a', 'A'].includes(key) && links.left) {
+        if (['ArrowLeft', 'a', 'A'].includes(key) && links.left !== false) {
             return addPathItem(links.left);
         }
-        if (['ArrowUp', 'w', 'W'].includes(key) && links.top) {
+        if (['ArrowUp', 'w', 'W'].includes(key) && links.top !== false) {
             return addPathItem(links.top);
         }
-        if (['ArrowRight', 'd', 'D'].includes(key) && links.right) {
+        if (['ArrowRight', 'd', 'D'].includes(key) && links.right !== false) {
             return addPathItem(links.right);
         }
-        if (['ArrowDown', 's', 'S'].includes(key) && links.bottom) {
+        if (['ArrowDown', 's', 'S'].includes(key) && links.bottom !== false) {
             return addPathItem(links.bottom);
         }
     }

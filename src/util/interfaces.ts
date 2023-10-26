@@ -1,3 +1,5 @@
+import {GameMapHunter} from "./hunters";
+
 export enum MapType {
     NONE = 'none',
     SMALL = 'small',
@@ -47,9 +49,10 @@ export interface IMapLocationItem {
     top: number;
     left: number;
     size: number;
-    links: number[];
+    links: Array<number|null>;
     defaultMeepleType: MapMeepleType;
     meeple: MapMeeple;
+    hunters: GameMapHunter[];
 }
 
 export interface IMapData {
