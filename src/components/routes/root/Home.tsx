@@ -1,4 +1,4 @@
-import {MapSelector} from "../../organisms/MapSelector/MapSelector";
+import {MapSelector} from "../../views/controls/MapSelector/MapSelector";
 import {useNavigate} from "react-router-dom";
 import S from "./Home.module.scss";
 

@@ -1,17 +1,17 @@
 import {IMapData, IMapJSONData, IMapJSONItem, MapMeepleType, MapType} from "../../../util/interfaces";
-import {MapController} from "../../organisms/MapController/MapController";
+import {MapController} from "../../views/common/MapController/MapController";
 import {LoaderFunctionArgs, useLoaderData} from "react-router-dom";
 import axios from 'axios';
-import {Progress} from "../../atoms/Progress/Progress";
+import {Progress} from "../../views/common/Progress/Progress";
 import {useImageDownloadProgress} from "../../../hooks/useImageDownloadProgress";
 
 import S from "./MapRoute.module.scss";
 import {useEffect} from "react";
-import {useAppDispatch} from "../../../hooks";
+import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {startFrom} from "../../../features/path/pathSlice";
 import {map} from "../../../util/map";
 import {setLocations} from "../../../features/locations/locationsSlice";
-import {setGameMode} from "../../../features/gameMode/gameModeSlice";
+import {selectMode, setGameMode} from "../../../features/gameMode/gameModeSlice";
 import {GameMode} from "../../../util/common";
 import {toMeeple} from "../../../util/meeple";
 
@@ -99,12 +99,14 @@ export const MapRoute = () => {
     }, [])
 
     const isLoaded = progress === 100;
+    const gameMode = useAppSelector(selectMode);
 
     return <div className={S.container}>
         {!isLoaded ?
             <Progress value={progress}/>:
             <MapController
                 mapUrl={mapInfo.image}
+                gameMode={gameMode}
                 data={mapData}
             />
         }
