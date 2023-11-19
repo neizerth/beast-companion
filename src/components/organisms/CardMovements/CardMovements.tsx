@@ -15,9 +15,12 @@ import nextImg from '../../../../public/images/movement/next.png';
 
 import S from "./CardMovements.module.scss";
 import classNames from "classnames";
+import {getLocationDirectedLinks} from "../../../helpers/locationPath";
+import {selectLocations} from "../../../features/locations/locationsSlice";
 
 export const CardMovements = () => {
     const path = useAppSelector(selectPathData);
+    const locations = useAppSelector(selectLocations);
     const pathList = generatePathList(path, false);
 
     const [index, setIndex] = useState(0);
@@ -37,7 +40,7 @@ export const CardMovements = () => {
         return () => window.removeEventListener('keyup', handler);
     }, [index])
 
-    const movementImages = [eastImg, southImg, westImg, northImg];
+    const movementImages = [northImg, eastImg, southImg, westImg];
 
 
     const pathItem = pathList[pathList.length - index - 1];
@@ -46,12 +49,8 @@ export const CardMovements = () => {
     let movementImg = noMovementImg;
 
     if (target && source && source.location !== target.location) {
-        const fromPoint = getLocationCenter(source.location);
-        const toPoint = getLocationCenter(target.location);
-        const rad = getSkew(fromPoint, toPoint);
-
-        const deg = (rad2deg(rad) + 45 + 360) % 360;
-        const quadrant = Math.floor(deg / 90);
+        const { links } = source.location;
+        const quadrant = links.indexOf(target.location.index);
         movementImg = movementImages[quadrant]
     }
 
