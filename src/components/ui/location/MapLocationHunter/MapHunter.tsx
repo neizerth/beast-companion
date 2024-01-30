@@ -97,7 +97,7 @@ export const MapHunter = (props: MapHunterProps) => {
         </>}
         <div className={S.wounds}>
             <svg className={S.markers} xmlns="http://www.w3.org/2000/svg" width="478" height="478" viewBox="0 0 4780 4780">
-                {woundsList.map((index, key) =>
+                {woundsList.map((_index, key) =>
                     <path
                         fill={fillColor}
                         d={get4PieSegment(key)}
