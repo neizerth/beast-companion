@@ -1,23 +1,9 @@
 import {AnyAction, configureStore, ThunkAction} from '@reduxjs/toolkit'
 
-import historyReducer from './features/history';
-import pathReducer from './features/path';
-import zoomReducer from './features/zoom';
-import modeReducer from './features/gameMode';
-import locationsReducer from './features/locations';
-import meeplesReducer from './features/meeple';
-import huntersReducer from './features/hunters';
+import * as reducer from './reducer';
 
 export const store = configureStore({
-    reducer: {
-        history: historyReducer,
-        path: pathReducer,
-        zoom: zoomReducer,
-        gameMode: modeReducer,
-        locations: locationsReducer,
-        meeples: meeplesReducer,
-        hunters: huntersReducer,
-    },
+    reducer
 })
 
 export type RootState = ReturnType<typeof store.getState>;
