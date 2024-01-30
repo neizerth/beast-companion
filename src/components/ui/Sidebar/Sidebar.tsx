@@ -1,13 +1,13 @@
-import S from "./ButtonControls.module.scss";
+import S from "./Sidebar.module.scss";
 import classnames from "classnames";
 import {useNavigate} from "react-router-dom";
 
 import clearIcon from "@images/clear.svg";
 import backIcon from "@images/back.svg";
 import {useAppDispatch, useAppSelector} from "@/hooks";
-import {selectMode} from "../../../../features/gameMode";
+import {selectMode} from "@/features/gameMode";
 import {GameMode} from "@/util/common";
-import {clearPath, selectPathData} from "../../../../features/path";
+import {clearPath, selectPathData} from "@/features/path";
 import {
     ResetLocationsTypeButton,
     CardMovementsButton,
@@ -19,7 +19,7 @@ import {
 export interface GameControlsProps {
 }
 
-export const ButtonControls = () => {
+export const Sidebar = () => {
     const gameMode = useAppSelector(selectMode);
 
     const dispatch = useAppDispatch();
