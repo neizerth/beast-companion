@@ -1,11 +1,11 @@
 import S from './MapLocationArrows.module.scss';
-import {Arrow, ArrowType} from "../../common/Arrow/Arrow";
-import {HunterType} from "../../../../util/hunters";
-import {MapLocationLinks} from "../../../../helpers/locationPath";
+import {Arrow, ArrowType} from "@/components/ui/common/Arrow/Arrow";
+import {HunterType} from "@/util/hunters";
+import {MapLocationLinks} from "@/helpers/locationPath";
 import classNames from "classnames";
-import {IMapLocationItem} from "../../../../util/interfaces";
-import {moveHunter} from "../../../../features/hunters";
-import {useAppDispatch} from "../../../../hooks";
+import {IMapLocationItem} from "@/util/interfaces";
+import {moveHunter} from "@/features/hunters";
+import {useAppDispatch} from "@/hooks";
 
 export interface MapLocationArrowsProps {
     links: MapLocationLinks,

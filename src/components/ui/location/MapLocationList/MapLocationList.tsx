@@ -1,5 +1,5 @@
 import {MapLocation} from "../MapLocation/MapLocation";
-import S from "../../common/MapController/MapController.module.scss";
+import S from "@/components/ui/map/MapController/MapController.module.scss";
 import {IMapLocationItem, MapMeepleType} from "../../../../util/interfaces";
 import {
     getLocationDirectedLinks,

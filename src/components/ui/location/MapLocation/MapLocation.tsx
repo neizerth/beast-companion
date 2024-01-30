@@ -1,13 +1,13 @@
 import S from "./MapLocation.module.scss";
 import classnames from "classnames";
-import {GameMode, px, scale} from "../../../../util/common";
+import {GameMode, px, scale} from "@/util/common";
 import {AddHunterButton, MapLocationImage, MapLocationMeeple, MapLocationWait, MapHunter, MapLocationArrows} from "@/components";
-import {IMapLocationItem, MapLocationType, MapMeeple, MapMeepleType} from "../../../../util/interfaces";
+import {MapLocationType, MapMeeple, MapMeepleType} from "@/util/interfaces";
 import {eq} from "lodash/fp";
-import {GameMapHunter} from "../../../../util/hunters";
-import {useAppSelector} from "../../../../hooks";
-import {selectCurrentHunter} from "../../../../features/hunters";
-import {MapLocationLinks} from "../../../../helpers/locationPath";
+import {GameMapHunter} from "@/util/hunters";
+import {useAppSelector} from "@/hooks";
+import {selectCurrentHunter} from "@/features/hunters";
+import {MapLocationLinks} from "@/helpers/locationPath";
 import classNames from "classnames";
 
 const TYPE_CLASS_NAMES = {

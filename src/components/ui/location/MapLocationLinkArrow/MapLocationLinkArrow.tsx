@@ -1,6 +1,6 @@
 import S from "./MapLocationLinkArrow.module.scss";
 import React from "react";
-import {ILocationPathListItem} from "../../../../util/interfaces";
+import {ILocationPathListItem} from "@/util/interfaces";
 
 import arrowImg from '@images/arrow_alt4.svg';
 import {getArrowPosition} from "./arrowPosition";

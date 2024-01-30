@@ -1,5 +1,5 @@
 import S from './MapHunter.module.scss';
-import {GameMapHunter, HunterType} from "../../../../util/hunters";
+import {GameMapHunter, HunterType} from "@/util/hunters";
 
 import varjaImage from '@images/hunters/varja.png';
 import krimImage from '@images/hunters/krim.png';
@@ -11,15 +11,14 @@ import woundImg from '@images/wounds/1.png';
 import changeHunterImg from '@images/change-user.svg';
 
 import classNames from "classnames";
-import {useAppDispatch, useAppSelector} from "../../../../hooks";
+import {useAppDispatch} from "@/hooks";
 import {
     changeHunter,
     injureHunter,
-    moveHunter,
     setCurrentHunter,
     unsetCurrentHunter
-} from "../../../../features/hunters";
-import {get4PieSegment} from "../../../../util/indicators";
+} from "@/features/hunters";
+import {get4PieSegment} from "@/util/indicators";
 import React from "react";
 
 export interface MapHunterProps {
