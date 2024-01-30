@@ -1,17 +1,22 @@
 import {createHashRouter} from "react-router-dom";
+
 import {
-    Home, Root,
-    MapRoute, mapLoader
-} from "./components/routes";
+    HomeRoute,
+    MapRoute,
+
+    mapLoader,
+
+    RouterRoot
+} from "@/components/routes";
 
 export const router = createHashRouter([
     {
         path: "/",
-        element: <Root/>,
+        element: <RouterRoot/>,
         children: [
             {
                 index: true,
-                element: <Home/>
+                element: <HomeRoute/>
             },
             {
                 path: "map/:type",

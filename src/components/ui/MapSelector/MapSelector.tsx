@@ -1,6 +1,6 @@
 import S from './MapSelector.module.scss';
 import {MapType} from "@/util/interfaces";
-import {Button} from "@components";
+import {Button} from "@/components";
 import classnames from "classnames";
 
 export const mapTypes = [

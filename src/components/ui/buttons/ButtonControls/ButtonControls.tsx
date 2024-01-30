@@ -14,7 +14,7 @@ import {
     ZoomControls,
     HistoryControls,
     UIButton
-} from "@components";
+} from "@/components";
 
 export interface GameControlsProps {
 }

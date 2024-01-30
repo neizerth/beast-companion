@@ -1,5 +1,5 @@
 import S from "./HistoryControls.module.scss"
-import {UIButton} from "../../../index";
+import {UIButton} from "@/components";
 import {redo, selectHistoryData, selectHistoryIndex, undo} from "../../../../features/history";
 import {useAppDispatch, useAppSelector} from "../../../../hooks";
 import classnames from "classnames";

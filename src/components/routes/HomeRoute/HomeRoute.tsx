@@ -1,10 +1,10 @@
-import {MapSelector} from "../../index";
+import {MapSelector} from "@/components";
 import {useNavigate} from "react-router-dom";
-import S from "./Home.module.scss";
+import S from "./HomeRoute.module.scss";
 
 import logo from "@images/logo_small.png";
 
-export const Home = () => {
+export const HomeRoute = () => {
     const navigate = useNavigate();
     const onMapSelect = (type: string) => {
         navigate(`/map/${type}`);

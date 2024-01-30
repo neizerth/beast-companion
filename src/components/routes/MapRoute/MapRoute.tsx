@@ -1,7 +1,7 @@
 import {IMapData, IMapJSONData, IMapJSONItem, MapMeepleType, MapType} from "@/util/interfaces";
 import {LoaderFunctionArgs, useLoaderData} from "react-router-dom";
 import axios from 'axios';
-import {Progress, MapController} from "@components";
+import {Progress, MapController} from "@/components";
 import {useImageDownloadProgress} from "@/hooks/useImageDownloadProgress";
 
 import S from "./MapRoute.module.scss";

@@ -2,7 +2,7 @@ import S from "./MapLocationMeeple.module.scss";
 import {MapMeeple} from "../../../../util/interfaces";
 import classNames from "classnames";
 import {MEEPLE_TYPE} from "../../../../util/meeple";
-import {MapMeepleWounds} from "../../../index";
+import {MapMeepleWounds} from "@/components";
 
 export interface MapLocationMeepleProps {
     className: string;

@@ -1,8 +1,8 @@
 import classnames from "classnames";
 import S from "./ResetLocationsTypeButton.module.scss";
-import {UIButton} from "../../index";
-import {useAppDispatch, useAppSelector} from "../../../hooks";
-import {resetLocationsType, selectLocations} from "../../../features/locations";
+import {UIButton} from "@/components";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {resetLocationsType, selectLocations} from "@/features/locations";
 import clearLocationsIcon from "@images/clear_locations.svg";
 
 export interface ResetLocationsTypeButtonProps {

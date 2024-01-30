@@ -8,7 +8,7 @@ import {useAppDispatch, useAppSelector} from "@/hooks";
 import {selectMode, setGameMode} from "@/features/gameMode";
 import {GameMode} from "@/util/common";
 import classNames from "classnames";
-import {UIButton} from "@components";
+import {UIButton} from "@/components";
 
 export interface ModeSwitchProps {
     className?: string;

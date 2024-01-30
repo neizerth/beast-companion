@@ -1,7 +1,7 @@
 import S from "./GameMap.module.scss";
 import {CSSProperties, useState} from "react";
 import {GameMode, px} from "../../../../util/common";
-import {CardMovements, MapLocationList, MapLocationPath} from "../../../index";
+import {CardMovements, MapLocationList, MapLocationPath} from "@/components";
 import classnames from "classnames";
 import {useAppSelector} from "../../../../hooks";
 import {selectMode} from "../../../../features/gameMode";

@@ -1,5 +1,5 @@
 import S from "./ZoomControls.module.scss";
-import {UIButton} from "@components";
+import {UIButton} from "@/components";
 import classnames from "classnames";
 
 import zoomInIcon from "@images/zoom_in.svg";
@@ -9,9 +9,9 @@ import {useControls, useTransformEffect} from "react-zoom-pan-pinch";
 import {
     selectZoomScale,
     setZoom,
-} from "../../../features/zoom";
-import {useAppDispatch, useAppSelector} from "../../../hooks";
-import {MAX_ZOOM, MIN_ZOOM} from "../../../util/common";
+} from "@/features/zoom";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {MAX_ZOOM, MIN_ZOOM} from "@/util/common";
 import {debounce} from "lodash";
 
 export interface ZoomControlsProps {

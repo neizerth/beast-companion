@@ -1,7 +1,7 @@
 import S from './MapController.module.scss';
 import {IMapData,} from "../../../../util/interfaces";
 import classnames from "classnames";
-import {ButtonControls, GameMap, KeyboardControls, ModeSwitch} from "../../../index";
+import {ButtonControls, GameMap, KeyboardControls, ModeSwitch} from "@/components";
 import {useMapSize} from "../../../../hooks/useMapSize";
 
 import {TransformComponent, TransformWrapper} from "react-zoom-pan-pinch";
