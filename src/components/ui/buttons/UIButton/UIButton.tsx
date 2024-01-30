@@ -1,6 +1,6 @@
 import React from "react";
 
-import S from './GameControl.module.scss';
+import S from './UIButton.module.scss';
 import classnames from "classnames";
 
 export interface RefreshButtonProps {
@@ -12,7 +12,7 @@ export interface RefreshButtonProps {
     disabled?: boolean;
 }
 
-export const GameControl = (props: RefreshButtonProps) => {
+export const UIButton = (props: RefreshButtonProps) => {
     const {
         className,
         onClick = () => void(0),

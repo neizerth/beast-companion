@@ -1,15 +1,13 @@
-import {IMapLocationItem} from "../../../../util/interfaces";
-import {useAppDispatch, useAppSelector} from "../../../../hooks";
-import {addPathItem, clearPath, removeLastPathItem, selectPathData} from "../../../../features/path/pathSlice";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {addPathItem, clearPath, removeLastPathItem, selectPathData} from "@/features/path";
 import {useEffect} from "react";
-import {getLocationDirectedLinks} from "../../../../helpers/locationPath";
-import {redo, selectHistoryData, selectHistoryIndex, undo} from "../../../../features/history/historySlice";
+import {getLocationDirectedLinks} from "@/helpers/locationPath";
+import {redo, selectHistoryData, selectHistoryIndex, undo} from "@/features/history";
 import {useControls} from "react-zoom-pan-pinch";
-import {selectMode, setGameMode} from "../../../../features/gameMode/gameModeSlice";
-import {GameMode} from "../../../../util/common";
-import {resetLocationsType, selectLocations} from "../../../../features/locations/locationsSlice";
-import {reset} from "../../../../features/controls/controlsSlice";
-import {getNextGameMode} from "../../../../util/gameMode";
+import {selectMode, setGameMode} from "@/features/gameMode";
+import {GameMode} from "@/util/common";
+import {resetLocationsType, selectLocations} from "@/features/locations";
+import {getNextGameMode} from "@/util/gameMode";
 
 export const KeyboardControls = () => {
     const path = useAppSelector(selectPathData);

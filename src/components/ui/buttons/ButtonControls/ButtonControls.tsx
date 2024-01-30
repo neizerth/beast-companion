@@ -2,20 +2,19 @@ import S from "./ButtonControls.module.scss";
 import classnames from "classnames";
 import {useNavigate} from "react-router-dom";
 
-import clearIcon from "../../../../../public/images/clear.svg";
-import backIcon from "../../../../../public/images/back.svg";
-import {useAppDispatch, useAppSelector} from "../../../../hooks";
-import {selectMode, setGameMode} from "../../../../features/gameMode/gameModeSlice";
-import {GameMode} from "../../../../util/common";
-import {clearPath, selectPathData} from "../../../../features/path/pathSlice";
+import clearIcon from "@images/clear.svg";
+import backIcon from "@images/back.svg";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {selectMode} from "../../../../features/gameMode";
+import {GameMode} from "@/util/common";
+import {clearPath, selectPathData} from "../../../../features/path";
 import {
     ResetLocationsTypeButton,
     CardMovementsButton,
-    AddHunterButton,
     ZoomControls,
     HistoryControls,
-    GameControl
-} from "../../../index";
+    UIButton
+} from "@components";
 
 export interface GameControlsProps {
 }
@@ -45,7 +44,7 @@ export const ButtonControls = () => {
                 <div className={classnames(S.group, S.group_primary)}>
                     {isPathMode && <>
                         <div className={S.control}>
-                            <GameControl
+                            <UIButton
                                 onClick={() => clear()}
                                 className={classnames(S.clear)}
                                 icon={clearIcon}
@@ -73,7 +72,7 @@ export const ButtonControls = () => {
 
                 </div>
                 <div className={classnames(S.group, S.group_back)}>
-                    <GameControl
+                    <UIButton
                         onClick={goHome}
                         className={classnames(S.control, S.back)}
                         icon={backIcon}

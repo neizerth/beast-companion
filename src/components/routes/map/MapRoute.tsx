@@ -1,19 +1,18 @@
-import {IMapData, IMapJSONData, IMapJSONItem, MapMeepleType, MapType} from "../../../util/interfaces";
-import {MapController} from "../../views/common/MapController/MapController";
+import {IMapData, IMapJSONData, IMapJSONItem, MapMeepleType, MapType} from "@/util/interfaces";
 import {LoaderFunctionArgs, useLoaderData} from "react-router-dom";
 import axios from 'axios';
-import {Progress} from "../../views/common/Progress/Progress";
-import {useImageDownloadProgress} from "../../../hooks/useImageDownloadProgress";
+import {Progress, MapController} from "@components";
+import {useImageDownloadProgress} from "@/hooks/useImageDownloadProgress";
 
 import S from "./MapRoute.module.scss";
 import {useEffect} from "react";
-import {useAppDispatch, useAppSelector} from "../../../hooks";
-import {startFrom} from "../../../features/path/pathSlice";
-import {map} from "../../../util/map";
-import {setLocations} from "../../../features/locations/locationsSlice";
-import {selectMode, setGameMode} from "../../../features/gameMode/gameModeSlice";
-import {GameMode} from "../../../util/common";
-import {toMeeple} from "../../../util/meeple";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {startFrom} from "@/features/path";
+import {map} from "@/util/map";
+import {setLocations} from "@/features/locations";
+import {selectMode, setGameMode} from "@/features/gameMode";
+import {GameMode} from "@/util/common";
+import {toMeeple} from "@/util/meeple";
 
 export interface MapLoaderParams {
     type: MapType

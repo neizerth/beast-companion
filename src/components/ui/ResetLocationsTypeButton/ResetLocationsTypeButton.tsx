@@ -1,9 +1,9 @@
 import classnames from "classnames";
 import S from "./ResetLocationsTypeButton.module.scss";
-import {GameControl} from "../../../index";
-import {useAppDispatch, useAppSelector} from "../../../../hooks";
-import {resetLocationsType, selectLocations} from "../../../../features/locations/locationsSlice";
-import clearLocationsIcon from "../../../../../public/images/clear_locations.svg";
+import {UIButton} from "../../index";
+import {useAppDispatch, useAppSelector} from "../../../hooks";
+import {resetLocationsType, selectLocations} from "../../../features/locations";
+import clearLocationsIcon from "@images/clear_locations.svg";
 
 export interface ResetLocationsTypeButtonProps {
     className?: string;
@@ -20,7 +20,7 @@ export const ResetLocationsTypeButton = (props: ResetLocationsTypeButtonProps) =
     const resetLocations = () => dispatch(resetLocationsType());
 
     return (
-        <GameControl
+        <UIButton
             onClick={() => resetLocations()}
             className={classnames(S.container, className)}
             disabled={modifiedLocationsCount === 0}

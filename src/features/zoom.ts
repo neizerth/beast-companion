@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppSelector} from "../../store";
+import {AppSelector} from "../store";
 
 export interface ISetZoomState {
     scale: number;

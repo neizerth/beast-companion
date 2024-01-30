@@ -1,14 +1,14 @@
-import changeIcon from "../../../../../public/images/change.svg";
-import pathIcon from "../../../../../public/images/path.svg";
-import meepleIcon from "../../../../../public/images/meeple.svg";
-import huntersIcon from "../../../../../public/images/target.svg";
+import changeIcon from "@images/change.svg";
+import pathIcon from "@images/path.svg";
+import meepleIcon from "@images/meeple.svg";
+import huntersIcon from "@images/target.svg";
 
 import S from "./ModeSwitch.module.scss";
-import {useAppDispatch, useAppSelector} from "../../../../hooks";
-import {selectMode, setGameMode} from "../../../../features/gameMode/gameModeSlice";
-import {GameMode} from "../../../../util/common";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {selectMode, setGameMode} from "@/features/gameMode";
+import {GameMode} from "@/util/common";
 import classNames from "classnames";
-import {GameControl} from "../GameControl/GameControl";
+import {UIButton} from "@components";
 
 export interface ModeSwitchProps {
     className?: string;
@@ -32,7 +32,7 @@ export const ModeSwitch = (props: ModeSwitchProps) => {
         <div className={classNames(className, S.container)}>
             <div className={S.list}>
                 {icons.map(([gameMode,icon], index) =>
-                    <GameControl
+                    <UIButton
                         className={S.item}
                         onClick={() => dispatch(setGameMode(gameMode))}
                         iconClassName={getIconClassName(gameMode)}

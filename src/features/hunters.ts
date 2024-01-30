@@ -1,10 +1,10 @@
 import {ActionCreator, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {GameMode} from "../../util/common";
-import {AppSelector, AppThunk} from "../../store";
-import {getNextAvailableHunter, HUNTERS, HunterType, toHunter} from "../../util/hunters";
-import {setLocations} from "../locations/locationsSlice";
-import {IMapLocationItem} from "../../util/interfaces";
-import {eq} from "../../helpers/locationPath";
+import {GameMode} from "../util/common";
+import {AppSelector, AppThunk} from "../store";
+import {getNextAvailableHunter, HUNTERS, HunterType, toHunter} from "../util/hunters";
+import {setLocations} from "./locations";
+import {IMapLocationItem} from "../util/interfaces";
+import {eq} from "../helpers/locationPath";
 
 export interface IHuntersState {
     current: HunterType | null
@@ -16,7 +16,7 @@ const initialState: IHuntersState = {
 
 export type ISelectHunterPayload = PayloadAction<IHuntersState['current']>;
 
-export const huntersSlice = createSlice({
+export const hunters = createSlice({
     name: 'hunters',
     initialState,
     reducers: {
@@ -32,7 +32,7 @@ export const huntersSlice = createSlice({
 export const {
     setCurrentHunter,
     unsetCurrentHunter
-} = huntersSlice.actions;
+} = hunters.actions;
 
 export const changeHunter: ActionCreator<AppThunk> = (hunterType: HunterType) =>
     (dispatch, getState) => {
@@ -149,4 +149,4 @@ export const moveHunter: ActionCreator<AppThunk> =  (hunterType: HunterType, loc
 
 export const selectCurrentHunter: AppSelector<IHuntersState['current']> = ({ hunters }) => hunters.current;
 
-export default huntersSlice.reducer;
+export default hunters.reducer;

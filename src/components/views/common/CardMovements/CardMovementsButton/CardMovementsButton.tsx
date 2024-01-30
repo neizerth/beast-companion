@@ -1,9 +1,9 @@
 import S from "./CardMovementsButton.module.scss";
 import classNames from "classnames";
 
-import buttonImage from '../../../../../../public/images/movement/back.jpg';
+import buttonImage from '@images/movement/back.jpg';
 import {useAppDispatch, useAppSelector} from "../../../../../hooks";
-import {selectMode, setGameMode} from "../../../../../features/gameMode/gameModeSlice";
+import {selectMode, setGameMode} from "../../../../../features/gameMode";
 import {GameMode} from "../../../../../util/common";
 import {useEffect, useState} from "react";
 import {useControls} from "react-zoom-pan-pinch";

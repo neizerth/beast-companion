@@ -1,8 +1,8 @@
 import {ActionCreator, createSlice, PayloadAction, ThunkAction} from "@reduxjs/toolkit";
-import {ILocationPath} from "../../util/interfaces";
+import {ILocationPath} from "../util/interfaces";
 import {Dispatch} from "react";
-import {AppSelector, AppThunk, RootState} from "../../store";
-import {changePath, EMPTY_LOCATION_PATH} from "../path/pathSlice";
+import {AppSelector, AppThunk, RootState} from "../store";
+import {changePath, EMPTY_LOCATION_PATH} from "./path";
 import {values} from "lodash";
 
 export interface IHistoryState {
@@ -18,7 +18,7 @@ const initialState: IHistoryState = {
     index: 0
 };
 
-export const historySlice = createSlice({
+export const history = createSlice({
     name: 'history',
     initialState,
     reducers: {
@@ -41,7 +41,7 @@ export const {
     pushState,
     go,
     clear
-} = historySlice.actions;
+} = history.actions;
 
 export const goWithHistory: ActionCreator<AppThunk> = (value: number) => (dispatch, getState) => {
     const { history } = getState();
@@ -61,4 +61,4 @@ export const redo: ActionCreator<AppThunk> = (value = 1) =>
 export const selectHistoryIndex: AppSelector<number> = ({ history }) => history.index;
 export const selectHistoryData: AppSelector<ILocationPath[]> = ({ history }) => history.data;
 
-export default historySlice.reducer;
+export default history.reducer;

@@ -1,8 +1,7 @@
 import S from './AddHunterButton.module.scss';
-import {HunterType} from "../../../../util/hunters";
-import {GameControl} from "../../../index";
+import {UIButton} from "@components";
 import classnames from "classnames";
-import addIcon from "../../../../../public/images/add.svg";
+import addIcon from "@images/add.svg";
 import classNames from "classnames";
 
 export interface AddHunterButtonProps {
@@ -13,7 +12,7 @@ export interface AddHunterButtonProps {
 
 export const AddHunterButton = (props: AddHunterButtonProps) => {
     const { className, iconClassName, onClick } = props;
-    return <GameControl
+    return <UIButton
         onClick={onClick}
         className={classnames(className, S.container)}
         iconClassName={iconClassName}

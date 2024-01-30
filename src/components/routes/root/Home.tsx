@@ -1,8 +1,8 @@
-import {MapSelector} from "../../views/controls/MapSelector/MapSelector";
+import {MapSelector} from "../../index";
 import {useNavigate} from "react-router-dom";
 import S from "./Home.module.scss";
 
-import logo from "../../../../public/images/logo_small.png";
+import logo from "@images/logo_small.png";
 
 export const Home = () => {
     const navigate = useNavigate();

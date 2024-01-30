@@ -4,7 +4,7 @@ import {GameMode, px} from "../../../../util/common";
 import {CardMovements, MapLocationList, MapLocationPath} from "../../../index";
 import classnames from "classnames";
 import {useAppSelector} from "../../../../hooks";
-import {selectMode} from "../../../../features/gameMode/gameModeSlice";
+import {selectMode} from "../../../../features/gameMode";
 
 export interface GameMapProps {
     src: string;

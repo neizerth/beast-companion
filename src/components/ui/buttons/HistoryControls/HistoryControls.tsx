@@ -1,11 +1,11 @@
 import S from "./HistoryControls.module.scss"
-import {GameControl} from "../../../index";
-import {redo, selectHistoryData, selectHistoryIndex, undo} from "../../../../features/history/historySlice";
+import {UIButton} from "../../../index";
+import {redo, selectHistoryData, selectHistoryIndex, undo} from "../../../../features/history";
 import {useAppDispatch, useAppSelector} from "../../../../hooks";
 import classnames from "classnames";
 
-import undoIcon from "../../../../../public/images/undo.svg";
-import redoIcon from "../../../../../public/images/redo.svg";
+import undoIcon from "@images/undo.svg";
+import redoIcon from "@images/redo.svg";
 
 export interface HistoryControlsProps {
     controlClassName?: string;
@@ -28,7 +28,7 @@ export const HistoryControls = (props: HistoryControlsProps) => {
 
     return <>
         <div className={controlClassName}>
-            <GameControl
+            <UIButton
                 onClick={handleUndo}
                 className={S.undo}
                 icon={undoIcon}
@@ -37,7 +37,7 @@ export const HistoryControls = (props: HistoryControlsProps) => {
             />
         </div>
         <div className={controlClassName}>
-            <GameControl
+            <UIButton
                 onClick={handleRedo}
                 className={S.redo}
                 icon={redoIcon}

@@ -1,17 +1,17 @@
 import S from "./ZoomControls.module.scss";
-import {GameControl} from "../GameControl/GameControl";
+import {UIButton} from "@components";
 import classnames from "classnames";
 
-import zoomInIcon from "../../../../../public/images/zoom_in.svg";
-import zoomOutIcon from "../../../../../public/images/zoom_out.svg";
-import {useControls, useTransformEffect, useTransformInit} from "react-zoom-pan-pinch";
+import zoomInIcon from "@images/zoom_in.svg";
+import zoomOutIcon from "@images/zoom_out.svg";
+import {useControls, useTransformEffect} from "react-zoom-pan-pinch";
 
 import {
     selectZoomScale,
     setZoom,
-} from "../../../../features/zoom/zoomSlice";
-import {useAppDispatch, useAppSelector} from "../../../../hooks";
-import {MAX_ZOOM, MIN_ZOOM} from "../../../../util/common";
+} from "../../../features/zoom";
+import {useAppDispatch, useAppSelector} from "../../../hooks";
+import {MAX_ZOOM, MIN_ZOOM} from "../../../util/common";
 import {debounce} from "lodash";
 
 export interface ZoomControlsProps {
@@ -42,7 +42,7 @@ export const ZoomControls = (props: ZoomControlsProps) => {
 
     return <>
         <div className={S.control}>
-            <GameControl
+            <UIButton
                 onClick={zoomIn}
                 className={classnames(controlClassName, S.zoom_in, S.control)}
                 icon={zoomInIcon}
@@ -51,7 +51,7 @@ export const ZoomControls = (props: ZoomControlsProps) => {
             />
         </div>
         <div className={S.control}>
-            <GameControl
+            <UIButton
                 onClick={zoomOut}
                 className={classnames(controlClassName, S.zoom_out, S.control)}
                 icon={zoomOutIcon}

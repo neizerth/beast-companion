@@ -1,14 +1,14 @@
 import S from './MapHunter.module.scss';
 import {GameMapHunter, HunterType} from "../../../../util/hunters";
 
-import varjaImage from '../../../../../public/images/hunters/varja.png';
-import krimImage from '../../../../../public/images/hunters/krim.png';
-import helgaImage from '../../../../../public/images/hunters/helga.png';
-import ionaImage from '../../../../../public/images/hunters/iona.png';
-import grimgierImage from '../../../../../public/images/hunters/grimgier.png';
-import assarImage from '../../../../../public/images/hunters/assar.png';
-import woundImg from '../../../../../public/images/wounds/1.png';
-import changeHunterImg from '../../../../../public/images/change-user.svg';
+import varjaImage from '@images/hunters/varja.png';
+import krimImage from '@images/hunters/krim.png';
+import helgaImage from '@images/hunters/helga.png';
+import ionaImage from '@images/hunters/iona.png';
+import grimgierImage from '@images/hunters/grimgier.png';
+import assarImage from '@images/hunters/assar.png';
+import woundImg from '@images/wounds/1.png';
+import changeHunterImg from '@images/change-user.svg';
 
 import classNames from "classnames";
 import {useAppDispatch, useAppSelector} from "../../../../hooks";
@@ -18,7 +18,7 @@ import {
     moveHunter,
     setCurrentHunter,
     unsetCurrentHunter
-} from "../../../../features/hunters/huntersSlice";
+} from "../../../../features/hunters";
 import {get4PieSegment} from "../../../../util/indicators";
 import React from "react";
 

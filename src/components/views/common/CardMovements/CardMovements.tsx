@@ -1,17 +1,17 @@
 import {useAppSelector} from "../../../../hooks";
-import {selectPathData} from "../../../../features/path/pathSlice";
+import {selectPathData} from "../../../../features/path";
 import {useEffect, useState} from "react";
 import {generatePathList} from "../../../../helpers/pathList";
 import {getLocationCenter, getSkew, rad2deg} from "../../../../helpers/calculatePath";
 
-import westImg from '../../../../../public/images/movement/west.png';
-import southImg from '../../../../../public/images/movement/south.png';
-import eastImg from '../../../../../public/images/movement/east.png';
-import northImg from '../../../../../public/images/movement/north.png';
-import noMovementImg from '../../../../../public/images/movement/no-movement.png';
+import westImg from '@images/movement/west.png';
+import southImg from '@images/movement/south.png';
+import eastImg from '@images/movement/east.png';
+import northImg from '@images/movement/north.png';
+import noMovementImg from '@images/movement/no-movement.png';
 
-import prevImg from '../../../../../public/images/movement/prev.png';
-import nextImg from '../../../../../public/images/movement/next.png';
+import prevImg from '@images/movement/prev.png';
+import nextImg from '@images/movement/next.png';
 
 import S from "./CardMovements.module.scss";
 import classNames from "classnames";

@@ -10,21 +10,21 @@ import {
     isNextLocation
 } from "../../../../helpers/locationPath";
 import {useAppDispatch, useAppSelector} from "../../../../hooks";
-import {addPathItem, selectPathData} from "../../../../features/path/pathSlice";
+import {addPathItem, selectPathData} from "../../../../features/path";
 import {GameMode, MAX_WAIT_SIZE} from "../../../../util/common";
-import {selectMode} from "../../../../features/gameMode/gameModeSlice";
+import {selectMode} from "../../../../features/gameMode";
 import {
     changeLocationType,
     selectLocations,
     selectActiveHunters,
     addLocationHunter
-} from "../../../../features/locations/locationsSlice";
-import {changeLocationMeeple, injureLocationMeeple} from "../../../../features/meeples/meepleSlice";
+} from "../../../../features/locations";
+import {changeLocationMeeple, injureLocationMeeple} from "../../../../features/meeple";
 import {USER_LOCATION_TYPES} from "../../../../util/locations";
 import {toMeeple, USER_MEEPLE_TYPES} from "../../../../util/meeple";
 import {eq} from "lodash/fp";
 import {getNextAvailableHunter, toHunter} from "../../../../util/hunters";
-import {setCurrentHunter} from "../../../../features/hunters/huntersSlice";
+import {setCurrentHunter} from "../../../../features/hunters";
 
 export interface MapLocationListProps {
     ratio: number;

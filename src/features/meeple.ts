@@ -1,9 +1,9 @@
 import {ActionCreator, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {GameMode} from "../../util/common";
-import {AppSelector, AppThunk} from "../../store";
-import {IMapLocationItem, MapLocationType, MapMeeple, MapMeepleType} from "../../util/interfaces";
-import {setLocations} from "../locations/locationsSlice";
-import {toMeeple} from "../../util/meeple";
+import {GameMode} from "../util/common";
+import {AppSelector, AppThunk} from "../store";
+import {IMapLocationItem, MapLocationType, MapMeeple, MapMeepleType} from "../util/interfaces";
+import {setLocations} from "./locations";
+import {toMeeple} from "../util/meeple";
 
 export interface ILocationsState {
     data: IMapLocationItem[]

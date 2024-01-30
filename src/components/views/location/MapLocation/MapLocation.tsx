@@ -6,7 +6,7 @@ import {IMapLocationItem, MapLocationType, MapMeeple, MapMeepleType} from "../..
 import {eq} from "lodash/fp";
 import {GameMapHunter} from "../../../../util/hunters";
 import {useAppSelector} from "../../../../hooks";
-import {selectCurrentHunter} from "../../../../features/hunters/huntersSlice";
+import {selectCurrentHunter} from "../../../../features/hunters";
 import {MapLocationLinks} from "../../../../helpers/locationPath";
 import classNames from "classnames";
 

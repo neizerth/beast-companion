@@ -1,8 +1,8 @@
 import {ActionCreator, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {GameMode} from "../../util/common";
-import {AppSelector, AppThunk} from "../../store";
-import {IMapLocationItem, MapLocationType} from "../../util/interfaces";
-import {HunterType, GameMapHunter} from "../../util/hunters";
+import {GameMode} from "../util/common";
+import {AppSelector, AppThunk} from "../store";
+import {IMapLocationItem, MapLocationType} from "../util/interfaces";
+import {HunterType, GameMapHunter} from "../util/hunters";
 
 export interface ILocationsState {
     data: IMapLocationItem[]
@@ -14,7 +14,7 @@ const initialState: ILocationsState = {
 
 export type ISetLocationsPayload = PayloadAction<IMapLocationItem[]>;
 
-export const locationsSlice = createSlice({
+export const locations = createSlice({
     name: 'locations',
     initialState,
     reducers: {
@@ -26,7 +26,7 @@ export const locationsSlice = createSlice({
 
 export const {
     setLocations
-} = locationsSlice.actions;
+} = locations.actions;
 
 export const addLocationHunter: ActionCreator<AppThunk> = (locationItem: IMapLocationItem, hunter: GameMapHunter) =>
     (dispatch, getState) => {
@@ -68,4 +68,4 @@ export const selectActiveHunters: AppSelector<HunterType[]> = ({ locations }) =>
         return [...data, ...types];
     }, [] as HunterType[]);
 
-export default locationsSlice.reducer;
+export default locations.reducer;

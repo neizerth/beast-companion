@@ -1,8 +1,8 @@
 import {ActionCreator, createSlice, PayloadAction, ThunkAction} from "@reduxjs/toolkit";
-import {ILocationPath, IMapLocationItem} from "../../util/interfaces";
-import {AppSelector, AppThunk} from "../../store";
-import {addLocation, IPathItemAction, removeLocation, startFromLocation} from "../../helpers/locationPath";
-import {pushState as pushHistoryState, clear as clearHistory} from "../history/historySlice";
+import {ILocationPath, IMapLocationItem} from "../util/interfaces";
+import {AppSelector, AppThunk} from "../store";
+import {addLocation, IPathItemAction, removeLocation, startFromLocation} from "../helpers/locationPath";
+import {pushState as pushHistoryState, clear as clearHistory} from "./history";
 import {last} from "lodash";
 
 export interface IPathState {
@@ -21,7 +21,7 @@ const initialState: IPathState = {
     startLocation: null
 };
 
-export const pathSlice = createSlice({
+export const path = createSlice({
     name: 'path',
     initialState,
     reducers: {
@@ -37,7 +37,7 @@ export const pathSlice = createSlice({
 export const {
     changePath,
     setStartLocation
-} = pathSlice.actions;
+} = path.actions;
 
 export type IPathItemActionCreatorBuilder = (action: IPathItemAction) => ActionCreator<AppThunk>;
 
@@ -81,4 +81,4 @@ export const clearPath: ActionCreator<AppThunk> = () =>
 
 export const selectPathData: AppSelector<ILocationPath> = ({ path }) => path.data;
 
-export default pathSlice.reducer;
+export default path.reducer;

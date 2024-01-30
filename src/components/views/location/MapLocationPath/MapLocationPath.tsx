@@ -1,7 +1,7 @@
 import {ILocationPathList, ILocationPathListItem} from "../../../../util/interfaces";
 import S from "./MapLocationPath.module.scss";
 import {useAppSelector} from "../../../../hooks";
-import {selectPathData} from "../../../../features/path/pathSlice";
+import {selectPathData} from "../../../../features/path";
 import {generatePathList} from "../../../../helpers/pathList";
 import {useEffect, useRef} from "react";
 import {renderPath} from "./renderPath";

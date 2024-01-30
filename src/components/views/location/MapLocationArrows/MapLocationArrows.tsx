@@ -4,7 +4,7 @@ import {HunterType} from "../../../../util/hunters";
 import {MapLocationLinks} from "../../../../helpers/locationPath";
 import classNames from "classnames";
 import {IMapLocationItem} from "../../../../util/interfaces";
-import {moveHunter} from "../../../../features/hunters/huntersSlice";
+import {moveHunter} from "../../../../features/hunters";
 import {useAppDispatch} from "../../../../hooks";
 
 export interface MapLocationArrowsProps {

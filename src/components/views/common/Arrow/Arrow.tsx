@@ -1,7 +1,7 @@
 import S from './Arrow.module.scss';
 import classNames from "classnames";
-import arrowImg from '../../../../../public/images/arrow.png';
-import arrowHoverImg from '../../../../../public/images/arrow_hover.png';
+import arrowImg from '@images/arrow.png';
+import arrowHoverImg from '@images/arrow_hover.png';
 
 export enum ArrowType {
     LEFT = 'left',
