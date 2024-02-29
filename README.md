@@ -19,3 +19,5 @@ Features:
 - Map Loading Progress bar
 - Location Path graph
 - Location Path step counter
+
+Enjoy!
