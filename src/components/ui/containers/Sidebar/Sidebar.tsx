@@ -10,7 +10,7 @@ import {GameMode} from "@/util/common";
 import {clearPath, selectPathData} from "@/features/path";
 import {
     ResetLocationsTypeButton,
-    CardMovementsButton,
+    BeastMovementButton,
     ZoomControls,
     HistoryControls,
     UIButton
@@ -39,7 +39,7 @@ export const Sidebar = () => {
 
     return (
         <>
-            {showMovementButton && <CardMovementsButton className={S.movement}/>}
+            {showMovementButton && <BeastMovementButton className={S.movement}/>}
             <div className={S.primary}>
                 <div className={classnames(S.group, S.group_primary)}>
                     {isPathMode && <>

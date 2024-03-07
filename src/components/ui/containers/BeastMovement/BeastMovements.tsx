@@ -13,10 +13,10 @@ import noMovementImg from '@images/movement/no-movement.png';
 import prevImg from '@images/movement/prev.png';
 import nextImg from '@images/movement/next.png';
 
-import S from "./CardMovements.module.scss";
+import S from "./BeastMovements.module.scss";
 import classNames from "classnames";
 
-export const CardMovements = () => {
+export const BeastMovements = () => {
     const path = useAppSelector(selectPathData);
     const pathList = generatePathList(path, false);
 

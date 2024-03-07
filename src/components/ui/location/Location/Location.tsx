@@ -1,4 +1,4 @@
-import S from "./MapLocation.module.scss";
+import S from "./Location.module.scss";
 import classnames from "classnames";
 import {GameMode, px, scale} from "@/util/common";
 import {AddHunterButton, MapLocationImage, MapLocationMeeple, MapLocationWait, MapHunter, MapLocationArrows} from "@/components";
@@ -41,7 +41,7 @@ export interface MapLocationProps {
     links: MapLocationLinks;
 }
 
-export const MapLocation = (props: MapLocationProps) => {
+export const Location = (props: MapLocationProps) => {
     const {
         className,
         isFirst,

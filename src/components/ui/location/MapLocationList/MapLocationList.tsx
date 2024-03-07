@@ -1,5 +1,5 @@
-import {MapLocation} from "../MapLocation/MapLocation";
-import S from "@/components/ui/map/MapController/MapController.module.scss";
+import {Location} from "@/components/ui/location/Location/Location";
+import S from "@/components/ui/containers/MapController/MapController.module.scss";
 import {IMapLocationItem, MapMeepleType} from "../../../../util/interfaces";
 import {
     getLocationDirectedLinks,
@@ -140,7 +140,7 @@ export const MapLocationList = (props: MapLocationListProps) => {
 
     return <>
         {locations.map((item, key) => (
-            <MapLocation
+            <Location
                 {...item}
                 onMeepleInjure={() => onMeepleInjure(item)}
                 onClick={() => onClick(item)}

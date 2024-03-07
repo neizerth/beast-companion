@@ -1,7 +1,7 @@
 import S from "./GameMap.module.scss";
 import {CSSProperties, useState} from "react";
 import {GameMode, px} from "../../../../util/common";
-import {CardMovements, MapLocationList, MapLocationPath} from "@/components";
+import {BeastMovements, MapLocationList, MapLocationPath} from "@/components";
 import classnames from "classnames";
 import {useAppSelector} from "../../../../hooks";
 import {selectMode} from "../../../../features/gameMode";
@@ -56,7 +56,7 @@ export const GameMap = (props: GameMapProps) => {
                             height={height}
                             ratio={ratio}
                         />}
-                        {mode === GameMode.MOVEMENT && <CardMovements/>}
+                        {mode === GameMode.MOVEMENT && <BeastMovements/>}
                     </>
                 }
             </div>

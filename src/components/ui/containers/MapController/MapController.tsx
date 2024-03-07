@@ -1,7 +1,7 @@
 import S from './MapController.module.scss';
 import {IMapData,} from "../../../../util/interfaces";
 import classnames from "classnames";
-import {Sidebar, GameMap, KeyboardControls, ModeSwitch} from "@/components";
+import {Sidebar, GameMap, KeyboardControls, SwitchModeButton} from "@/components";
 import {useMapSize} from "../../../../hooks/useMapSize";
 
 import {TransformComponent, TransformWrapper} from "react-zoom-pan-pinch";
@@ -32,7 +32,7 @@ export const MapController = (props: GameMapProps) => {
         <div className={classnames(className, S.container)}>
             <TransformWrapper doubleClick={doubleClickOptions} disabled={gameMode === GameMode.MOVEMENT}>
                 <Sidebar />
-                <ModeSwitch className={S.modes}/>
+                <SwitchModeButton className={S.modes}/>
                 <KeyboardControls/>
                 <TransformComponent contentClass={S.content} wrapperClass={S.warpper}>
                     <GameMap

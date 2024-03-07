@@ -1,5 +1,5 @@
 import S from './MapLocationArrows.module.scss';
-import {Arrow, ArrowType} from "@/components/ui/common/Arrow/Arrow";
+import {Arrow, ArrowType} from "@/components/ui/Arrow/Arrow";
 import {HunterType} from "@/util/hunters";
 import {MapLocationLinks} from "@/helpers/locationPath";
 import classNames from "classnames";

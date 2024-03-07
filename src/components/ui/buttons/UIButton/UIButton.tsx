@@ -3,7 +3,7 @@ import React from "react";
 import S from './UIButton.module.scss';
 import classnames from "classnames";
 
-export interface RefreshButtonProps {
+export interface UIButtonProps {
     onClick?: CallableFunction;
     className?: string;
     iconClassName?: string;
@@ -12,7 +12,7 @@ export interface RefreshButtonProps {
     disabled?: boolean;
 }
 
-export const UIButton = (props: RefreshButtonProps) => {
+export const UIButton = (props: UIButtonProps) => {
     const {
         className,
         onClick = () => void(0),

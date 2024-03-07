@@ -1,10 +1,10 @@
-import S from "./CardMovementsButton.module.scss";
+import S from "./BeastMovementButton.module.scss";
 import classNames from "classnames";
 
 import buttonImage from '@images/movement/back.jpg';
-import {useAppDispatch, useAppSelector} from "../../../../../hooks";
-import {selectMode, setGameMode} from "../../../../../features/gameMode";
-import {GameMode} from "../../../../../util/common";
+import {useAppDispatch, useAppSelector} from "../../../../hooks";
+import {selectMode, setGameMode} from "../../../../features/gameMode";
+import {GameMode} from "../../../../util/common";
 import {useEffect, useState} from "react";
 import {useControls} from "react-zoom-pan-pinch";
 
@@ -12,7 +12,7 @@ export interface CardMovementsButtonProps {
     className?: string;
 }
 
-export const CardMovementsButton = (props: CardMovementsButtonProps) => {
+export const BeastMovementButton = (props: CardMovementsButtonProps) => {
     const dispatch = useAppDispatch();
     const gameMode = useAppSelector(selectMode);
 

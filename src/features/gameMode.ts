@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {GameMode} from "../util/common";
-import {AppSelector} from "../store";
+import {GameMode} from "@/util/common";
+import {AppSelector} from "@/store";
 
 export interface IGameModeState {
     mode: GameMode

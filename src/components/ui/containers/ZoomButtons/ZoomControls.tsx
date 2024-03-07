@@ -17,6 +17,7 @@ import {debounce} from "lodash";
 export interface ZoomControlsProps {
     controlClassName?: string
 }
+
 export const ZoomControls = (props: ZoomControlsProps) => {
     const {
         controlClassName,

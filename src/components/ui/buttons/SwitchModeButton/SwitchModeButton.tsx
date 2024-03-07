@@ -3,7 +3,7 @@ import pathIcon from "@images/path.svg";
 import meepleIcon from "@images/meeple.svg";
 import huntersIcon from "@images/target.svg";
 
-import S from "./ModeSwitch.module.scss";
+import S from "./SwitchModeButton.module.scss";
 import {useAppDispatch, useAppSelector} from "@/hooks";
 import {selectMode, setGameMode} from "@/features/gameMode";
 import {GameMode} from "@/util/common";
@@ -21,7 +21,7 @@ const icons: [GameMode, string][] = [
     [GameMode.HUNTERS, huntersIcon],
 ]
 
-export const ModeSwitch = (props: ModeSwitchProps) => {
+export const SwitchModeButton = (props: ModeSwitchProps) => {
     const { className } = props;
     const currentGameMode = useAppSelector(selectMode);
     const dispatch = useAppDispatch();
