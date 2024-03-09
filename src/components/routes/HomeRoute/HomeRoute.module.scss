@@ -32,6 +32,7 @@
 .author {
   position: relative;
   display: inline-block;
+
   &:after {
     content: '';
     position: absolute;
@@ -41,9 +42,11 @@
     height: 0.5px;
     background: radial-gradient(circle at center, #ff780a 0, orangered 15%, red);
   }
+
   &:hover:after {
     display: none;
   }
+
   //border-bottom: 1px solid orangered;
   &:hover {
     border-bottom: none;

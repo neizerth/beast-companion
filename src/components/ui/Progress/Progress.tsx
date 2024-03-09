@@ -2,15 +2,15 @@ import S from "./Progress.module.scss";
 import {CSSProperties} from "react";
 
 export interface ProgressProps {
-    value: number;
+  value: number;
 }
 
 export const Progress = (props: ProgressProps) => {
-    const { value } = props;
-    const valueStyle: CSSProperties = {
-        width: value + '%'
-    };
-    return <div className={S.container}>
-        <div className={S.value} style={valueStyle}></div>
-    </div>
+  const {value} = props;
+  const valueStyle: CSSProperties = {
+    width: value + '%'
+  };
+  return <div className={S.container}>
+    <div className={S.value} style={valueStyle}></div>
+  </div>
 }

@@ -1,30 +1,38 @@
-// atoms
-export * from '@/components/ui/Button/Button';
-export * from './ui/location/MapLocationLinkArrow/MapLocationLinkArrow';
-export * from '@/components/ui/Progress/Progress';
-export * from './ui/location/MapLocationImage/MapLocationImage';
-export * from '@/components/ui/Arrow/Arrow';
+// ui
+export * from '@/components/ui/buttons/Button/Button';
+export * from './ui/Progress/Progress';
+export * from './ui/Arrow/Arrow';
+export * from '@/components/ui/buttons/IconButton/IconButton';
+export * from './ui/buttons/BeastMovementButton/BeastMovementButton';
+export * from './ui/layout/Sidebar/Sidebar';
+export * from './keyboard/KeyboardControls/KeyboardControls';
+export * from './ui/buttons/ZoomButtons/ZoomControls';
+export * from './ui/map/BeastMovement/BeastMovement';
 
-// molecules
+// map
+export * from './ui/map/PathArrow/PathArrow';
+export * from './ui/map/LocationImage/LocationImage';
+export * from './ui/map/Location/Location';
+export * from './ui/map/Meeple/Meeple';
+export * from './ui/map/MoveArrows/MoveArrows';
+export * from './ui/map/MeepleWounds/MapMeepleWounds';
+export * from './ui/map/Hunter/Hunter';
+export * from './ui/map/Path/Path';
+export * from './ui/map/NoAction/NoAction';
+export * from './ui/map/LocationList/LocationList';
+export * from './ui/map/MapView/MapView';
+export * from './ui/map/BeastMovement/BeastMovement';
+export * from './ui/map/GameMap/GameMap';
+
+// buttons
 export * from './ui/buttons/UIButton/UIButton';
-export * from '@/components/ui/location/Location/Location';
-export * from './ui/location/MapLocationMeeple/MapLocationMeeple';
+export * from './ui/buttons/Button/Button';
+export * from './ui/buttons/SwitchModeButton/SwitchModeButton';
+export * from './ui/buttons/ResetLocationsTypeButton/ResetLocationsTypeButton';
+export * from './ui/buttons/AddHunterButton/AddHunterButton';
+export * from './ui/buttons/MapSelector/MapSelector';
+export * from './ui/buttons/HistoryButtons/HistoryControls';
 
-// organisms
-export * from '@/components/ui/buttons/BeastMovementButton/BeastMovementButton';
-export * from '@/components/ui/containers/GameMap/GameMap';
-export * from '@/components/ui/buttons/HistoryButtons/HistoryControls';
-export * from '@/components/ui/containers/Sidebar/Sidebar';
-export * from '@/components/keyboard/KeyboardControls/KeyboardControls';
-export * from './ui/location/MapLocationList/MapLocationList';
-export * from './ui/location/MapLocationPath/MapLocationPath';
-export * from './ui/location/MapLocationWait/MapLocationWait';
-export * from './ui/location/MapLocationHunter/MapHunter';
-export * from '@/components/ui/buttons/MapSelector/MapSelector';
-export * from '@/components/ui/containers/ZoomButtons/ZoomControls';
-export * from '@/components/ui/buttons/SwitchModeButton/SwitchModeButton';
-export * from '@/components/ui/buttons/ResetLocationsTypeButton/ResetLocationsTypeButton';
-export * from '@/components/ui/containers/BeastMovement/BeastMovements';
-export * from './ui/location/MapLocationMeeple/MapMeepleWounds/MapMeepleWounds';
-export * from '@/components/ui/buttons/AddHunterButton/AddHunterButton';
-export * from './ui/location/MapLocationArrows/MapLocationArrows';
+
+// layout
+export * from './ui/layout/Sidebar/Sidebar';

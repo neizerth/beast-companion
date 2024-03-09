@@ -1,12 +1,13 @@
 export const MAX_WAIT_SIZE = 8;
 export const MAX_ZOOM = 8;
 export const MIN_ZOOM = 1;
+
 export enum GameMode {
-    LOCATIONS = 'locations',
-    PATH = 'path',
-    MEEPLE = 'meeple',
-    HUNTERS = 'hunters',
-    MOVEMENT = 'movement'
+  LOCATIONS = 'locations',
+  PATH = 'path',
+  MEEPLE = 'meeple',
+  HUNTERS = 'hunters',
+  MOVEMENT = 'movement'
 }
 
 export const scale = (x: number, ratio: number) => x * ratio;

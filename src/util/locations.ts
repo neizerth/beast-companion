@@ -7,41 +7,42 @@ import swampImg from "../../public/images/locations/swamp.png?url";
 import {IMapLocationItem, MapLocationType} from "./interfaces";
 
 export interface MapLocationListItem {
-    url: string;
-    size: number
+  url: string;
+  size: number
 }
 
 export const MAP_LOCATION_NONE = -1;
 
 export const USER_LOCATION_TYPES = [
-    MapLocationType.SWAMP,
-    MapLocationType.CAVES,
-    MapLocationType.FOREST,
-    MapLocationType.SETTLEMENT
+  MapLocationType.SWAMP,
+  MapLocationType.CAVES,
+  MapLocationType.FOREST,
+  MapLocationType.SETTLEMENT
 ];
 
 export const MapLocationImageList = {
-    [MapLocationType.CAVES]: {
-        url: cavesImg,
-        size: 66
-    },
-    [MapLocationType.FOREST]: {
-        url: forestImg,
-        size: 66
-    },
-    [MapLocationType.MIXED]: {
-        url: mixedImg,
-        size: 69
-    },
-    [MapLocationType.SETTLEMENT]: {
-        url: settlementImg,
-        size: 127
-    },
-    [MapLocationType.SWAMP]: {
-        url: swampImg,
-        size: 66
-    }
+  [MapLocationType.CAVES]: {
+    url: cavesImg,
+    size: 66
+  },
+  [MapLocationType.FOREST]: {
+    url: forestImg,
+    size: 66
+  },
+  [MapLocationType.MIXED]: {
+    url: mixedImg,
+    size: 69
+  },
+  [MapLocationType.SETTLEMENT]: {
+    url: settlementImg,
+    size: 127
+  },
+  [MapLocationType.SWAMP]: {
+    url: swampImg,
+    size: 66
+  }
 }
 
 export const filterLocations = (locationType: MapLocationType, locations: IMapLocationItem[]) => locations
-    .filter(({ type }) => locationType === type);
+  .filter(({type}) => locationType === type);
+export const EMPTY_LOCATION_PATH = [];

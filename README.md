@@ -1,4 +1,3 @@
-
 # Beast Map Companion
 
 Stack:
@@ -10,7 +9,6 @@ Stack:
 - Redux
 - D3
 - Github Workflows
-
 
 Features:
 

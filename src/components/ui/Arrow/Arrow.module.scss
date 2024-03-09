@@ -5,10 +5,12 @@
   padding: 0;
   cursor: pointer;
   position: relative;
+
   &:hover {
     .arrow {
       display: none;
     }
+
     .hovered {
       display: inline-block;
     }
@@ -23,6 +25,7 @@
   max-width: 100%;
   transform-origin: center center;
   filter: drop-shadow(0 0 10px #00000070);
+
   &:hover {
     filter: drop-shadow(0 0 10px #ffa92c);
   }

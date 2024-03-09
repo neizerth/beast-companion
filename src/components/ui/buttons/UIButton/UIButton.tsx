@@ -1,34 +1,12 @@
-import React from "react";
-
 import S from './UIButton.module.scss';
-import classnames from "classnames";
+import React from "react";
+import {Button, ButtonProps} from "@/components";
+import classNames from "classnames";
 
-export interface UIButtonProps {
-    onClick?: CallableFunction;
-    className?: string;
-    iconClassName?: string;
-    icon: string;
-    name: string;
-    disabled?: boolean;
-}
+export type UIButtonProps = ButtonProps
 
-export const UIButton = (props: UIButtonProps) => {
-    const {
-        className,
-        onClick = () => void(0),
-        icon,
-        name,
-        disabled
-    } = props;
-    const iconClassName = classnames(
-        S.icon,
-        props.iconClassName,
-        {
-            [S.disabled]: disabled,
-            [S.active]: !disabled
-        }
-    );
-    return <div className={classnames(className, S.container)} onClick={() => !disabled && onClick()}>
-        <img className={iconClassName} src={icon} alt={name}/>
-    </div>
+export const UIButton = ({ className, ...props}: UIButtonProps) => {
+  return (
+    <Button {...props} className={classNames(S.container, className)}/>
+  );
 }

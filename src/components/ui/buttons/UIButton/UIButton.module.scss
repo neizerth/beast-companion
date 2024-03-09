@@ -1,24 +1,25 @@
 .container {
-}
-
-.icon {
-  width: 100%;
-}
-
-.active {
+  font-size: 40px;
+  padding: 10px;
+  background: #ffa92c;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
   cursor: pointer;
-  filter: drop-shadow(0 0 10px #00000070);
+  text-decoration: none;
+
   &:hover {
-    filter: drop-shadow(0 0 10px #ffa92c);
+    background: #fdd39b;
   }
+
   &:active {
     position: relative;
-    top: 1px;
-    left: 1px;
+    top: 2px;
+    left: 2px;
   }
-}
 
-.disabled {
-  cursor: not-allowed;
-  filter: grayscale(1);
+  @media (min-height: 768px) {
+    font-size: 50px;
+    padding: 20px;
+  }
 }
