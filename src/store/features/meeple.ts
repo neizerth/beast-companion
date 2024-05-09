@@ -3,6 +3,7 @@ import {AppSelector, AppThunk} from "../index";
 import {IMapLocationItem, MapMeeple} from "../../util/interfaces";
 import {setLocations} from "./locations";
 import {toMeeple} from "../../util/meeple";
+import {meeple} from "@/store/reducer";
 
 export interface ILocationsState {
   data: IMapLocationItem[]
@@ -61,6 +62,6 @@ export const resetLocationsMeeple: ActionCreator<AppThunk> = () =>
     dispatch(setLocations(data));
   }
 
-export const selectMeeples: AppSelector<IMapLocationItem[]> = ({meeples}) => meeples.data;
+export const selectMeeples: AppSelector<IMapLocationItem[]> = ({ meeple }) => meeple.data;
 
 export default meeplesSlice.reducer;
