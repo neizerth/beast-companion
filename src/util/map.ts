@@ -5,21 +5,21 @@ import smallMapData from "../../public/data/map_small.json?url";
 import largeMapData from "../../public/data/map_large.json?url";
 
 export interface IMapInfo {
-    image: string;
-    data: string;
+  image: string;
+  data: string;
 }
 
 export type IMapCollection = {
-    [index: string]: IMapInfo
+  [index: string]: IMapInfo
 }
 
 export const map: IMapCollection = {
-    small: {
-        image: smallMapImage,
-        data: smallMapData,
-    },
-    large: {
-        image: largeMapImage,
-        data: largeMapData
-    }
+  small: {
+    image: smallMapImage,
+    data: smallMapData,
+  },
+  large: {
+    image: largeMapImage,
+    data: largeMapData
+  }
 }
