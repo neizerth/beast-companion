@@ -7,14 +7,18 @@ import backIcon from "@images/back.svg";
 import {selectMode} from "@/store/features/gameMode";
 import {GameMode} from "@/util/common";
 import {clearPath, selectPathData} from "@/store/features/path";
-import {BeastMovementButton, HistoryControls, IconButton, ResetLocationsTypeButton, ZoomControls} from "@/components";
+import {BeastMovementButton, HistoryControls, IconButton, ResetLocationsTypeButton, ZoomButton} from "@/components";
 import {useAppSelector} from "@/hooks/useAppSelector";
 import {useAppDispatch} from "@/hooks/useAppDispatch";
+import {useZoom} from "@/hooks/useZoom";
+import {ZoomInButton} from "@/components/ui/buttons/zoom/ZoomInButton/ZoomInButton";
+import {ZoomOutButton} from "@/components/ui/buttons/zoom/ZoomOutButton/ZoomOutButton";
 
 export interface GameControlsProps {
 }
 
 export const Sidebar = () => {
+  useZoom();
   const gameMode = useAppSelector(selectMode);
 
   const dispatch = useAppDispatch();
@@ -59,11 +63,12 @@ export const Sidebar = () => {
                   </div>
               </>
           }
-          {!isMovementMode && <div className={classnames(S.group, S.zoom)}>
-              <ZoomControls
-                  controlClassName={S.control}
-              />
-          </div>}
+          {!isMovementMode && (
+            <div className={classnames(S.group, S.zoom)}>
+              <ZoomInButton className={S.control}/>
+              <ZoomOutButton className={S.control}/>
+            </div>
+          )}
 
         </div>
         <div className={classnames(S.group, S.group_back)}>

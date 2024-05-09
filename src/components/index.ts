@@ -6,7 +6,7 @@ export * from '@/components/ui/buttons/IconButton/IconButton';
 export * from './ui/buttons/BeastMovementButton/BeastMovementButton';
 export * from './ui/layout/Sidebar/Sidebar';
 export * from './keyboard/KeyboardControls/KeyboardControls';
-export * from './ui/buttons/ZoomButtons/ZoomControls';
+export * from '@/components/ui/buttons/zoom/ZoomButton';
 export * from './ui/map/BeastMovement/BeastMovement';
 
 // map
